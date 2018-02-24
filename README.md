@@ -1,2 +1,3 @@
-# PSK-Savana
-PSK komandinis projektas - elektroninės prekybos sistema
+# PSK komandinis projektas - elektroninės prekybos sistema
+
+![reikalavimai](PSK-Savana/psk-reikalavimai.jpg)
