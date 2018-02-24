@@ -1,3 +1,3 @@
 # PSK komandinis projektas - elektroninės prekybos sistema
 
-![reikalavimai](PSK-Savana/psk-reikalavimai.jpg)
+![reikalavimai](https://github.com/pauliax/PSK-Savana/blob/master/psk-reikalavimai.jpg)
