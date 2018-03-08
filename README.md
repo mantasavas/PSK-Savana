@@ -12,3 +12,4 @@ Naudojamos technologijos:
 TBD
 
 ![reikalavimai](https://github.com/pauliax/PSK-Savana/blob/master/psk-reikalavimai.jpg?raw=true "Reikalavimai")
+>>>>>>> d364af089ce52927072de1c9fb66c5705ddd88f3
