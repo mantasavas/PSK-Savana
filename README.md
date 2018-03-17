@@ -3,7 +3,7 @@
 Prerequisites:
 1. Download and install Java JDK
 (alo set JAVA_HOME environment path variable if not already set)
-2. Download and install IntelliJ (preferred: Ultimate edition)
+2. Download and install IntelliJ (preferred: Ultimate edition, version at lease 2017.3.5)
 3. Download and extract TomEE Application server
 
 Start:
@@ -12,7 +12,9 @@ git clone https://github.com/pauliax/PSK-Savana.git
 2. "Edit configurations" Add -> TomEE server -> Local (press "Configure" and set paths if the server is not found)
 https://imgur.com/iDI0Wpd
 https://imgur.com/6i0QWac
-3. Start the server
+3. File -> Project Structure -> Artifacts -> Select "Avalaible artifacts", right click "Put into Output Root", Apply, OK
+https://imgur.com/2fVPNpw
+4. Start the server
 
 Happy developing!
 
