@@ -4,6 +4,9 @@ Technologies:
 * Spring MVC
 * Maven build automation tool
 * TomEE Application server
+* Bootstrap 4
+* Lombok (@Getter, @Setter)
+* JSTL
 
 Prerequisites:
 1. Download and install Java JDK
