@@ -25,4 +25,9 @@ public class HomeController {
 
         return "products";
     }
+
+    @RequestMapping("/products/product")
+    public String product(){
+        return "product";
+    }
 }
