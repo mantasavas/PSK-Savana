@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ include file="common/header.jsp"%>
 
-<div class="container-wrapper">
+<div class="container-wrapper mt-4">
     <div class="container">
         <div class="page-header">
             <h1>All Products</h1>

@@ -1,7 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="common/header.jsp"%>
 
-<div class="container-wrapper">
+<div class="container-wrapper mt-4">
     <div class="container">
         <div class="page-header">
             <h1>Product</h1>

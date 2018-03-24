@@ -7,12 +7,15 @@ Technologies:
 * Bootstrap 4
 * Lombok (@Getter, @Setter)
 * JSTL
+* Hibernate ORM
+* h2 database
 
 Prerequisites:
 1. Download and install Java JDK
 (also set JAVA_HOME environment path variable if not already set)
 2. Download and install IntelliJ (preferred: Ultimate edition, the version at least 2017.3.5)
 3. Download and extract TomEE Application server
+4. Download and install h2 database
 
 Start:
 1. Clone this repository:
@@ -24,7 +27,8 @@ https://imgur.com/6i0QWac
 4. File -> Project Structure -> Artifacts -> Select "Available artifacts", right click "Put into Output Root", Apply, OK
 Your preferences should look pretty similar:
 https://imgur.com/2fVPNpw
-5. Start the server
+5. Open h2 console, select "Generic H2 (server)" and connect. Select specific table (for example, PRODUCTS) to view/add/edit/delete data.
+6. Start the server
 
 Happy developing!
 
