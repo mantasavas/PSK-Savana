@@ -2,6 +2,7 @@ package lt.vu.dao;
 
 import lt.vu.model.Product;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ public class ProductDao {
 
     public List<Product> getProducts() {
         Product product1 = new Product();
+        product1.setId("1");
         product1.setName("Keyboard");
         product1.setCategory("PC");
         product1.setDescription("Very good keyboard");
@@ -21,6 +23,7 @@ public class ProductDao {
         product1.setManufacturer("Razer");
 
         Product product2 = new Product();
+        product2.setId("2");
         product2.setName("Mouse");
         product2.setCategory("PC");
         product2.setDescription("Very good mouse");
@@ -35,5 +38,15 @@ public class ProductDao {
         products.add(product2);
 
         return products;
+    }
+
+    public Product getProductById(String id) throws IOException {
+        for (Product product : getProducts()) {
+            if (product.getId().equals(id)) {
+                return product;
+            }
+        }
+
+        throw new IOException("Cannot find product!");
     }
 }

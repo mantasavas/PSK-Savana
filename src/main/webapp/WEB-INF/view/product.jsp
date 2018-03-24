@@ -13,12 +13,12 @@
                     <img src="#" alt="image" style="width: 100%; height: 300px"/>
                 </div>
                 <div class="col-md-5">
-                    <h3>Name</h3>
-                    <p>Description</p>
-                    <p>Manufacturer</p>
-                    <p>Category</p>
-                    <p>Condition</p>
-                    <p>Price</p>
+                    <h3>${product.name}</h3>
+                    <p>${product.description}</p>
+                    <p><strong>Manufacturer: </strong>${product.manufacturer}</p>
+                    <p><strong>Category: </strong>${product.category}</p>
+                    <p><strong>Condition: </strong>${product.condition}</p>
+                    <p>$${product.price}</p>
                 </div>
             </div>
         </div>
