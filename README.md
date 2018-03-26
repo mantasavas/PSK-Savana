@@ -27,7 +27,8 @@ https://imgur.com/6i0QWac
 4. File -> Project Structure -> Artifacts -> Select "Available artifacts", right click "Put into Output Root", Apply, OK
 Your preferences should look pretty similar:
 https://imgur.com/2fVPNpw
-5. Open h2 console, select "Generic H2 (server)" and connect. Select specific table (for example, PRODUCTS) to view/add/edit/delete data.
+5. Open h2 console, select "Generic H2 (server)" and connect. Select specific table (for example, PRODUCTS) to view/add/edit/delete data. 
+Should look pretty similar: https://imgur.com/JzUIW6N
 6. Start the server
 
 Happy developing!
@@ -39,5 +40,5 @@ TSP rolės:
 * Kokybės/proceso vadovas - Tadas Vaitiekūnas
 * Palaikymo vadovas - Jonas Švagždys
 
-![reikalavimai](https://github.com/pauliax/PSK-Savana/blob/master/psk-reikalavimai.jpg?raw=true "Reikalavimai")
+![reikalavimai](https://github.com/pauliax/PSK-Savana/blob/master/psk-needs.jpg?raw=true "Reikalavimai")
 >>>>>>> d364af089ce52927072de1c9fb66c5705ddd88f3
