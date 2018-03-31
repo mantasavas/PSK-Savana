@@ -41,4 +41,3 @@ TSP rolės:
 * Palaikymo vadovas - Jonas Švagždys
 
 ![reikalavimai](https://github.com/pauliax/PSK-Savana/blob/master/psk-needs.jpg?raw=true "Reikalavimai")
->>>>>>> d364af089ce52927072de1c9fb66c5705ddd88f3
