@@ -27,7 +27,10 @@
                     <td>${product.category}</td>
                     <td>${product.condition}</td>
                     <td>$${product.price}</td>
-                    <td><a href="<spring:url value="/products/product/${product.id}"/>" class="btn btn-primary">Info</a></td>
+                    <td>
+                        <a href="<spring:url value="/products/product/${product.id}"/>" class="btn btn-primary">Info</a>
+                        <a href="<spring:url value="/admin/productInventory/deleteProduct/${product.id}"/>" class="btn btn-danger">Delete</a>
+                    </td>
                 </tr>
             </c:forEach>
         </table>

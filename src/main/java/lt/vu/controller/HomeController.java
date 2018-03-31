@@ -55,9 +55,10 @@ public class HomeController {
     @RequestMapping("/admin/productInventory/addProduct")
     public String addProduct(Model model){
         Product product = new Product();
-        product.setCategory("new category");
-        product.setCondition("new condition");
-        product.setStatus("new status");
+
+        product.setCategory("Other");
+        product.setCondition("New");
+        product.setStatus("Active");
 
         model.addAttribute("product", product);
 
@@ -70,4 +71,10 @@ public class HomeController {
 
         return "redirect:/admin/productInventory";
     }
+
+    @RequestMapping("/admin/productInventory/deleteProduct/{id}")
+    public String deleteProduct(@PathVariable Integer id, Model model) {
+        productDao.deleteProduct(id);
+
+        return "redirect:/admin/productInventory";    }
 }
