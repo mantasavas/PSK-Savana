@@ -2,11 +2,9 @@ package lt.vu.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Product {
@@ -39,4 +37,8 @@ public class Product {
 
     @Getter @Setter
     private String manufacturer;
+
+    @Transient
+    @Getter @Setter
+    private MultipartFile image;
 }

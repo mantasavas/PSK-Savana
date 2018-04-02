@@ -27,9 +27,10 @@ https://imgur.com/6i0QWac
 4. File -> Project Structure -> Artifacts -> Select "Available artifacts", right click "Put into Output Root", Apply, OK
 Your preferences should look pretty similar:
 https://imgur.com/2fVPNpw
-5. Open h2 console, select "Generic H2 (server)" and connect. Select specific table (for example, PRODUCTS) to view/add/edit/delete data. 
+5. File -> Project Structure -> Artifacts -> Output directory, change to: <project root>\src\main\webapp
+6. Open h2 console, select "Generic H2 (server)" and connect. Select specific table (for example, PRODUCTS) to view/add/edit/delete data. 
 Should look pretty similar: https://imgur.com/JzUIW6N
-6. Start the server
+7. Start the server
 
 Happy developing!
 
