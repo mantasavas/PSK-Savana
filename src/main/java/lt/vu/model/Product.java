@@ -33,9 +33,6 @@ public class Product {
     private String status;
 
     @Getter @Setter
-    private int unitsInStock;
-
-    @Getter @Setter
     private String manufacturer;
 
     @Transient

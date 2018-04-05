@@ -50,11 +50,6 @@
         </div>
 
         <div class="form-group">
-            <label for="unitsInStock">Units in stock</label>
-            <form:input path="unitsInStock" id="unitsInStock" class="form-Control"/>
-        </div>
-
-        <div class="form-group">
             <label for="manufacturer">Manufacturer</label>
             <form:input path="manufacturer" id="manufacturer" class="form-Control"/>
         </div>
