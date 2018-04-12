@@ -12,7 +12,7 @@
                    method="post" modelAttribute="product" enctype="multipart/form-data">
         <form:hidden path="id" value="${product.id}" />
         <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">Name</label> <form:errors path="name" cssStyle="color: red" />
             <form:input path="name" id="name" class="form-Control" value="${product.name}"/>
         </div>
 
@@ -32,7 +32,7 @@
         </div>
 
         <div class="form-group">
-            <label for="price">Price</label>
+            <label for="price">Price</label> <form:errors path="price" cssStyle="color: red" />
             <form:input path="price" id="price" class="form-Control" value="${product.price}"/>
         </div>
 
@@ -48,11 +48,6 @@
             <label class="checkbox-inline"><form:radiobutton path="status" id="status"
                                                              value="active"/>Active</label>
             <label class="checkbox-inline"><form:radiobutton path="status" id="status" value="inactive"/>Inactive</label>
-        </div>
-
-        <div class="form-group">
-            <label for="unitsInStock">Units in stock</label>
-            <form:input path="unitsInStock" id="unitsInStock" class="form-Control" value="${product.unitsInStock}"/>
         </div>
 
         <div class="form-group">

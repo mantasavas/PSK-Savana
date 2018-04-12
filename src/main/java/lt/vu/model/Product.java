@@ -2,9 +2,11 @@ package lt.vu.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 @Entity
 public class Product {
@@ -14,6 +16,7 @@ public class Product {
     @Getter @Setter
     private Integer id;
 
+    @NotEmpty(message = "The product name must not be empty!")
     @Getter @Setter
     private String name;
 
@@ -23,6 +26,7 @@ public class Product {
     @Getter @Setter
     private String description;
 
+    @Min(value = 0, message = "The product price must not be less than zero!")
     @Getter @Setter
     private double price;
 
@@ -31,9 +35,6 @@ public class Product {
 
     @Getter @Setter
     private String status;
-
-    @Getter @Setter
-    private int unitsInStock;
 
     @Getter @Setter
     private String manufacturer;
