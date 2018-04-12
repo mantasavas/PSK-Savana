@@ -4,4 +4,5 @@ target/
 out/
 classes/
 src/main/webapp/WEB-INF/classes/
-src/main/webapp/WEB-INF/lib/
+src/main/webapp/WEB-INF/resources/images/
+!src/main/webapp/WEB-INF/resources/images/default.png

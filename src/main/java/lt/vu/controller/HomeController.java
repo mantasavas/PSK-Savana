@@ -88,7 +88,10 @@ public class HomeController {
 
         MultipartFile image = product.getImage();
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-        path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + product.getId() + ".png");
+        path = Paths.get(rootDirectory + File.separator + "WEB-INF"
+                + File.separator + "resources"
+                + File.separator +"images"
+                + File.separator + product.getId() + ".png");
 
         if (image != null && !image.isEmpty()) {
             try {
@@ -107,7 +110,10 @@ public class HomeController {
         productDao.deleteProduct(id);
 
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-        path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + id + ".png");
+        path = Paths.get(rootDirectory + File.separator + "WEB-INF"
+                + File.separator+ "resources"
+                + File.separator + "images"
+                +File.separator + id + ".png");
 
         if (Files.exists(path)) {
             try {
@@ -138,7 +144,10 @@ public class HomeController {
         MultipartFile productImage = product.getImage();
 
         String rootDirectory =  request.getSession().getServletContext().getRealPath("/");
-        path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + product.getId() + ".png");
+        path = Paths.get(rootDirectory + File.separator + "WEB-INF"
+                + File.separator + "resources"
+                + File.separator + "images"
+                + File.separator + product.getId() + ".png");
 
         if (productImage != null && !productImage.isEmpty()) {
             try {

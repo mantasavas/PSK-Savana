@@ -39,7 +39,7 @@
             <label for="condition">Condition</label>
             <label class="checkbox-inline"><form:radiobutton path="condition" id="condition"
                                                              value="new"/>New</label>
-            <label class="checkbox-inline"><form:radiobutton path="condition" id="condition" value="mouse"/>Used</label>
+            <label class="checkbox-inline"><form:radiobutton path="condition" id="condition" value="used"/>Used</label>
         </div>
 
         <div class="form-group">
