@@ -28,12 +28,12 @@ public class HomeController {
     private ProductDao productDao;
 
     @RequestMapping("/")
-    public String home(){
+    public String home() {
         return "home";
     }
 
     @RequestMapping("/products")
-    public String getProducts(Model model){
+    public String getProducts(Model model) {
         List<Product> products = productDao.getProducts();
         model.addAttribute("products", products);
 
@@ -49,12 +49,12 @@ public class HomeController {
     }
 
     @RequestMapping("/admin")
-    public String adminPage(){
+    public String adminPage() {
         return "admin";
     }
 
     @RequestMapping("/admin/productInventory")
-    public String productInventory(Model model){
+    public String productInventory(Model model) {
         List<Product> products = productDao.getProducts();
         model.addAttribute("products", products);
 
@@ -62,7 +62,7 @@ public class HomeController {
     }
 
     @RequestMapping("/admin/productInventory/addProduct")
-    public String addProduct(Model model){
+    public String addProduct(Model model) {
         Product product = new Product();
 
         product.setCategory("Other");
@@ -76,7 +76,7 @@ public class HomeController {
 
 
     @RequestMapping(value = "/admin/productInventory/addProduct", method = RequestMethod.POST)
-    public String addProductPost(@ModelAttribute("product") Product product, HttpServletRequest request){
+    public String addProductPost(@ModelAttribute("product") Product product, HttpServletRequest request) {
         productDao.addProduct(product);
 
         MultipartFile image = product.getImage();
@@ -110,5 +110,35 @@ public class HomeController {
             }
         }
 
-        return "redirect:/admin/productInventory";    }
+        return "redirect:/admin/productInventory";
+    }
+
+    @RequestMapping("/admin/productInventory/editProduct/{id}")
+    public String editProduct(@PathVariable("id") Integer id, Model model) {
+        Product product = productDao.getProductById(id);
+        model.addAttribute(product);
+
+        return "editProduct";
+    }
+
+    @RequestMapping(value = "/admin/productInventory/editProduct", method = RequestMethod.POST)
+    public String editProduct(@ModelAttribute("product") Product product, Model model, HttpServletRequest request) {
+        MultipartFile productImage = product.getImage();
+
+        String rootDirectory =  request.getSession().getServletContext().getRealPath("/");
+        path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + product.getId() + ".png");
+
+        if (productImage != null && !productImage.isEmpty()) {
+            try {
+                productImage.transferTo(new File(path.toString()));
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException("Product image saving failed!");
+            }
+        }
+
+        productDao.editProduct(product);
+
+        return "redirect:/admin/productInventory";
+    }
 }

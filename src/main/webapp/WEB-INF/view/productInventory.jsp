@@ -31,6 +31,7 @@
                     <td>
                         <a href="<spring:url value="/products/product/${product.id}"/>" class="btn btn-primary">Info</a>
                         <a href="<spring:url value="/admin/productInventory/deleteProduct/${product.id}"/>" class="btn btn-danger">Delete</a>
+                        <a href="<spring:url value="/admin/productInventory/editProduct/${product.id}"/>" class="btn btn-warning">Edit</a>
                     </td>
                 </tr>
             </c:forEach>
