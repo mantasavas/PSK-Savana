@@ -33,7 +33,7 @@ https://imgur.com/2fVPNpw
 Should look pretty similar: https://imgur.com/JzUIW6N
 7. If haven't done before, create authorization tables. Open H2 Console and execute these statements:
   ```sql
-  create table users(
+  create table users (
       username varchar_ignorecase(30) not null primary key,
       password varchar_ignorecase(60) not null,
       enabled boolean not null);
@@ -46,10 +46,13 @@ Should look pretty similar: https://imgur.com/JzUIW6N
   ```
 8. Add user to the USERS table:
 USERNAME  	PASSWORD  	ENABLED 
+<br/>
 admin	$2a$10$VSBg03R00VpU98Fdo3YJru/8iIAVlZ8p1XlMzI.z.8mEuMAkKwGU2	TRUE
+<br/>
 (the decrypted password is: admin)
 9. Add authority to the AUTHORITIES table:
-USERNAME  	AUTHORITY  
+USERNAME  	AUTHORITY
+<br />
 admin	ROLE_USER
 10. Start the server
 
