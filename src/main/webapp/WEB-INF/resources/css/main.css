@@ -19,3 +19,25 @@ body {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.login-box {
+    text-align: center;
+}
+
+.login-container {
+    width: 40%;
+    margin: auto;
+    margin-top: 100px;
+}
+
+.btn-link {
+    display: block;
+    border:none;
+    outline:none;
+    background:none;
+    cursor:pointer;
+    /*color:#0000EE;*/
+    padding:0;
+    font-family:inherit;
+    font-size:inherit;
+}
