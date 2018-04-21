@@ -44,17 +44,15 @@ Should look pretty similar: https://imgur.com/JzUIW6N
       constraint fk_authorities_users foreign key(username) references users(username));
       create unique index ix_auth_username on authorities (username,authority); 
   ```
-8. Add user to the USERS table:
-USERNAME  	PASSWORD  	ENABLED 
-<br/>
-admin	$2a$10$VSBg03R00VpU98Fdo3YJru/8iIAVlZ8p1XlMzI.z.8mEuMAkKwGU2	TRUE
-<br/>
-(the decrypted password is: admin)
-9. Add authority to the AUTHORITIES table:
-USERNAME  	AUTHORITY
-<br />
-admin	ROLE_USER
-10. Start the server
+  
+8. Add user to the USERS table:  
+USERNAME PASSWORD ENABLED  
+admin $2a$10$VSBg03R00VpU98Fdo3YJru/8iIAVlZ8p1XlMzI.z.8mEuMAkKwGU2 TRUE  
+(the decrypted password is: admin)  
+9. Add authority to the AUTHORITIES table:  
+USERNAME AUTHORITY  
+admin ROLE_USER  
+10. Start the server  
 
 Happy developing!
 
