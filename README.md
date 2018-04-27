@@ -1,14 +1,15 @@
 # PSK komandinis projektas - elektroninės prekybos sistema
 
 Technologies:
-* Spring MVC
+* Spring MVC 5
 * Maven build automation tool
 * TomEE Application server
 * Bootstrap 4
 * Lombok (@Getter, @Setter)
 * JSTL
-* Hibernate ORM
+* Hibernate 5
 * h2 database
+* Spring Security Authentication
 
 Prerequisites:
 1. Download and install Java JDK
@@ -30,7 +31,28 @@ https://imgur.com/2fVPNpw
 5. File -> Project Structure -> Artifacts -> Output directory, change to: ...(project root)...\src\main\webapp
 6. Open h2 console, select "Generic H2 (server)" and connect. Select specific table (for example, PRODUCTS) to view/add/edit/delete data. 
 Should look pretty similar: https://imgur.com/JzUIW6N
-7. Start the server
+7. If haven't done before, create authorization tables. Open H2 Console and execute these statements:
+  ```sql
+  create table users (
+      username varchar_ignorecase(30) not null primary key,
+      password varchar_ignorecase(60) not null,
+      enabled boolean not null);
+
+  create table authorities (
+      username varchar_ignorecase(50) not null,
+      authority varchar_ignorecase(50) not null,
+      constraint fk_authorities_users foreign key(username) references users(username));
+      create unique index ix_auth_username on authorities (username,authority); 
+  ```
+  
+8. Add user to the USERS table:  
+USERNAME PASSWORD ENABLED  
+admin $2a$10$VSBg03R00VpU98Fdo3YJru/8iIAVlZ8p1XlMzI.z.8mEuMAkKwGU2 TRUE  
+(the decrypted password is: admin)  
+9. Add authority to the AUTHORITIES table:  
+USERNAME AUTHORITY  
+admin ROLE_USER  
+10. Start the server  
 
 Happy developing!
 
