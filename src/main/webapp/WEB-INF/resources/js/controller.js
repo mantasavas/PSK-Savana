@@ -14,7 +14,9 @@ cartApp.controller("cartCtrl", function($scope, $http){
     };
 
     $scope.clearCart = function(){
-        $http.delete('/rest/cart/' + $scope.cartId).success($scope.refreshCart());
+        $http.delete('/rest/cart/' + $scope.cartId).success(function (){
+            $scope.refreshCart();
+        });
     };
 
     $scope.initCartId = function(cartId){
