@@ -10,6 +10,7 @@ Technologies:
 * Hibernate 5
 * h2 database
 * Spring Security Authentication
+* Angular JS
 
 Prerequisites:
 1. Download and install Java JDK
