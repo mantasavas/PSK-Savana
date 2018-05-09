@@ -8,55 +8,55 @@
             <p class="lead">Fill the information below to add new product...</p>
         </div>
 
-        <form:form action="${pageContext.request.contextPath}/admin/productInventory/addProduct"
+        <form:form action="${pageContext.request.contextPath}/admin/product/addProduct"
                    method="post" modelAttribute="product" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="name">Name</label> <form:errors path="name" cssStyle="color: red" />
-            <form:input path="name" id="name" class="form-Control"/>
+            <label for="name">Name</label> <form:errors path="productName" cssStyle="color: red" />
+            <form:input path="productName" id="name" class="form-Control"/>
         </div>
 
         <div class="form-group">
             <label for="category">Category</label>
-            <label class="checkbox-inline"><form:radiobutton path="category" id="category"
+            <label class="checkbox-inline"><form:radiobutton path="productCategory" id="category"
                                                              value="keyboard"/>Keyboard</label>
-            <label class="checkbox-inline"><form:radiobutton path="category" id="category"
+            <label class="checkbox-inline"><form:radiobutton path="productCategory" id="category"
                                                              value="mouse"/>Mouse</label>
-            <label class="checkbox-inline"><form:radiobutton path="category" id="category"
+            <label class="checkbox-inline"><form:radiobutton path="productCategory" id="category"
                                                              value="other"/>Other</label>
         </div>
 
         <div class="form-group">
             <label for="description">Description</label>
-            <form:textarea path="description" id="description" class="form-Control"/>
+            <form:textarea path="productDescription" id="description" class="form-Control"/>
         </div>
 
         <div class="form-group">
-            <label for="price">Price</label> <form:errors path="price" cssStyle="color: red" />
-            <form:input path="price" id="price" class="form-Control"/>
+            <label for="price">Price</label> <form:errors path="productPrice" cssStyle="color: red" />
+            <form:input path="productPrice" id="price" class="form-Control"/>
         </div>
 
         <div class="form-group">
             <label for="condition">Condition</label>
-            <label class="checkbox-inline"><form:radiobutton path="condition" id="condition"
+            <label class="checkbox-inline"><form:radiobutton path="productCondition" id="condition"
                                                              value="new"/>New</label>
-            <label class="checkbox-inline"><form:radiobutton path="condition" id="condition" value="used"/>Used</label>
+            <label class="checkbox-inline"><form:radiobutton path="productCondition" id="condition" value="used"/>Used</label>
         </div>
 
         <div class="form-group">
             <label for="status">Status</label>
-            <label class="checkbox-inline"><form:radiobutton path="status" id="status"
+            <label class="checkbox-inline"><form:radiobutton path="productStatus" id="status"
                                                              value="active"/>Active</label>
-            <label class="checkbox-inline"><form:radiobutton path="status" id="status" value="inactive"/>Inactive</label>
+            <label class="checkbox-inline"><form:radiobutton path="productStatus" id="status" value="inactive"/>Inactive</label>
         </div>
 
         <div class="form-group">
             <label for="manufacturer">Manufacturer</label>
-            <form:input path="manufacturer" id="manufacturer" class="form-Control"/>
+            <form:input path="productManufacturer" id="manufacturer" class="form-Control"/>
         </div>
 
         <div class="form-group">
             <label class="control-label" for="productImage">Upload Picture</label>
-            <form:input id="productImage" path="image" type="file" class="form:input-large" />
+            <form:input id="productImage" path="productImage" type="file" class="form:input-large" />
         </div>
 
         <br>

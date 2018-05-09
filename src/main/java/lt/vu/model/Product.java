@@ -19,7 +19,7 @@ public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter @Setter
-    private Integer productId;
+    private int productId;
 
     @NotEmpty(message = "The product name must not be empty!")
     @Getter @Setter
