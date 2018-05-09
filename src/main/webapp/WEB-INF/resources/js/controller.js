@@ -36,7 +36,7 @@ cartApp.controller("cartCtrl", function($scope, $http){
         });
     };
 
-    /*$scope.calGrandTotal = function(){
+    $scope.calGrandTotal = function(){
         var grandTotal = 0;
 
         for (var i = 0; i < $scope.cart.cartItems.length; i++){
@@ -44,5 +44,5 @@ cartApp.controller("cartCtrl", function($scope, $http){
         }
 
         return grandTotal;
-    }*/
+    }
 });

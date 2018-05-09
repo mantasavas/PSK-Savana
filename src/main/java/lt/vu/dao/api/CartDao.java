@@ -2,13 +2,13 @@ package lt.vu.dao.api;
 
 import lt.vu.model.Cart;
 
+import java.io.IOException;
+
 public interface CartDao {
 
-    Cart create(Cart cart);
+    Cart getCartById(int cartId);
 
-    Cart read(int cartId);
+    Cart validate(int cartId) throws IOException;
 
-    void update(int cartId, Cart cart);
-
-    void delete (int cartId);
+    void update(Cart cart);
 }

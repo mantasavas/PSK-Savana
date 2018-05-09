@@ -2,50 +2,46 @@ package lt.vu.dao.impl;
 
 import lt.vu.dao.api.CartDao;
 import lt.vu.model.Cart;
+import lt.vu.service.CustomerOrderService;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 @Repository
+@Transactional
 public class CartDaoImpl implements CartDao {
 
-    private Map<Integer, Cart> listOfCarts;
+    @Autowired
+    private SessionFactory sessionFactory;
 
-    public CartDaoImpl() {
-        listOfCarts = new HashMap<>();
+    @Autowired
+    private CustomerOrderService customerOrderService;
+
+    public Cart getCartById(int cartId){
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(Cart.class, cartId);
     }
 
-    @Override
-    public Cart create(Cart cart) {
-        if (listOfCarts.keySet().contains(cart.getCartId())) {
-            throw new IllegalArgumentException("Cannot create a cart. A cart with the given ID already exists!");
+    public void update(Cart cart){
+        int cartId = cart.getCartId();
+        double grandTotal = customerOrderService.getCustomerOrderGrandTotal(cartId);
+        cart.setGrandTotal(grandTotal);
+
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(cart);
+    }
+
+    public Cart validate(int cartId) throws IOException {
+        Cart cart = getCartById(cartId);
+        if(cart == null || cart.getCartItems().size() == 0){
+            throw new IOException(cartId + "");
         }
 
-        listOfCarts.put(cart.getCartId(), cart);
+        update(cart);
         return cart;
-    }
-
-    @Override
-    public Cart read(int cartId) {
-        return listOfCarts.get(cartId);
-    }
-
-    @Override
-    public void update(int cartId, Cart cart) {
-        if (!listOfCarts.keySet().contains(cartId)) {
-            throw new IllegalArgumentException("Cannot update cart. A cart with the given ID doesn't exist!");
-        }
-
-        listOfCarts.put(cartId, cart);
-    }
-
-    @Override
-    public void delete(int cartId) {
-        if (!listOfCarts.keySet().contains(cartId)) {
-            throw new IllegalArgumentException("Cannot delete cart. A cart with the given ID doesn't exist!");
-        }
-
-        listOfCarts.remove(cartId);
     }
 }
