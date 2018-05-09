@@ -1,10 +1,30 @@
 package lt.vu.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
-public class CartItem {
+import javax.persistence.*;
+import java.io.Serializable;
 
+@Entity
+public class CartItem implements Serializable {
+
+    private static final long serialVersionUID = 4993851003282190999L;
+
+    @Id
+    @GeneratedValue
+    @Getter @Setter
+    private int cartItemId;
+
+    @ManyToOne
+    @JoinColumn(name = "cartId")
+    @JsonIgnore
+    @Getter @Setter
+    private Cart cart;
+
+    @ManyToOne
+    @JoinColumn(name = "productId")
     @Getter @Setter
     private Product product;
 
@@ -14,12 +34,4 @@ public class CartItem {
     @Getter @Setter
     private double totalPrice;
 
-    public CartItem() {
-    }
-
-    public CartItem(Product product) {
-        this.product = product;
-        this.quantity = 1;
-        this.totalPrice = product.getPrice();
-    }
 }

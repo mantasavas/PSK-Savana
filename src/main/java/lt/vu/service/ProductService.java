@@ -1,14 +1,14 @@
-package lt.vu.dao.api;
+package lt.vu.service;
 
 import lt.vu.model.Product;
 
 import java.util.List;
 
-public interface ProductDao {
+public interface ProductService {
 
     List<Product> getProducts();
 
-    Product getProductById(int id);
+    Product getProductById (int id);
 
     void addProduct(Product product);
 

@@ -10,7 +10,7 @@ import java.util.Map;
 @Repository
 public class CartDaoImpl implements CartDao {
 
-    private Map<String, Cart> listOfCarts;
+    private Map<Integer, Cart> listOfCarts;
 
     public CartDaoImpl() {
         listOfCarts = new HashMap<>();
@@ -18,21 +18,21 @@ public class CartDaoImpl implements CartDao {
 
     @Override
     public Cart create(Cart cart) {
-        if (listOfCarts.keySet().contains(cart.getId())) {
+        if (listOfCarts.keySet().contains(cart.getCartId())) {
             throw new IllegalArgumentException("Cannot create a cart. A cart with the given ID already exists!");
         }
 
-        listOfCarts.put(cart.getId(), cart);
+        listOfCarts.put(cart.getCartId(), cart);
         return cart;
     }
 
     @Override
-    public Cart read(String cartId) {
+    public Cart read(int cartId) {
         return listOfCarts.get(cartId);
     }
 
     @Override
-    public void update(String cartId, Cart cart) {
+    public void update(int cartId, Cart cart) {
         if (!listOfCarts.keySet().contains(cartId)) {
             throw new IllegalArgumentException("Cannot update cart. A cart with the given ID doesn't exist!");
         }
@@ -41,7 +41,7 @@ public class CartDaoImpl implements CartDao {
     }
 
     @Override
-    public void delete(String cartId) {
+    public void delete(int cartId) {
         if (!listOfCarts.keySet().contains(cartId)) {
             throw new IllegalArgumentException("Cannot delete cart. A cart with the given ID doesn't exist!");
         }

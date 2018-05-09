@@ -1,56 +1,35 @@
 package lt.vu.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class Cart {
+@Entity
+public class Cart implements Serializable {
+
+    private static final long serialVersionUID = 5065248415561097397L;
 
     @Getter @Setter
-    private String id;
+    @Id
+    @GeneratedValue
+    private int cartId;
 
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Getter @Setter
-    private Map<Integer, CartItem> cartItems;
+    private List<CartItem> cartItems;
+
+    @OneToOne
+    @JoinColumn(name = "customerId")
+    @JsonIgnore
+    @Getter @Setter
+    private Customer customer;
 
     @Getter @Setter
     private double grandTotal;
-
-    private Cart(){
-        cartItems = new HashMap<>();
-        grandTotal = 0;
-    }
-
-    public Cart(String id) {
-        this();
-        this.id = id;
-    }
-
-    public void addCartItem(CartItem item) {
-        Integer productId = item.getProduct().getId();
-
-        if (cartItems.containsKey(productId)) {
-            CartItem existingCarItem = cartItems.get(productId);
-            existingCarItem.setQuantity(existingCarItem.getQuantity() + item.getQuantity());
-            cartItems.put(productId, existingCarItem);
-        } else {
-            cartItems.put(productId, item);
-        }
-
-        updateGrandTotal();
-    }
-
-    public void removeCartItem(CartItem item) {
-        Integer productId = item.getProduct().getId();
-        cartItems.remove(productId);
-        updateGrandTotal();
-    }
-
-    public void updateGrandTotal() {
-        grandTotal = 0;
-        for (CartItem item : cartItems.values()) {
-            grandTotal += item.getTotalPrice();
-        }
-    }
 }
