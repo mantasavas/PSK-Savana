@@ -47,14 +47,13 @@ Should look pretty similar: https://imgur.com/JzUIW6N
       constraint fk_authorities_users foreign key(username) references users(username));
       create unique index ix_auth_username on authorities (username,authority); 
   ```
-  
-8. Add user to the USERS table:  
-USERNAME PASSWORD ENABLED  
-admin $2a$10$VSBg03R00VpU98Fdo3YJru/8iIAVlZ8p1XlMzI.z.8mEuMAkKwGU2 TRUE  
+8. Add Admin to the USERS table:
+USERSID  	CUSTOMERID  	ENABLED  	PASSWORD  	USERNAME  
+1	0	TRUE	$2a$10$VSBg03R00VpU98Fdo3YJru/8iIAVlZ8p1XlMzI.z.8mEuMAkKwGU2	admin  
 (the decrypted password is: admin)  
-9. Add authority to the AUTHORITIES table:  
-USERNAME AUTHORITY  
-admin ROLE_USER  
+9. Add Admin authority to the AUTHORITIES table:  
+AUTHORITIESID  	AUTHORITY  	USERNAME  
+1	ROLE_ADMIN	admin
 10. Start the server  
 
 Happy developing!

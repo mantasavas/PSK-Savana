@@ -11,7 +11,7 @@
     <!-- default header name is X-CSRF-TOKEN -->
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
-    <%--<link rel="icon" href="../../../../favicon.ico">--%>
+    <link rel="shortcut icon" type="image/x-icon" href="/resources/images/favicon.ico">
 
     <title>E-commerce</title>
 
@@ -30,6 +30,10 @@
     <link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
     <%--DataTables CSS--%>
     <link href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css" rel="stylesheet">
+    <%-- Scroll to the top CSS--%>
+    <link href="<c:url value="/resources/css/scroller.css" />" rel="stylesheet">
+    <!-- font awesome (icons) -->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 </head>
 
 <!-- NAVBAR
@@ -54,8 +58,12 @@
                 </li>
                 
                 <c:if test="${pageContext.request.userPrincipal.name == 'admin'}">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value="/admin/generateReport/report"/>">Resources</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Resources</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="<c:url value="/admin/generateReport/report"/>">Export XLS</a>
+                            <a class="dropdown-item" href="<c:url value="/admin/generateReport/report"/>">IMPORT XLS</a>
+                        </div>
                     </li>
                 </c:if>
             </ul>

@@ -1,8 +1,7 @@
 package lt.vu.controller;
 
 import lt.vu.model.Product;
-import lt.vu.service.ExcelUserListReportView;
-import org.springframework.security.access.prepost.PreAuthorize;
+import lt.vu.service.ExcelProductListReport;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +14,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value="/admin/generateReport")
-@PreAuthorize("hasRole('ADMIN')")
 public class ReportController {
 
     @RequestMapping(value="/report", method = RequestMethod.GET)
@@ -44,10 +42,10 @@ public class ReportController {
 
         if(typeReport != null && typeReport.equals("xls")) {
             System.out.println("inside if: " + typeReport);
-            return new ModelAndView(new ExcelUserListReportView(), "userList", products);
+            return new ModelAndView(new ExcelProductListReport(), "productList", products);
 
         }
 
-        return new ModelAndView("userListReport", "userList", products);
+        return new ModelAndView("productListReport", "productList", products);
     }
 }
