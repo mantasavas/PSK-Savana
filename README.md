@@ -11,6 +11,7 @@ Technologies:
 * h2 database
 * Spring Security Authentication
 * Angular JS
+* Spring Web Flow
 
 Prerequisites:
 1. Download and install Java JDK
