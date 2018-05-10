@@ -8,7 +8,7 @@
             <p class="lead">Fill the information below to add new product...</p>
         </div>
 
-        <form:form action="${pageContext.request.contextPath}/admin/product/addProduct"
+        <form:form action="${pageContext.request.contextPath}/admin/product/addProduct?${_csrf.parameterName}=${_csrf.token}"
                    method="post" modelAttribute="product" enctype="multipart/form-data">
         <div class="form-group">
             <label for="name">Name</label> <form:errors path="productName" cssStyle="color: red" />

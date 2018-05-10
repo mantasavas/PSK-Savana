@@ -6,7 +6,11 @@
 
     <context:component-scan base-package="lt.vu" />
 
-    <MVC:annotation-driven />
+    <MVC:annotation-driven>
+        <MVC:argument-resolvers>
+            <bean class="org.springframework.security.web.bind.support.AuthenticationPrincipalArgumentResolver" />
+        </MVC:argument-resolvers>
+    </MVC:annotation-driven>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/view/"/>

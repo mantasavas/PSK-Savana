@@ -5,7 +5,7 @@ cartApp.controller("cartCtrl", function($scope, $http){
     //add csrf token
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
-    $http.defaults.headers.common['X-CSRF-TOKEN'] = token;
+    $http.defaults.headers.common[header] = token;
 
     $scope.refreshCart = function(){
         $http.get('/rest/cart/' + $scope.cartId).success(function (data){
@@ -36,7 +36,7 @@ cartApp.controller("cartCtrl", function($scope, $http){
         });
     };
 
-    /*$scope.calGrandTotal = function(){
+    $scope.calGrandTotal = function(){
         var grandTotal = 0;
 
         for (var i = 0; i < $scope.cart.cartItems.length; i++){
@@ -44,5 +44,5 @@ cartApp.controller("cartCtrl", function($scope, $http){
         }
 
         return grandTotal;
-    }*/
+    }
 });
