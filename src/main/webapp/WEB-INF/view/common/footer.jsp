@@ -1,18 +1,17 @@
+<!-- scroller -->
+<a href="#top" id="return-to-top"><i class="icon-chevron-up"></i></a>
 <!-- FOOTER -->
 <footer>
-    <p class="pull-right"><a href="#">Back to top</a></p>
     <p>&copy; 2015 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
 </footer>
 </div>
 
 </div><!-- /.container -->
 
-
-<!-- Bootstrap core JavaScript
-================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<%--<script src="<c:url value="/resources/js/jquery-3.3.1.min.js" />"></script>--%>
-<%--<script>window.jQuery || document.write('<script src="<c:url value="/resources/js/jquery-3.3.1.min.js" />"><\/script>')</script>--%>
+<%-- Bootstrap --%>
 <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+<%-- Scroll to the top --%>
+<script src="<c:url value="/resources/js/scroller.js" />"></script>
 </body>
 </html>
