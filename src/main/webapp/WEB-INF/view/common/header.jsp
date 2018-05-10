@@ -52,6 +52,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/about"/>">About</a>
                 </li>
+                
+                <c:if test="${pageContext.request.userPrincipal.name == 'admin'}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<c:url value="/admin/generateReport/report"/>">Resources</a>
+                    </li>
+                </c:if>
             </ul>
             <ul class="nav navbar-nav pull-right">
                 <c:if test="${pageContext.request.userPrincipal.name != null}">
