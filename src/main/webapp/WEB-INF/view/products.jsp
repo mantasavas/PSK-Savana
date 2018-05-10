@@ -8,7 +8,8 @@
         var searchCondition = '${searchCondition}';
 
         $('.table').DataTable({
-            "lengthMenu": [[1,2,3,5,10, -1], [1,2,3,5,10, "All"]],
+            "lengthMenu": [[1,5,10,30,-1], [1,5,10,30,"All"]],
+            "iDisplayLength": 5,
             "oSearch" : {"sSearch": searchCondition}
         });
     });
