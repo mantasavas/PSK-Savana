@@ -8,7 +8,7 @@
             <p class="lead">You can update the information about product here</p>
         </div>
 
-        <form:form action="${pageContext.request.contextPath}/admin/product/editProduct"
+        <form:form action="${pageContext.request.contextPath}/admin/product/editProduct?${_csrf.parameterName}=${_csrf.token}"
                    method="post" modelAttribute="product" enctype="multipart/form-data">
         <form:hidden path="productId" value="${product.productId}" />
         <div class="form-group">
