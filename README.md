@@ -12,6 +12,7 @@ Technologies:
 * Spring Security Authentication
 * Angular JS
 * Spring Web Flow
+* DataTables
 
 Prerequisites:
 1. Download and install Java JDK
