@@ -2,6 +2,8 @@ package lt.vu.controller;
 
 import lt.vu.model.Product;
 import lt.vu.service.ExcelProductListReport;
+import lt.vu.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,36 +18,25 @@ import java.util.List;
 @RequestMapping(value="/admin/generateReport")
 public class ReportController {
 
+    @Autowired
+    private ProductService productService;
+
     @RequestMapping(value="/report", method = RequestMethod.GET)
     public ModelAndView userListReport(HttpServletRequest req, HttpServletResponse res){
 
-        System.out.println("========================================== Testas ========================================");
-
         String typeReport = req.getParameter("type");
 
-        System.out.println("type of report: " + typeReport);
+        // Get all available products from database
+        List<Product> products = productService.getProducts();
 
-        // Create data
-        List<Product> products = new ArrayList<>();
-        Product product = new Product();
-
-        product.setProductId(1);
-        product.setProductName("Pele");
-        product.setProductCategory("Mouses");
-        product.setProductDescription("Fancy, new, unsused mouse kit");
-        product.setProductPrice(12.20);
-        product.setProductCondition("New");
-        product.setProductStatus("Available");
-        product.setProductManufacturer("MIT");
-
-        products.add(product);
-
+        // Check if url get request parameter contains xls, if yes download excel document with all products from db
         if(typeReport != null && typeReport.equals("xls")) {
             System.out.println("inside if: " + typeReport);
             return new ModelAndView(new ExcelProductListReport(), "productList", products);
 
         }
 
+        // If no parameter specified return product list...
         return new ModelAndView("productListReport", "productList", products);
     }
 }

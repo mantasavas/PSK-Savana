@@ -19,12 +19,11 @@ public class ExcelProductListReport extends AbstractXlsView {
 
         httpServletResponse.setHeader("Content-Disposition", "attachment; filename= \"product_list.xls\"");
 
-
         List<Product> list = (List<Product>) model.get("productList");
 
         Sheet sheet = workbook.createSheet("Product List");
-        
-        // Header row
+
+        // Creating header row
         Row header = sheet.createRow(0);
         header.createCell(0).setCellValue("ID");
         header.createCell(1).setCellValue("Name");
@@ -35,9 +34,9 @@ public class ExcelProductListReport extends AbstractXlsView {
         header.createCell(6).setCellValue("Status");
         header.createCell(7).setCellValue("Manufacturer");
 
-
         int rowNum = 1;
 
+        // Populating xls rows with products data
         for(Product product : list){
             Row row = sheet.createRow(rowNum++);
             row.createCell(0).setCellValue(product.getProductId());

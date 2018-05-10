@@ -25,7 +25,7 @@
                     <th>Price</th>
                 </tr>
                 </thead>
-                <c:forEach items="${userList}" var="user">
+                <c:forEach items="${productList}" var="user">
                     <tr>
                         <td>${user.productId}</td>
                         <td>${user.productName}</td>
