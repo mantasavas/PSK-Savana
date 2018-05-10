@@ -50,7 +50,7 @@
                     <a class="nav-link" href="<c:url value="/product/products"/>">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
+                    <a class="nav-link" href="<c:url value="/about"/>">About</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav pull-right">

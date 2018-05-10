@@ -2,6 +2,14 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ include file="common/header.jsp"%>
 
+<script>
+    $(document).ready(function(){
+        $('.table').DataTable({
+            "lengthMenu": [[1,2,3,5,10, -1], [1,2,3,5,10, "All"]]
+        });
+    });
+</script>
+
 <div class="container-wrapper mt-4">
     <div class="container">
         <div class="page-header">
