@@ -55,6 +55,11 @@ public class EditAccountInformationController {
             }
         }
 
+        if (!customer.getPassword().equals(customer.getPasswordRepeat())) {
+            model.addAttribute("pswRepeatMsg", "Passwords must match");
+            return "editAccountInfo";
+        }
+
         String encryptedPassword = passwordEncoder.encode(customer.getPassword());
         customer.setPassword(encryptedPassword);
         customerService.updateCustomer(customer);

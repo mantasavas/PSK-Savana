@@ -4,7 +4,7 @@
 <div class="container-wrapper">
     <div class="container">
         <div class="page-header">
-            <h1>Register Customer</h1>
+            <h1>Register as a customer</h1>
 
             <p class="lead">Please fill in your information below:</p>
         </div>
@@ -45,6 +45,11 @@
             <form:password path="password" id="password" class="form-Control" />
         </div>
 
+        <div class="form-group">
+            <label for="passwordRepeat">Password (repeat)</label>
+            <span style="color: red">${pswRepeatMsg}</span>
+            <form:password path="passwordRepeat" id="passwordRepeat" class="form-Control" />
+        </div>
 
         <br/>
 
@@ -116,7 +121,7 @@
 
         <br/><br/>
 
-        <input type="submit" value="submit" class="btn btn-default">
+        <input type="submit" value="Register" class="btn btn-primary">
         <a href="<c:url value="/" />" class="btn btn-default">Cancel</a>
 
         </form:form>
