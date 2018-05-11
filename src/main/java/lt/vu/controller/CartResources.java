@@ -11,7 +11,7 @@ import lt.vu.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import java.security.Principal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,8 +40,8 @@ public class CartResources {
 
     @RequestMapping(value = "/add/{productId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void addItem (@PathVariable(value = "productId") int productId, @AuthenticationPrincipal User activeUser){
-        Customer customer = customerService.getCustomerByUsername(activeUser.getUsername());
+    public void addItem (@PathVariable(value = "productId") int productId, Principal activeUser){
+        Customer customer = customerService.getCustomerByUsername(activeUser.getName());
         Cart cart = customer.getCart();
         Product product = productService.getProductById(productId);
         List<CartItem> cartItems = cart.getCartItems();

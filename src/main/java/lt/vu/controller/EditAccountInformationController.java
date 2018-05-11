@@ -5,7 +5,7 @@ import lt.vu.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import java.security.Principal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,8 +26,8 @@ public class EditAccountInformationController {
     PasswordEncoder passwordEncoder;
 
     @RequestMapping("/customer/edit")
-    public String editAccountInfo(Model model, @AuthenticationPrincipal User activeUser){
-        Customer customer = customerService.getCustomerByUsername(activeUser.getUsername());
+    public String editAccountInfo(Model model, Principal activeUser){
+        Customer customer = customerService.getCustomerByUsername(activeUser.getName());
         model.addAttribute("customer", customer);
 
         return "editAccountInfo";

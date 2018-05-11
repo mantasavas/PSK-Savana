@@ -4,7 +4,7 @@ import lt.vu.model.Customer;
 import lt.vu.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import java.security.Principal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +18,8 @@ public class CartController {
     private CustomerService customerService;
 
     @RequestMapping
-    public String getCart(@AuthenticationPrincipal User activeUser){
-        Customer customer = customerService.getCustomerByUsername(activeUser.getUsername());
+    public String getCart(Principal activeUser){
+        Customer customer = customerService.getCustomerByUsername(activeUser.getName());
         int cartId = customer.getCart().getCartId();
 
         return "redirect:/customer/cart/" + cartId;

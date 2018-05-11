@@ -8,7 +8,7 @@ import lt.vu.service.CustomerOrderService;
 import lt.vu.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import java.security.Principal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,8 +48,8 @@ public class OrderController {
     }
 
     @RequestMapping("/customer/orders")
-    public String getOrders(Model model, @AuthenticationPrincipal User activeUser) {
-        Customer customer = customerService.getCustomerByUsername(activeUser.getUsername());
+    public String getOrders(Model model, Principal activeUser) {
+        Customer customer = customerService.getCustomerByUsername(activeUser.getName());
         int customerId = customer.getCustomerId();
 
         List<CustomerOrder> customerOrders = customerOrderService.getCustomerOrders(customerId);
