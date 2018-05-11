@@ -81,11 +81,12 @@
                         <li><a href="<c:url value="/customer/edit"/>" class="nav-link">${pageContext.request.userPrincipal.name}</a></li>
                     </c:if>
 
-                    <li>
-                        <form:form action="${pageContext.request.contextPath}/logout" method="POST">
-                            <input align="middle" type="submit" value="Logout" class="btn btn-link nav-link"/>
-                        </form:form>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:{}" onclick="document.getElementById('my_form').submit();">Logout</a>
                     </li>
+
+                    <form:form action="${pageContext.request.contextPath}/logout" id="my_form" method="POST">
+                    </form:form>
 
                 </c:if>
 
