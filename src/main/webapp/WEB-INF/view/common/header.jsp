@@ -77,6 +77,7 @@
 
                     <c:if test="${pageContext.request.userPrincipal.name != 'admin'}">
                         <li><a class="nav-link" href="<c:url value="/customer/cart" />">Cart</a></li>
+                        <li><a class="nav-link" href="<c:url value="/customer/orders" />">Orders</a></li>
                         <li><a href="<c:url value="/customer/edit"/>" class="nav-link">${pageContext.request.userPrincipal.name}</a></li>
                     </c:if>
 

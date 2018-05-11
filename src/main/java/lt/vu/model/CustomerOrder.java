@@ -2,8 +2,9 @@ package lt.vu.model;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 
 @Entity
@@ -36,5 +37,11 @@ public class CustomerOrder implements Serializable {
     @Getter @Setter
     private ShippingAddress shippingAddress;
 
+    @Getter @Setter
+    private String status;
 
+    @Min(value = 0, message = "The order rating must not be less than zero!")
+    @Max(value = 5, message = "The order rating must not be greater than five!")
+    @Getter @Setter
+    private int rating;
 }

@@ -27,7 +27,7 @@ public class AdminHome {
     }
 
     @RequestMapping("/productInventory")
-    public String productInventory(Model model){
+    public String productInventory(Model model) {
         List<Product> products = productService.getProducts();
         model.addAttribute("products", products);
 
@@ -35,8 +35,7 @@ public class AdminHome {
     }
 
     @RequestMapping("/customers")
-    public String customerManagement(Model model){
-
+    public String customerManagement(Model model) {
         List<Customer> customerList = customerService.getAllCustomers();
         model.addAttribute("customerList", customerList);
 
