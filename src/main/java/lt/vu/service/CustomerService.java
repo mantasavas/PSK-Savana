@@ -8,6 +8,8 @@ public interface CustomerService {
 
     void addCustomer(Customer customer);
 
+    void updateCustomer(Customer customer);
+
     Customer getCustomerById(int customerId);
 
     List<Customer> getAllCustomers();

@@ -27,11 +27,11 @@
                         <th>Action</th>
                     </tr>
                     <tr ng-repeat = "item in cart.cartItems">
-                        <td>{{item.product.name}}</td>
-                        <td>{{item.product.price}}</td>
+                        <td>{{item.product.productName}}</td>
+                        <td>{{item.product.productPrice}}</td>
                         <td>{{item.quantity}}</td>
                         <td>{{item.totalPrice}}</td>
-                        <td><a href="#" class="label label-danger" ng-click="removeFromCart(item.product.id)"><span class="glyphicon glyphicon-remove"></span>remove</a></td>
+                        <td><a href="#" class="btn btn-danger" ng-click="removeFromCart(item.product.productId)"><span class="glyphicon glyphicon-remove"></span>Remove</a></td>
                     </tr>
                     <tr>
                         <th></th>

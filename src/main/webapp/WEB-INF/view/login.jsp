@@ -18,12 +18,12 @@
 
                 <div class="form-group">
                     <label for="username">User:</label>
-                    <input type="text" id="username" name="username" class="form-control"/>
+                    <input type="text" id="username" name="username" class="form-control" autocomplete="username"/>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" class="form-control"/>
+                    <input type="password" id="password" name="password" class="form-control" autocomplete="current-password"/>
                 </div>
 
                 <input type="submit" value="Submit" class="btn btn-default"/>

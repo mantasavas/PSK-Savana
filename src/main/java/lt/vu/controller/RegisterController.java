@@ -5,6 +5,7 @@ import lt.vu.model.Customer;
 import lt.vu.model.ShippingAddress;
 import lt.vu.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +21,9 @@ public class RegisterController {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @RequestMapping("/register")
     public String registerCustomer(Model model){
@@ -42,14 +46,14 @@ public class RegisterController {
 
         List<Customer> customerList = customerService.getAllCustomers();
 
-        for (int i=0; i< customerList.size(); i++){
-            if(customer.getCustomerEmail().equals(customerList.get(i).getCustomerEmail())){
+        for (Customer existingCustomer : customerList){
+            if(customer.getCustomerEmail().equals(existingCustomer.getCustomerEmail())){
                 model.addAttribute("emailMsg", "Email already exists");
 
                 return "registerCustomer";
             }
 
-            if(customer.getUsername().equals(customerList.get(i).getUsername())){
+            if(customer.getUsername().equals(existingCustomer.getUsername())){
                 model.addAttribute("usernameMsg", "Username already exists");
 
                 return "registerCustomer";
@@ -57,7 +61,11 @@ public class RegisterController {
         }
 
         customer.setEnabled(true);
+
+        String encryptedPassword = passwordEncoder.encode(customer.getPassword());
+        customer.setPassword(encryptedPassword);
         customerService.addCustomer(customer);
+
         return "registerCustomerSuccess";
     }
 }

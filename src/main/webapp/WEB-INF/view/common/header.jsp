@@ -11,7 +11,7 @@
     <!-- default header name is X-CSRF-TOKEN -->
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
-    <link rel="shortcut icon" type="image/x-icon" href="/resources/images/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="<c:url value="/resources/images/logo.ico" />">
 
     <title>E-commerce</title>
 
@@ -41,7 +41,8 @@
 <body>
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">E-commerce</a>
+        <img width="35" height="35" style="margin-right: 25px" src="<c:url value="/resources/images/logo.ico" />">
+        <a class="navbar-brand" href="/">E-commerce</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -69,19 +70,22 @@
             </ul>
             <ul class="nav navbar-nav pull-right">
                 <c:if test="${pageContext.request.userPrincipal.name != null}">
-                    <li><a>Welcome: ${pageContext.request.userPrincipal.name}</a></li>
-                    <form:form action="${pageContext.request.contextPath}/logout" method="POST">
-                        <input type="submit" value="Logout" class="btn-link text-info"/>
-                    </form:form>
-                    <%--<li><a class="nav-link" href="<c:url value="/logout" />">Logout</a></li>--%>
+
+                    <c:if test="${pageContext.request.userPrincipal.name == 'admin'}">
+                        <li><a class="nav-link" href="<c:url value="/admin" />">Admin panel</a></li>
+                    </c:if>
 
                     <c:if test="${pageContext.request.userPrincipal.name != 'admin'}">
                         <li><a class="nav-link" href="<c:url value="/customer/cart" />">Cart</a></li>
+                        <li><a href="<c:url value="/customer/edit"/>" class="nav-link">${pageContext.request.userPrincipal.name}</a></li>
                     </c:if>
 
-                    <c:if test="${pageContext.request.userPrincipal.name == 'admin'}">
-                        <li><a class="nav-link" href="<c:url value="/admin" />">Admin</a></li>
-                    </c:if>
+                    <li>
+                        <form:form action="${pageContext.request.contextPath}/logout" method="POST">
+                            <input align="middle" type="submit" value="Logout" class="btn btn-link nav-link"/>
+                        </form:form>
+                    </li>
+
                 </c:if>
 
                 <c:if test="${pageContext.request.userPrincipal.name == null}">
