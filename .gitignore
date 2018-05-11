@@ -6,3 +6,4 @@ classes/
 src/main/webapp/WEB-INF/classes/
 src/main/webapp/WEB-INF/resources/images/
 !src/main/webapp/WEB-INF/resources/images/default.png
+!src/main/webapp/WEB-INF/resources/images/logo.ico
