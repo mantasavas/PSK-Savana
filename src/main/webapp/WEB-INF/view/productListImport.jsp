@@ -9,11 +9,18 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
 <%@ include file="common/header.jsp"%>
-    <c:url value="/admin/importProductExcel/excelFile" var="uploadFileUrl" />
-    <form method="post" enctype="multipart/form-data" action="${uploadFileUrl}?${_csrf.parameterName}=${_csrf.token}">
-        <div class="file-input"><input type="file" name="file" accept=".xls,.xlsx" /></div>
-        <div class="file-submit-button"><input type="submit" value="Import file" /></div>
-    </form>
+
+
+<div class="container-wrapper mt-4">
+    <div class="container">
+        <div class="page-header">
+            <h1>Import product data from Excel file</h1>
+            <h3> Choose file </h3>
+            <c:url value="/admin/importProductExcel/excelFile" var="uploadFileUrl" />
+            <form method="post" enctype="multipart/form-data" action="${uploadFileUrl}?${_csrf.parameterName}=${_csrf.token}">
+                <p class="file-input"><input type="file" name="file" accept=".xls,.xlsx" /></p>
+                <p class="file-submit-button"><button class="btn btn-warning" type="submit">Import File</button></p>
+            </form>
+        </div>
 <%@ include file="common/footer.jsp"%>

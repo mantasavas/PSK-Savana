@@ -4,6 +4,16 @@
 <%@ include file="common/header.jsp"%>
 
 <script>
+
+
+    $(document).ready(function(){
+        $('.table').DataTable({
+            "lengthMenu": [[1,5,10,30,-1], [1,5,10,30,"All"]],
+            "iDisplayLength": 5
+        });
+    });
+
+
     $(document).ready(function(){
         var modalConfirm = function(callback) {
 
@@ -62,7 +72,7 @@
                         <td>${user.productCategory}</td>
                         <td>${user.productCondition}</td>
                         <td>${user.productDescription}</td>
-                        <td>$${user.productPrice}</td>
+                        <td>${user.productPrice}</td>
                     </tr>
                 </c:forEach>
             </table>
