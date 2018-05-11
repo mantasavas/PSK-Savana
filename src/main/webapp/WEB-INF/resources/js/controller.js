@@ -2,10 +2,13 @@ var cartApp = angular.module ("cartApp", []);
 
 cartApp.controller("cartCtrl", function($scope, $http){
 
-    //add csrf token
-    var token = $("meta[name='_csrf']").attr("content");
+    //Add csrf token for security purposes
     var header = $("meta[name='_csrf_header']").attr("content");
-    $http.defaults.headers.common[header] = token;
+    var token = $("meta[name='_csrf']").attr("content");
+
+    if (header.length > 0 && token.length > 0) {
+        $http.defaults.headers.common[header] = token;
+    }
 
     $scope.refreshCart = function(){
         $http.get('/rest/cart/' + $scope.cartId).success(function (data){
