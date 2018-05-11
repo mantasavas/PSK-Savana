@@ -15,13 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping(value="/admin/generateReport")
+@RequestMapping(value="/admin")
 public class ReportController {
 
     @Autowired
     private ProductService productService;
 
-    @RequestMapping(value="/report", method = RequestMethod.GET)
+    @RequestMapping(value="/generateReport/report", method = RequestMethod.GET)
     public ModelAndView userListReport(HttpServletRequest req, HttpServletResponse res){
 
         String typeReport = req.getParameter("type");
