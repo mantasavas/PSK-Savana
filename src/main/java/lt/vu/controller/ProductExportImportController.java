@@ -39,9 +39,7 @@ public class ProductExportImportController {
 
         // Check if url get request parameter contains xls, if yes download excel document with all products from db
         if(typeReport != null && typeReport.equals("xls")) {
-            System.out.println("inside if: " + typeReport);
             return new ModelAndView(new ExcelProductListReport(), "productList", products);
-
         }
 
         // If no parameter specified return product list...
@@ -66,7 +64,7 @@ public class ProductExportImportController {
             HSSFSheet worksheet = workbook.getSheetAt(0);
             // Reads the data in excel file until last row is encountered
             while (i <= worksheet.getLastRowNum()) {
-                // Creates an object for the UserInfo Model
+                // Creates an object for the product Model
                 Product product = new Product();
                 // Creates an object representing a single row in excel
                 HSSFRow row = worksheet.getRow(i++);

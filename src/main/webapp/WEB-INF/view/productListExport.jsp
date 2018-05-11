@@ -65,14 +65,14 @@
                     <th>Price</th>
                 </tr>
                 </thead>
-                <c:forEach items="${productList}" var="user">
+                <c:forEach items="${productList}" var="product">
                     <tr>
-                        <td>${user.productId}</td>
-                        <td>${user.productName}</td>
-                        <td>${user.productCategory}</td>
-                        <td>${user.productCondition}</td>
-                        <td>${user.productDescription}</td>
-                        <td>${user.productPrice}</td>
+                        <td>${product.productId}</td>
+                        <td>${product.productName}</td>
+                        <td>${product.productCategory}</td>
+                        <td>${product.productCondition}</td>
+                        <td>${product.productDescription}</td>
+                        <td>${product.productPrice}</td>
                     </tr>
                 </c:forEach>
             </table>
