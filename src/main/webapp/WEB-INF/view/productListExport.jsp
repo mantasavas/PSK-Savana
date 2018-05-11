@@ -4,6 +4,16 @@
 <%@ include file="common/header.jsp"%>
 
 <script>
+
+
+    $(document).ready(function(){
+        $('.table').DataTable({
+            "lengthMenu": [[1,5,10,30,-1], [1,5,10,30,"All"]],
+            "iDisplayLength": 5
+        });
+    });
+
+
     $(document).ready(function(){
         var modalConfirm = function(callback) {
 
@@ -25,7 +35,7 @@
         modalConfirm(function(confirm){
             if(confirm){
                 // If administrator confirmed!
-                window.location = "/admin/generateReport/report/?type=xls";
+                window.location = "/admin/generateProductExcel/products/?type=xls";
             }else{
                 // If administrator canceled! Execute logic here...
             }
@@ -55,14 +65,14 @@
                     <th>Price</th>
                 </tr>
                 </thead>
-                <c:forEach items="${productList}" var="user">
+                <c:forEach items="${productList}" var="product">
                     <tr>
-                        <td>${user.productId}</td>
-                        <td>${user.productName}</td>
-                        <td>${user.productCategory}</td>
-                        <td>${user.productCondition}</td>
-                        <td>${user.productDescription}</td>
-                        <td>$${user.productPrice}</td>
+                        <td>${product.productId}</td>
+                        <td>${product.productName}</td>
+                        <td>${product.productCategory}</td>
+                        <td>${product.productCondition}</td>
+                        <td>${product.productDescription}</td>
+                        <td>${product.productPrice}</td>
                     </tr>
                 </c:forEach>
             </table>

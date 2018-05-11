@@ -1,6 +1,5 @@
 package lt.vu.service;
 
-import com.lowagie.text.ListItem;
 import lt.vu.model.Product;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -37,7 +36,7 @@ public class ExcelProductListReport extends AbstractXlsView {
         int rowNum = 1;
 
         // Populating xls rows with products data
-        for(Product product : list){
+        for(Product product : list) {
             Row row = sheet.createRow(rowNum++);
             row.createCell(0).setCellValue(product.getProductId());
             row.createCell(1).setCellValue(product.getProductName());

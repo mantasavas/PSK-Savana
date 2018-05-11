@@ -12,6 +12,8 @@ public interface ProductService {
 
     void addProduct(Product product);
 
+    void addProducts(List<Product> products);
+
     void editProduct(Product product);
 
     void deleteProduct(Product product);

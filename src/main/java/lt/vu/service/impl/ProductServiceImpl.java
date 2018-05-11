@@ -26,6 +26,12 @@ public class ProductServiceImpl implements ProductService {
         productDao.addProduct(product);
     }
 
+    public void addProducts(List<Product> products){
+        for(Product product : products) {
+            productDao.addProduct(product);
+        }
+    }
+
     public void editProduct(Product product){
         productDao.editProduct(product);
     }
@@ -33,6 +39,4 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(Product product){
         productDao.deleteProduct(product);
     }
-
-
 }
