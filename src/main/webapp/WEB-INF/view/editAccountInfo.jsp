@@ -50,6 +50,12 @@
             <form:password path="password" id="password" class="form-Control" />
         </div>
 
+        <div class="form-group">
+            <label for="passwordRepeat">Password (repeat password)</label>
+            <span style="color: red">${pswRepeatMsg}</span>
+            <form:password path="passwordRepeat" id="passwordRepeat" class="form-Control" />
+        </div>
+
         <br/>
 
         <h3>Billing Address:</h3>
@@ -120,7 +126,7 @@
 
         <br/><br/>
 
-        <input type="submit" value="Save changes" class="btn btn-default">
+        <input type="submit" value="Save changes" class="btn btn-primary">
         <a href="<c:url value="/" />" class="btn btn-default">Cancel</a>
 
         </form:form>

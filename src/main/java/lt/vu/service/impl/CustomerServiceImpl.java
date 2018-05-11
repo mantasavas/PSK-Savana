@@ -22,6 +22,10 @@ public class CustomerServiceImpl implements CustomerService {
         customerDao.updateCustomer(customer);
     }
 
+    public void setEnabledCustomer(Customer customer, boolean enabled) {
+        customerDao.setEnabledCustomer(customer, enabled);
+    }
+
     public Customer getCustomerById(int customerId){
         return customerDao.getCustomerById(customerId);
     }

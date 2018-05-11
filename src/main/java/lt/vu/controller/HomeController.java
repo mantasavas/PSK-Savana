@@ -1,5 +1,7 @@
 package lt.vu.controller;
 
+import lt.vu.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
+
+//    @Autowired
+//    private CustomerService customerService;
 
     @RequestMapping("/")
     public String home(){
@@ -19,14 +24,20 @@ public class HomeController {
                     String error,
             @RequestParam(value="logout", required = false)
                     String logout,
-            Model model){
+            @RequestParam(value="disabled", required = false)
+                    String disabled,
+            Model model) {
 
-        if(error != null){
-            model.addAttribute("error", "Invalid username and password");
+        if (error != null) {
+            model.addAttribute("error", "Invalid username or password");
         }
 
-        if (logout !=null){
+        if (logout != null) {
             model.addAttribute("msg", "You have been logged out successfully");
+        }
+
+        if (disabled != null) {
+            model.addAttribute("disabled", "Your account has been disabled");
         }
 
         return "login";

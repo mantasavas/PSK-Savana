@@ -41,7 +41,7 @@
                         <th></th>
                     </tr>
                 </table>
-                <a href="<spring:url value="/products" />" class="btn btn-default">Continue Shopping</a>
+                <a href="<spring:url value="/product/products" />" class="btn btn-default">Continue Shopping</a>
             </div>
         </section>
     </div>

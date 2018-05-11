@@ -14,10 +14,14 @@
                 <div class="error" style="color: red">${error}</div>
             </c:if>
 
+            <c:if test="${not empty disabled}">
+                <div class="disabled" style="color: red">${disabled}</div>
+            </c:if>
+
             <form name="loginForm" action="<c:url value="/login"/>" method="post">
 
                 <div class="form-group">
-                    <label for="username">User:</label>
+                    <label for="username">Username:</label>
                     <input type="text" id="username" name="username" class="form-control" autocomplete="username"/>
                 </div>
 
@@ -26,7 +30,7 @@
                     <input type="password" id="password" name="password" class="form-control" autocomplete="current-password"/>
                 </div>
 
-                <input type="submit" value="Submit" class="btn btn-default"/>
+                <input type="submit" value="Login" class="btn btn-primary"/>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 
             </form>

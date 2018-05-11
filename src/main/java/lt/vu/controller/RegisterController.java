@@ -46,18 +46,21 @@ public class RegisterController {
 
         List<Customer> customerList = customerService.getAllCustomers();
 
-        for (Customer existingCustomer : customerList){
-            if(customer.getCustomerEmail().equals(existingCustomer.getCustomerEmail())){
+        for (Customer existingCustomer : customerList) {
+            if (customer.getCustomerEmail().equals(existingCustomer.getCustomerEmail())) {
                 model.addAttribute("emailMsg", "Email already exists");
-
                 return "registerCustomer";
             }
 
-            if(customer.getUsername().equals(existingCustomer.getUsername())){
+            if (customer.getUsername().equals(existingCustomer.getUsername())) {
                 model.addAttribute("usernameMsg", "Username already exists");
-
                 return "registerCustomer";
             }
+        }
+
+        if (!customer.getPassword().equals(customer.getPasswordRepeat())) {
+            model.addAttribute("pswRepeatMsg", "Passwords must match");
+            return "registerCustomer";
         }
 
         customer.setEnabled(true);

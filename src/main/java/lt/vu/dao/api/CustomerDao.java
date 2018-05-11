@@ -10,6 +10,8 @@ public interface CustomerDao {
 
     void updateCustomer(Customer customer);
 
+    void setEnabledCustomer(Customer customer, boolean enabled);
+
     Customer getCustomerById(int customerId);
 
     List<Customer> getAllCustomers();
