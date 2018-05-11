@@ -8,16 +8,6 @@
             <p class="lead">This is only for administrator!</p>
         </div>
 
-        <c:if test="${pageContext.request.userPrincipal.name != null}">
-            <h2>
-                Welcome: ${pageContext.request.userPrincipal.name} |
-                <%--<a href="<c:url value="/logout"/>">Logout</a>--%>
-                <form:form action="${pageContext.request.contextPath}/logout" method="POST">
-                    <input type="submit" value="Logout" class="btn-link text-info"/>
-                </form:form>
-            </h2>
-        </c:if>
-
         <h3>
             <a href="<c:url value="/admin/productInventory"/>" >Product Inventory</a>
         </h3>
@@ -27,9 +17,9 @@
         <br/><br/>
 
         <h3>
-            <a href="<c:url value="/admin/customer" /> ">Customer Management</a>
+            <a href="<c:url value="/admin/customers" /> ">Customer Management</a>
         </h3>
 
-        <p>Here you can view the customer information!</p>
+        <p>Here you can view and enable/disable customer accounts</p>
 
 <%@ include file="common/footer.jsp"%>

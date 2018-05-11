@@ -9,7 +9,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -97,6 +96,22 @@ public class CustomerDaoImpl implements CustomerDao {
         session.saveOrUpdate(newCart);
 
         session.flush();
+    }
+
+    @Transactional
+    public void setEnabledCustomer(Customer customer, boolean enabled) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Query query = session.createQuery("update Customer set enabled = :enable where customerId = :id");
+        query.setParameter("enable", enabled);
+        query.setParameter("id", customer.getCustomerId());
+
+        Query query2 = session.createQuery("update Users set enabled = :enable where customerId = :id");
+        query2.setParameter("enable", enabled);
+        query2.setParameter("id", customer.getCustomerId());
+
+        query.executeUpdate();
+        query2.executeUpdate();
     }
 
     private List<Users> getAllUsers() {

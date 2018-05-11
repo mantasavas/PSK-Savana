@@ -14,6 +14,10 @@
                 <div class="error" style="color: red">${error}</div>
             </c:if>
 
+            <c:if test="${not empty disabled}">
+                <div class="disabled" style="color: red">${disabled}</div>
+            </c:if>
+
             <form name="loginForm" action="<c:url value="/login"/>" method="post">
 
                 <div class="form-group">
