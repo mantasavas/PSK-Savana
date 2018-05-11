@@ -56,6 +56,16 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/about"/>">About</a>
                 </li>
+                
+                <c:if test="${pageContext.request.userPrincipal.name == 'admin'}">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Resources</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="<c:url value="/admin/generateReport/report"/>">Export XLS</a>
+                            <a class="dropdown-item" href="<c:url value="/admin/generateReport/report"/>">IMPORT XLS</a>
+                        </div>
+                    </li>
+                </c:if>
             </ul>
             <ul class="nav navbar-nav pull-right">
                 <c:if test="${pageContext.request.userPrincipal.name != null}">
