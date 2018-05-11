@@ -47,6 +47,7 @@ public class ProductDaoImpl implements ProductDao {
         session.flush();
     }
 
+
     public void deleteProduct (Product product){
         Session session = sessionFactory.getCurrentSession();
         session.delete(product);

@@ -36,7 +36,7 @@
                     <td>${product.productName}</td>
                     <td>${product.productCategory}</td>
                     <td>${product.productCondition}</td>
-                    <td>$${product.productPrice}</td>
+                    <td>${product.productPrice}</td>
                     <td>
                         <a href="<spring:url value="/product/viewProduct/${product.productId}"/>" class="btn btn-primary">Info</a>
                         <a href="<spring:url value="/admin/product/deleteProduct/${product.productId}"/>" class="btn btn-danger">Delete</a>
