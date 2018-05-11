@@ -1,6 +1,5 @@
 package lt.vu.service.impl;
 
-
 import lt.vu.dao.api.CustomerOrderDao;
 import lt.vu.model.Cart;
 import lt.vu.model.CartItem;
@@ -25,7 +24,12 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         customerOrderDao.addCustomerOrder(customerOrder);
     }
 
-    public double getCustomerOrderGrandTotal(int cartId){
+    @Override
+    public List<CustomerOrder> getCustomerOrders(int customerId) {
+        return customerOrderDao.getCustomerOrders(customerId);
+    }
+
+    public double getCustomerOrderGrandTotal(int cartId) {
         double grandTotal = 0;
         Cart cart = cartService.getCartById(cartId);
         List<CartItem> cartItems = cart.getCartItems();
@@ -36,5 +40,4 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 
         return grandTotal;
     }
-
 }
