@@ -5,23 +5,23 @@ import lt.vu.service.ExcelProductListReport;
 import lt.vu.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping(value="/admin")
-public class ReportController {
+public class ProductExportImportController {
 
     @Autowired
     private ProductService productService;
 
-    @RequestMapping(value="/generateReport/report", method = RequestMethod.GET)
+    @RequestMapping(value="/generateProductExcel/products", method = RequestMethod.GET)
     public ModelAndView userListReport(HttpServletRequest req, HttpServletResponse res){
 
         String typeReport = req.getParameter("type");
@@ -37,6 +37,17 @@ public class ReportController {
         }
 
         // If no parameter specified return product list...
-        return new ModelAndView("productListReport", "productList", products);
+        return new ModelAndView("productListExport", "productList", products);
+    }
+
+    @RequestMapping("/importProductExcel/excelFile")
+    public String getProducts(Model model){
+        return "productListImport";
+    }
+
+    @RequestMapping(value = "/importProductExcel/excelFile", method = RequestMethod.POST)
+    public String importProductExcelFile(){
+        System.out.println("Inside importProductExcelFile()");
+        return "productListImport";
     }
 }
