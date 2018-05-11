@@ -18,22 +18,22 @@ public class Customer implements Serializable {
     @Getter @Setter
     private int customerId;
 
-    @NotEmpty(message = "The customer name must not be empty")
+    @NotEmpty(message = "The name must not be empty")
     @Getter @Setter
     private String customerName;
 
-    @NotEmpty(message = "The customer email must not be empty")
+    @NotEmpty(message = "The email must not be empty")
     @Getter @Setter
     private String customerEmail;
 
     @Getter @Setter
     private String customerPhone;
 
-    @NotEmpty(message = "The customer username must not be empty")
+    @NotEmpty(message = "The username must not be empty")
     @Getter @Setter
     private String username;
 
-    @NotEmpty(message = "The customer password must not be empty")
+    @NotEmpty(message = "The password must not be empty")
     @Getter @Setter
     private String password;
 

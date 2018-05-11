@@ -69,18 +69,20 @@
             </ul>
             <ul class="nav navbar-nav pull-right">
                 <c:if test="${pageContext.request.userPrincipal.name != null}">
-                    <li><a>Welcome: ${pageContext.request.userPrincipal.name}</a></li>
-                    <form:form action="${pageContext.request.contextPath}/logout" method="POST">
-                        <input type="submit" value="Logout" class="btn-link text-info"/>
-                    </form:form>
-                    <%--<li><a class="nav-link" href="<c:url value="/logout" />">Logout</a></li>--%>
 
                     <c:if test="${pageContext.request.userPrincipal.name != 'admin'}">
                         <li><a class="nav-link" href="<c:url value="/customer/cart" />">Cart</a></li>
+                        <li><a href="<c:url value="/customer/edit"/>" class="nav-link">${pageContext.request.userPrincipal.name}</a></li>
                     </c:if>
 
+                    <li>
+                        <form:form action="${pageContext.request.contextPath}/logout" method="POST">
+                            <input align="middle" type="submit" value="Logout" class="btn btn-link nav-link"/>
+                        </form:form>
+                    </li>
+
                     <c:if test="${pageContext.request.userPrincipal.name == 'admin'}">
-                        <li><a class="nav-link" href="<c:url value="/admin" />">Admin</a></li>
+                        <li><a class="nav-link" href="<c:url value="/admin" />">Admin panel</a></li>
                     </c:if>
                 </c:if>
 

@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +22,7 @@ public class CustomerDaoImpl implements CustomerDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void addCustomer(Customer customer){
+    public void addCustomer(Customer customer) {
         Session session = sessionFactory.getCurrentSession();
 
         customer.getBillingAddress().setCustomer(customer);
@@ -54,12 +55,72 @@ public class CustomerDaoImpl implements CustomerDao {
         session.flush();
     }
 
-    public Customer getCustomerById(int customerId){
+    public void updateCustomer(Customer customer) {
+        Session session = sessionFactory.getCurrentSession();
+
+        customer.getBillingAddress().setCustomer(customer);
+        customer.getShippingAddress().setCustomer(customer);
+
+        session.saveOrUpdate(customer);
+        session.saveOrUpdate(customer.getBillingAddress());
+        session.saveOrUpdate(customer.getShippingAddress());
+
+        List<Users> users = getAllUsers();
+        Users newUser = null;
+        for (Users user: users) {
+            if (user.getCustomerId() == customer.getCustomerId()) {
+                user.setUsername(customer.getUsername());
+                user.setPassword(customer.getPassword());
+                newUser = user;
+                break;
+            }
+        }
+
+        Authorities newAuthorities = new Authorities();
+        newAuthorities.setUsername(customer.getUsername());
+
+        session.saveOrUpdate(newUser);
+        session.saveOrUpdate(newAuthorities);
+
+        List<Cart> carts = getAllCarts();
+        Cart newCart = null;
+        for (Cart cart: carts) {
+            if (cart.getCustomer().getCustomerId() == customer.getCustomerId()) {
+                cart.setCustomer(customer);
+                newCart = cart;
+                customer.setCart(newCart);
+                break;
+            }
+        }
+
+        session.saveOrUpdate(customer);
+        session.saveOrUpdate(newCart);
+
+        session.flush();
+    }
+
+    private List<Users> getAllUsers() {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Users");
+        List<Users> usersList = query.list();
+
+        return usersList;
+    }
+
+    private List<Cart> getAllCarts() {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Cart");
+        List<Cart> cartList = query.list();
+
+        return cartList;
+    }
+
+    public Customer getCustomerById(int customerId) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(Customer.class, customerId);
     }
 
-    public List<Customer> getAllCustomers(){
+    public List<Customer> getAllCustomers() {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("from Customer");
         List<Customer> customerList = query.list();
@@ -67,7 +128,7 @@ public class CustomerDaoImpl implements CustomerDao {
         return customerList;
     }
 
-    public Customer getCustomerByUsername(String username){
+    public Customer getCustomerByUsername(String username) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("from Customer where username = ?");
         query.setString(0, username);
