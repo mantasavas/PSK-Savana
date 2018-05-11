@@ -35,4 +35,7 @@
         <extension>ico</extension>
         <mime-type>image/x-icon</mime-type>
     </mime-mapping>
+    <session-config>
+        <session-timeout>30</session-timeout> <!-- in minutes -->
+    </session-config>
 </web-app>
