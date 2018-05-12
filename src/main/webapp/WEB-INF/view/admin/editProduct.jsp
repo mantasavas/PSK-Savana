@@ -1,5 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ include file="common/header.jsp"%>
+<%@ include file="../common/header.jsp"%>
 
 <div class="container-wrapper mt-4">
     <div class="container">
@@ -68,4 +68,4 @@
         </form:form>
 
 
-<%@ include file="common/footer.jsp"%>
+<%@ include file="../common/footer.jsp"%>

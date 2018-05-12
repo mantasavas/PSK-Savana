@@ -9,4 +9,6 @@ public interface CustomerOrderDao {
     void addCustomerOrder(CustomerOrder customerOrder);
 
     List<CustomerOrder> getCustomerOrders(int customerId);
+
+    List<CustomerOrder> getAllOrders();
 }

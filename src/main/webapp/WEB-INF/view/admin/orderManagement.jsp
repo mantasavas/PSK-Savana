@@ -16,42 +16,44 @@
 <div class="container-wrapper">
     <div class="container">
         <div class="page-header">
-            <h1>Orders</h1>
+            <h1>Customers Management</h1>
 
-            <p class="lead">Here you can see your orders</p>
+            <p class="lead">This is the customer management page!</p>
         </div>
 
         <table class="table table-striped table-hover">
             <thead>
             <tr class="bg-success">
+                <th>ID</th>
                 <th>Date</th>
+                <th>Customer</th>
                 <th>Total price</th>
-                <%--<th>Items</th>--%>
                 <th>Status</th>
                 <th>Rating</th>
+                <th></th>
             </tr>
             </thead>
             <c:forEach items="${orderList}" var="order">
                 <tr>
+                    <td>${order.customerOrderId}</td>
                     <td>${now}</td>
+                    <td>${order.customer.username}</td>
                     <td>$${order.cart.grandTotal}</td>
-                    <%--<td>--%>
+                        <%--<td>--%>
                         <%--<c:forEach items="${order.cart.cartItems}" var="item">--%>
-                            <%--<h3>abc</h3>--%>
-                            <%--<a>${item.quantity}</a>--%>
+                        <%--<h3>abc</h3>--%>
+                        <%--<a>${item.quantity}</a>--%>
                         <%--</c:forEach>--%>
-                    <%--</td>--%>
-                    <%--<td>${order.customerName}</td>--%>
-                    <td>$${order.status}</td>
+                        <%--</td>--%>
+                        <%--<td>${order.customerName}</td>--%>
+                    <td>${order.status}</td>
+                    <c:if test="${order.rating == 0}">
+                        <td><a>-</a></td>
+                    </c:if>
                     <c:if test="${order.rating > 0}">
                         <td><a>${order.rating}</a></td>
                     </c:if>
-                    <c:if test="${order.status.equals(\"delivered\") && order.rating == 0}">
-                        <td><a href="<spring:url value="#"/>" class="btn btn-success">Rate</a></td>
-                    </c:if>
-                    <c:if test="${!order.status.equals(\"delivered\") && order.rating == 0}">
-                        <td><a>-</a></td>
-                    </c:if>
+                    <td><a href="<spring:url value="#"/>" class="btn btn-success">Change status</a></td>
                 </tr>
             </c:forEach>
         </table>

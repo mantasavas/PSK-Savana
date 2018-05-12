@@ -16,9 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,12 +40,12 @@ public class ProductExportImportController {
         }
 
         // If no parameter specified return product list...
-        return new ModelAndView("productListExport", "productList", products);
+        return new ModelAndView("admin/productListExport", "productList", products);
     }
 
     @RequestMapping("/importProductExcel/excelFile")
     public String getProducts(Model model){
-        return "productListImport";
+        return "admin/productListImport";
     }
 
     @RequestMapping(value = "/importProductExcel/excelFile", method = RequestMethod.POST)
@@ -99,6 +96,6 @@ public class ProductExportImportController {
             e.printStackTrace();
         }
 
-        return "productInventory";
+        return "admin/productInventory";
     }
 }

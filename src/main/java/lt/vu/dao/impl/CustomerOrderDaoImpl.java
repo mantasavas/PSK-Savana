@@ -33,4 +33,12 @@ public class CustomerOrderDaoImpl implements CustomerOrderDao {
 
         return orderList;
     }
+
+    public List<CustomerOrder> getAllOrders() {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from CustomerOrder");
+        List<CustomerOrder> orderList = query.list();
+
+        return orderList;
+    }
 }

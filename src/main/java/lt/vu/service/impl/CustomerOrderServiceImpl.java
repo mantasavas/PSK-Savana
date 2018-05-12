@@ -40,4 +40,9 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 
         return grandTotal;
     }
+
+    @Override
+    public List<CustomerOrder> getAllOrders() {
+        return customerOrderDao.getAllOrders();
+    }
 }

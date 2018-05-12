@@ -11,4 +11,6 @@ public interface CustomerOrderService {
     List<CustomerOrder> getCustomerOrders(int customerId);
 
     double getCustomerOrderGrandTotal(int cartId);
+
+    List<CustomerOrder> getAllOrders();
 }

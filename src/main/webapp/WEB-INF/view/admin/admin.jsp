@@ -1,5 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ include file="common/header.jsp"%>
+<%@ include file="../common/header.jsp"%>
 
 <div class="container-wrapper mt-4">
     <div class="container">
@@ -9,17 +9,22 @@
         </div>
 
         <h3>
-            <a href="<c:url value="/admin/productInventory"/>" >Product Inventory</a>
+            <a href="<c:url value="/admin/inventory"/>" >Product Inventory</a>
         </h3>
-
         <p>Here you can view, check and modify product inventory</p>
 
-        <br/><br/>
+        <br/>
 
         <h3>
             <a href="<c:url value="/admin/customers" /> ">Customer Management</a>
         </h3>
-
         <p>Here you can view and enable/disable customer accounts</p>
 
-<%@ include file="common/footer.jsp"%>
+        <br/>
+
+        <h3>
+            <a href="<c:url value="/admin/orders" /> ">Order Management</a>
+        </h3>
+        <p>Here you can view and change status of orders</p>
+
+<%@ include file="../common/footer.jsp"%>

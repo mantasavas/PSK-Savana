@@ -1,7 +1,9 @@
 package lt.vu.controller.admin;
 
 import lt.vu.model.Customer;
+import lt.vu.model.CustomerOrder;
 import lt.vu.model.Product;
+import lt.vu.service.CustomerOrderService;
 import lt.vu.service.CustomerService;
 import lt.vu.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +23,20 @@ public class AdminHome {
     @Autowired
     private CustomerService customerService;
 
+    @Autowired
+    private CustomerOrderService customerOrderService;
+
     @RequestMapping
     public String adminPage(){
-        return "admin";
+        return "admin/admin";
     }
 
-    @RequestMapping("/productInventory")
+    @RequestMapping("/inventory")
     public String productInventory(Model model) {
         List<Product> products = productService.getProducts();
         model.addAttribute("products", products);
 
-        return "productInventory";
+        return "admin/productInventory";
     }
 
     @RequestMapping("/customers")
@@ -39,6 +44,14 @@ public class AdminHome {
         List<Customer> customerList = customerService.getAllCustomers();
         model.addAttribute("customerList", customerList);
 
-        return "customerManagement";
+        return "admin/customerManagement";
+    }
+
+    @RequestMapping("/orders")
+    public String orderManagement(Model model) {
+        List<CustomerOrder> orderList = customerOrderService.getAllOrders();
+        model.addAttribute("orderList", orderList);
+
+        return "admin/orderManagement";
     }
 }

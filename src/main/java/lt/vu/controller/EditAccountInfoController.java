@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-public class EditAccountInformationController {
+public class EditAccountInfoController {
 
     @Autowired
     private CustomerService customerService;
