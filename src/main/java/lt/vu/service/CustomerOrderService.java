@@ -15,4 +15,8 @@ public interface CustomerOrderService {
     List<CustomerOrder> getAllOrders();
 
     void setOrderStatus(int orderId, String status);
+
+    void rateOrder(int orderId, int rating);
+
+    CustomerOrder getOrderById(int orderId);
 }

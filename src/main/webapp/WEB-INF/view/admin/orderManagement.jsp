@@ -4,6 +4,9 @@
 
 <jsp:useBean id="now" class="java.util.Date" />
 
+<!-- Star CSS -->
+<link href="<c:url value="/resources/css/star.css" />" rel="stylesheet">
+
 <script>
     $(document).ready(function(){
         $('.table').DataTable({
@@ -16,9 +19,9 @@
 <div class="container-wrapper">
     <div class="container">
         <div class="page-header">
-            <h1>Customers Management</h1>
+            <h1>Order Management</h1>
 
-            <p class="lead">This is the customer management page!</p>
+            <p class="lead">This is the order management page!</p>
         </div>
 
         <table class="table table-striped table-hover">
@@ -51,7 +54,18 @@
                         <td><a>-</a></td>
                     </c:if>
                     <c:if test="${order.rating > 0}">
-                        <td><a>${order.rating}</a></td>
+                        <td>
+                            <div class="container">
+                                <div class="starrating risingstar d-flex justify-content-center">
+                                    <c:forEach begin="1" end="${order.rating}" varStatus="loop">
+                                        <label style="color: yellow"></label>
+                                    </c:forEach>
+                                    <c:forEach begin="${order.rating}" end="4" varStatus="loop">
+                                        <label></label>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </td>
                     </c:if>
                     <td>
                         <a href="<spring:url value="/admin/orders/status/${order.customerOrderId}/Accepted"/>" class="btn btn-primary btn-sm">Accepted</a>

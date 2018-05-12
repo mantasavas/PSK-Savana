@@ -44,4 +44,6 @@ public class CustomerOrder implements Serializable {
     @Max(value = 5, message = "The order rating must not be greater than five!")
     @Getter @Setter
     private int rating;
+
+    //date field??
 }

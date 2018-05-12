@@ -26,8 +26,8 @@ public class CustomerOrderDaoImpl implements CustomerOrderDao {
 
     public List<CustomerOrder> getCustomerOrders(int customerId) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("from CustomerOrder where customerId = ?");
-        query.setInteger(0, customerId);
+        Query query = session.createQuery("from CustomerOrder where customerId = :id");
+        query.setParameter("id", customerId);
 
         List<CustomerOrder> orderList = query.list();
 
@@ -50,5 +50,20 @@ public class CustomerOrderDaoImpl implements CustomerOrderDao {
         query.setParameter("id", orderId);
 
         query.executeUpdate();
+    }
+
+    public void rateOrder(int orderId, int rating) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Query query = session.createQuery("update CustomerOrder set rating = :customerRating where customerOrderId = :id");
+        query.setParameter("customerRating", rating);
+        query.setParameter("id", orderId);
+
+        query.executeUpdate();
+    }
+
+    public CustomerOrder getOrderById(int orderId) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(CustomerOrder.class, orderId);
     }
 }

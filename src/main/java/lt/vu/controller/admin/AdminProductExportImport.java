@@ -1,4 +1,4 @@
-package lt.vu.controller;
+package lt.vu.controller.admin;
 
 import lt.vu.model.Product;
 import lt.vu.service.ExcelProductListReport;
@@ -21,7 +21,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value="/admin")
-public class ProductExportImportController {
+public class AdminProductExportImport {
 
     @Autowired
     private ProductService productService;

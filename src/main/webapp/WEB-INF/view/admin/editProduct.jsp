@@ -63,7 +63,7 @@
         <br>
         <br>
         <input type="submit" value="Submit" class="btn btn-primary">
-        <a href="<c:url value="/admin/productInventory"/>" class="btn btn-secondary">Cancel</a>
+        <a href="<c:url value="/admin/inventory"/>" class="btn btn-secondary">Cancel</a>
 
         </form:form>
 

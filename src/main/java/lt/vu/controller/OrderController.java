@@ -7,13 +7,15 @@ import lt.vu.service.CartService;
 import lt.vu.service.CustomerOrderService;
 import lt.vu.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import java.security.Principal;
+
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -56,5 +58,26 @@ public class OrderController {
         model.addAttribute("orderList", customerOrders);
 
         return "orders";
+    }
+
+    @RequestMapping("/customer/orders/rate/{orderId}/{rating}")
+    public String rateOrder(@PathVariable("orderId") int orderId,
+                            @Valid @PathVariable("rating") int rating,
+                            Principal activeUser) throws AccessDeniedException {
+        Customer customer = customerService.getCustomerByUsername(activeUser.getName());
+        CustomerOrder customerOrder = customerOrderService.getOrderById(orderId);
+
+        if (customer.getCustomerId() != customerOrder.getCustomer().getCustomerId()) {
+            throw new AccessDeniedException("You cannot rate order that do not belong to you!");
+        }
+
+        // only possible to give rating once
+        if (customerOrder.getRating() > 0) {
+            return "redirect:/customer/orders";
+        }
+
+        customerOrderService.rateOrder(orderId, rating);
+
+        return "redirect:/customer/orders";
     }
 }

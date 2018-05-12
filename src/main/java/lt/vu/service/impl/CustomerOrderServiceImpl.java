@@ -50,4 +50,14 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     public void setOrderStatus(int orderId, String status) {
         customerOrderDao.setOrderStatus(orderId, status);
     }
+
+    @Override
+    public void rateOrder(int orderId, int rating) {
+        customerOrderDao.rateOrder(orderId, rating);
+    }
+
+    @Override
+    public CustomerOrder getOrderById(int orderId) {
+        return customerOrderDao.getOrderById(orderId);
+    }
 }

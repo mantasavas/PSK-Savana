@@ -14,7 +14,7 @@
 <div class="container-wrapper">
     <div class="container">
         <div class="page-header">
-            <h1>Customers Management</h1>
+            <h1>Customer Management</h1>
 
             <p class="lead">This is the customer management page!</p>
         </div>
