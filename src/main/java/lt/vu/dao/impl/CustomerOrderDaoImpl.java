@@ -41,4 +41,14 @@ public class CustomerOrderDaoImpl implements CustomerOrderDao {
 
         return orderList;
     }
+
+    public void setOrderStatus(int orderId, String status) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Query query = session.createQuery("update CustomerOrder set status = :newStatus where customerOrderId = :id");
+        query.setParameter("newStatus", status);
+        query.setParameter("id", orderId);
+
+        query.executeUpdate();
+    }
 }

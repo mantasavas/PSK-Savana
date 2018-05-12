@@ -21,22 +21,22 @@
         <table class="table table-striped table-hover">
             <thead>
             <tr class="bg-success">
-                <th>Proto Thumb</th>
-                <th>Product Name</th>
-                <th>Category</th>
-                <th>Condition</th>
-                <th>Price</th>
-                <th></th>
+                <th width="20%">Photo</th>
+                <th width="15%">Product Name</th>
+                <th width="15%">Category</th>
+                <th width="15%">Condition</th>
+                <th width="10%">Price</th>
+                <th width="25%"></th>
             </tr>
             </thead>
             <c:forEach items="${products}" var="product">
                 <tr>
                     <td><img src="<c:url value="/resources/images/${product.productId}.png" /> " alt="image"
-                             style="width: 100%"/></td>
-                    <td>${product.productName}</td>
+                             style="width: 50%"/></td>
+                    <td >${product.productName}</td>
                     <td>${product.productCategory}</td>
                     <td>${product.productCondition}</td>
-                    <td>${product.productPrice}</td>
+                    <td>$${product.productPrice}</td>
                     <td>
                         <a href="<spring:url value="/product/viewProduct/${product.productId}"/>" class="btn btn-primary">Info</a>
                         <a href="<spring:url value="/admin/product/deleteProduct/${product.productId}"/>" class="btn btn-danger">Delete</a>

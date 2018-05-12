@@ -13,4 +13,6 @@ public interface CustomerOrderService {
     double getCustomerOrderGrandTotal(int cartId);
 
     List<CustomerOrder> getAllOrders();
+
+    void setOrderStatus(int orderId, String status);
 }

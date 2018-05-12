@@ -24,13 +24,13 @@
         <table class="table table-striped table-hover">
             <thead>
             <tr class="bg-success">
-                <th>ID</th>
-                <th>Date</th>
-                <th>Customer</th>
-                <th>Total price</th>
-                <th>Status</th>
-                <th>Rating</th>
-                <th></th>
+                <th width="7%">ID</th>
+                <th width="18%">Date</th>
+                <th width="15%">Customer</th>
+                <th width="10%">Total</th>
+                <th width="10%">Status</th>
+                <th width="10%">Rating</th>
+                <th width="30%">Change status</th>
             </tr>
             </thead>
             <c:forEach items="${orderList}" var="order">
@@ -53,7 +53,12 @@
                     <c:if test="${order.rating > 0}">
                         <td><a>${order.rating}</a></td>
                     </c:if>
-                    <td><a href="<spring:url value="#"/>" class="btn btn-success">Change status</a></td>
+                    <td>
+                        <a href="<spring:url value="/admin/orders/status/${order.customerOrderId}/Accepted"/>" class="btn btn-primary btn-sm">Accepted</a>
+                        <a href="<spring:url value="/admin/orders/status/${order.customerOrderId}/In progress"/>" class="btn btn-secondary btn-sm">In progress</a>
+                        <a href="<spring:url value="/admin/orders/status/${order.customerOrderId}/Sent"/>" class="btn btn-info btn-sm">Sent</a>
+                        <a href="<spring:url value="/admin/orders/status/${order.customerOrderId}/Delivered"/>" class="btn btn-success btn-sm">Delivered</a>
+                    </td>
                 </tr>
             </c:forEach>
         </table>

@@ -31,7 +31,7 @@ public class OrderController {
     @RequestMapping("/order/{cartId}")
     public String createOrder(@PathVariable("cartId") int cartId){
         CustomerOrder customerOrder = new CustomerOrder();
-        customerOrder.setStatus("unknown");
+        customerOrder.setStatus("Accepted");
         customerOrder.setRating(0);
 
         Cart cart = cartService.getCartById(cartId);

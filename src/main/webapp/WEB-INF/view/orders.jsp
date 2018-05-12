@@ -25,7 +25,7 @@
             <thead>
             <tr class="bg-success">
                 <th>Date</th>
-                <th>Total price</th>
+                <th>Total</th>
                 <%--<th>Items</th>--%>
                 <th>Status</th>
                 <th>Rating</th>
@@ -46,10 +46,10 @@
                     <c:if test="${order.rating > 0}">
                         <td><a>${order.rating}</a></td>
                     </c:if>
-                    <c:if test="${order.status.equals(\"delivered\") && order.rating == 0}">
+                    <c:if test="${order.status.equals(\"Delivered\") && order.rating == 0}">
                         <td><a href="<spring:url value="#"/>" class="btn btn-success">Rate</a></td>
                     </c:if>
-                    <c:if test="${!order.status.equals(\"delivered\") && order.rating == 0}">
+                    <c:if test="${!order.status.equals(\"Delivered\") && order.rating == 0}">
                         <td><a>-</a></td>
                     </c:if>
                 </tr>

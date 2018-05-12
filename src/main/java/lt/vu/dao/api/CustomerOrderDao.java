@@ -11,4 +11,6 @@ public interface CustomerOrderDao {
     List<CustomerOrder> getCustomerOrders(int customerId);
 
     List<CustomerOrder> getAllOrders();
+
+    void setOrderStatus(int orderId, String status);
 }

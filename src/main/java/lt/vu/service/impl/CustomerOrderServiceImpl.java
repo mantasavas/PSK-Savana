@@ -45,4 +45,9 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     public List<CustomerOrder> getAllOrders() {
         return customerOrderDao.getAllOrders();
     }
+
+    @Override
+    public void setOrderStatus(int orderId, String status) {
+        customerOrderDao.setOrderStatus(orderId, status);
+    }
 }
