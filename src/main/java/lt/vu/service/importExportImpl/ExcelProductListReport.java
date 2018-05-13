@@ -33,6 +33,7 @@ public class ExcelProductListReport extends AbstractXlsView {
         header.createCell(5).setCellValue("Condition");
         header.createCell(6).setCellValue("Status");
         header.createCell(7).setCellValue("Manufacturer");
+        header.createCell(8).setCellValue("");
 
         int rowNum = 1;
 
