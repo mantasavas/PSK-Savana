@@ -14,7 +14,6 @@ importExportApp.controller("importExportController", function($scope, $http, $wi
     $scope.greeting = "VISA ESTONIA";
 
     $scope.downloadExcelFile = function(){
-        console.log("inside download excel function!");
         $scope.checkValue = "mantasavas@gmail.com";
         $http.get('/admin/generateProductExcel/products/?type=xls').success(function (data){
             var data = "some data goes here <imput>lglkh</imput>",
@@ -28,7 +27,6 @@ importExportApp.controller("importExportController", function($scope, $http, $wi
     $scope.checkAvailability = function() {
         $http.get('/admin/importProductExcel/isReadyFile').success(function (data){
             $scope.returnedData = data.response;
-            console.log("Calling is ready! " + $scope.returnedData);
         });
     }
 });
