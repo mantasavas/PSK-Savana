@@ -64,11 +64,22 @@
                                 </thead>
                                 <tbody>
                                 <c:forEach var="cartItem" items="${order.cart.cartItems}">
+                                    <fmt:parseDate value="${cartItem.product.productDiscountExpirationDatetime}" var="discountExpire" pattern="yyyy-MM-dd HH:mm:ss" />
                                     <tr>
                                         <td class="col-md-9"><em>${cartItem.product.productName}</em></td>
                                         <td class="col-md-1" style="text-align: center">${cartItem.quantity}</td>
-                                        <td class="col-md-1" style="text-align: center">${cartItem.product.productPrice}</td>
-                                        <td class="col-md-1" style="text-align: center">${cartItem.totalPrice}</td>
+                                        <c:if test="${discountExpire > now}">
+                                            <td class="col-md-2" style="text-align: center">
+                                                <a>$${cartItem.product.actualPrice}</a>
+                                                <c:if test="${cartItem.product.productDiscountPercentage > 0}">
+                                                    <a style="text-decoration: line-through;">$${cartItem.product.productPrice}</a>
+                                                </c:if>
+                                            </td>
+                                        </c:if>
+                                        <c:if test="${discountExpire <= now}">
+                                            <td class="col-md-2" style="text-align: center">$${cartItem.product.productPrice}</td>
+                                        </c:if>
+                                        <td class="col-md-2" style="text-align: center">$${cartItem.totalPrice}</td>
                                     </tr>
                                 </c:forEach>
 
@@ -79,7 +90,7 @@
                                         <h4><strong>Grand Total:</strong></h4>
                                     </td>
                                     <td class="text-center text-danger">
-                                        <h4><strong>$ ${order.cart.grandTotal}</strong></h4>
+                                        <h4><strong>$${order.cart.grandTotal}</strong></h4>
                                     </td>
                                 </tr>
 

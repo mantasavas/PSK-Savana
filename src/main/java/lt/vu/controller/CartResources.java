@@ -10,7 +10,6 @@ import lt.vu.service.CustomerService;
 import lt.vu.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.User;
 import java.security.Principal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -46,11 +45,11 @@ public class CartResources {
         Product product = productService.getProductById(productId);
         List<CartItem> cartItems = cart.getCartItems();
 
-        for (int i=0; i < cartItems.size(); i++){
-            if(product.getProductId() == cartItems.get(i).getProduct().getProductId()){
-                CartItem cartItem = cartItems.get(i);
+        for (CartItem cartItem: cartItems) {
+            if (product.getProductId() == cartItem.getProduct().getProductId()){
                 cartItem.setQuantity(cartItem.getQuantity() + 1);
-                cartItem.setTotalPrice(product.getProductPrice()*cartItem.getQuantity());
+                cartItem.setTotalPrice(product.getActualPrice()  * cartItem.getQuantity());
+
                 cartItemService.addCartItem(cartItem);
 
                 return;
@@ -60,7 +59,7 @@ public class CartResources {
         CartItem cartItem = new CartItem();
         cartItem.setProduct(product);
         cartItem.setQuantity(1);
-        cartItem.setTotalPrice(product.getProductPrice()*cartItem.getQuantity());
+        cartItem.setTotalPrice(product.getActualPrice() * cartItem.getQuantity());
         cartItem.setCart(cart);
         cartItemService.addCartItem(cartItem);
     }

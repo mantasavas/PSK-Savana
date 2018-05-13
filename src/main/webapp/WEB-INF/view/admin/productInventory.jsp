@@ -1,6 +1,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../common/header.jsp"%>
+
+<jsp:useBean id="now" class="java.util.Date" />
 
 <script>
     $(document).ready(function(){
@@ -30,13 +33,25 @@
             </tr>
             </thead>
             <c:forEach items="${products}" var="product">
+                <fmt:parseDate value="${product.productDiscountExpirationDatetime}" var="discountExpire" pattern="yyyy-MM-dd HH:mm:ss" />
                 <tr>
                     <td><img src="<c:url value="/resources/images/${product.productId}.png" /> " alt="image"
                              style="width: 50%"/></td>
                     <td >${product.productName}</td>
                     <td>${product.productCategory}</td>
                     <td>${product.productCondition}</td>
-                    <td>$${product.productPrice}</td>
+                    <c:if test="${discountExpire > now}">
+                        <td>
+                            <a>$${product.actualPrice}</a>
+                            <c:if test="${product.productDiscountPercentage > 0}">
+                                <a style="text-decoration: line-through;">$${product.productPrice}</a>
+                                <a style="color: red;">-${product.productDiscountPercentage}%</a>
+                            </c:if>
+                        </td>
+                    </c:if>
+                    <c:if test="${discountExpire <= now}">
+                        <td>$${product.productPrice}</td>
+                    </c:if>
                     <td>
                         <a href="<spring:url value="/product/viewProduct/${product.productId}"/>" class="btn btn-primary">Info</a>
                         <a href="<spring:url value="/admin/product/deleteProduct/${product.productId}"/>" class="btn btn-danger">Delete</a>
