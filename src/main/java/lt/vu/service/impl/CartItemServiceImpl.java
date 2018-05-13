@@ -3,7 +3,7 @@ package lt.vu.service.impl;
 import lt.vu.dao.api.CartItemDao;
 import lt.vu.model.Cart;
 import lt.vu.model.CartItem;
-import lt.vu.service.CartItemService;
+import lt.vu.service.api.CartItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

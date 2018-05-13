@@ -1,8 +1,8 @@
 package lt.vu.controller.admin;
 
 import lt.vu.model.Product;
-import lt.vu.service.ExcelProductListReport;
-import lt.vu.service.ProductService;
+import lt.vu.service.impl.ExcelProductListReport;
+import lt.vu.service.api.ProductService;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;

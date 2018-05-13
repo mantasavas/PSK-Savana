@@ -2,7 +2,7 @@ package lt.vu.dao.impl;
 
 import lt.vu.dao.api.CartDao;
 import lt.vu.model.Cart;
-import lt.vu.service.CustomerOrderService;
+import lt.vu.service.api.CustomerOrderService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

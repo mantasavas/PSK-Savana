@@ -3,9 +3,9 @@ package lt.vu.controller;
 import lt.vu.model.Cart;
 import lt.vu.model.Customer;
 import lt.vu.model.CustomerOrder;
-import lt.vu.service.CartService;
-import lt.vu.service.CustomerOrderService;
-import lt.vu.service.CustomerService;
+import lt.vu.service.api.CartService;
+import lt.vu.service.api.CustomerOrderService;
+import lt.vu.service.api.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.security.Principal;
 

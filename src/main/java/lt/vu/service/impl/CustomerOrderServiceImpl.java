@@ -4,8 +4,8 @@ import lt.vu.dao.api.CustomerOrderDao;
 import lt.vu.model.Cart;
 import lt.vu.model.CartItem;
 import lt.vu.model.CustomerOrder;
-import lt.vu.service.CartService;
-import lt.vu.service.CustomerOrderService;
+import lt.vu.service.api.CartService;
+import lt.vu.service.api.CustomerOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

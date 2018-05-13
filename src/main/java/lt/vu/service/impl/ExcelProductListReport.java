@@ -1,4 +1,4 @@
-package lt.vu.service;
+package lt.vu.service.impl;
 
 import lt.vu.model.Product;
 import org.apache.poi.ss.usermodel.Row;

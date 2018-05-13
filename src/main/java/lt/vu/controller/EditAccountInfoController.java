@@ -1,9 +1,8 @@
 package lt.vu.controller;
 
 import lt.vu.model.Customer;
-import lt.vu.service.CustomerService;
+import lt.vu.service.api.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.security.Principal;
 import org.springframework.stereotype.Controller;
