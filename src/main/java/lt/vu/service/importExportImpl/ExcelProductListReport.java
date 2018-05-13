@@ -1,4 +1,4 @@
-package lt.vu.service.impl;
+package lt.vu.service.importExportImpl;
 
 import lt.vu.model.Product;
 import org.apache.poi.ss.usermodel.Row;
@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
+
 
 public class ExcelProductListReport extends AbstractXlsView {
 
@@ -32,6 +33,8 @@ public class ExcelProductListReport extends AbstractXlsView {
         header.createCell(5).setCellValue("Condition");
         header.createCell(6).setCellValue("Status");
         header.createCell(7).setCellValue("Manufacturer");
+        header.createCell(8).setCellValue("Discount");
+        header.createCell(9).setCellValue("Discount Expiration");
 
         int rowNum = 1;
 
@@ -46,6 +49,8 @@ public class ExcelProductListReport extends AbstractXlsView {
             row.createCell(5).setCellValue(product.getProductCondition());
             row.createCell(6).setCellValue(product.getProductStatus());
             row.createCell(7).setCellValue(product.getProductManufacturer());
+            row.createCell(8).setCellValue(product.getProductDiscountPercentage());
+            row.createCell(9).setCellValue(product.getProductDiscountExpirationDatetime());
         }
     }
 }

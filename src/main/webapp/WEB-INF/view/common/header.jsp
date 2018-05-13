@@ -34,11 +34,14 @@
     <link href="<c:url value="/resources/css/scroller.css" />" rel="stylesheet">
     <!-- font awesome (icons) -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+    <script src="<c:url value="/resources/js/importExportController.js" /> "></script>
+    <script src="<c:url value="/resources/js/productImportExport.js" /> "></script>
 </head>
 
 <!-- NAVBAR
 ================================================== -->
-<body>
+<body ng-app="importExportApp" >
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <img width="35" height="35" style="margin-right: 25px" src="<c:url value="/resources/images/logo.ico" />">
@@ -57,7 +60,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/about"/>">About</a>
                 </li>
-                
                 <c:if test="${pageContext.request.userPrincipal.name == 'admin'}">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Resources</a>
@@ -101,4 +103,22 @@
             <%--</form>--%>
         </div>
     </nav>
+
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exportConfirmation" aria-hidden="true" id="download-modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Your document is ready to download!</h4>
+                </div>
+                <div class="modal-footer" ng-controller="importExportController" id="importExcelis">
+                    <button type="button" class="btn btn-default" id="download-btn-yes" onclick="document.getElementById('downloadExcel').submit();">Download</button>
+                    <button type="button" class="btn btn-primary" id="download-btn-no">Later</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form action="/admin/generateProductExcel/products" method="GET" id="downloadExcel">
+        <input type="hidden" name="type" value="xls" />
+    </form>
 </header>
