@@ -1,52 +1,115 @@
 package lt.vu.controller.admin;
 
 import lt.vu.model.Product;
-import lt.vu.service.ExcelProductListReport;
+import lt.vu.service.importExportImpl.ExcelProductListReport;
 import lt.vu.service.ProductService;
+import lt.vu.service.importExportImpl.ImportExportImpl;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Future;
 
 @Controller
+@Scope("session")
 @RequestMapping(value="/admin")
 public class AdminProductExportImport {
-
     @Autowired
-    private ProductService productService;
+    private ImportExportImpl importExportservice;
+
+    int check = 0;
+
+    private ModelAndView excelModel;
+    private Future<ModelAndView> excelModelFuture = null;
 
     @RequestMapping(value="/generateProductExcel/products", method = RequestMethod.GET)
     public ModelAndView userListReport(HttpServletRequest req, HttpServletResponse res){
-
+        System.out.println("Inside controler");
         String typeReport = req.getParameter("type");
 
-        // Get all available products from database
-        List<Product> products = productService.getProducts();
 
-        // Check if url get request parameter contains xls, if yes download excel document with all products from db
-        if(typeReport != null && typeReport.equals("xls")) {
-            return new ModelAndView(new ExcelProductListReport(), "productList", products);
+        if(typeReport != null) {
+            excelModelFuture = importExportservice.asyncImportExcel(req, typeReport);
+        }else{
+            // If no parameter specified return product list...
+            excelModel = new ModelAndView("admin/productListExport", "productList", null);
         }
 
-        // If no parameter specified return product list...
-        return new ModelAndView("admin/productListExport", "productList", products);
+        /*
+        int index = 0;
+        while (typeReport != null) {
+            System.out.println("========================================================================================");
+            System.out.println("Future " + excelModelFuture);
+            System.out.println("Is done " + excelModelFuture.isDone());
+            if (excelModelFuture != null && excelModelFuture.isDone()) {
+                System.out.println("Result from asynchronous process - ");
+                try {
+                    excelModel = excelModelFuture.get();
+                    System.out.println("Succesfully received! ");
+                }catch (Exception ex)
+                {
+                    System.out.println("Something went wrong while getting future! Stack trace: " + ex.toString());
+                }
+                break;
+            }
+            try{ Thread.sleep(1000);} catch (Exception ex) {};
+            System.out.println("Continue doing something else. " + index++ );
+            System.out.println("========================================================================================");
+        }
+        */
+        System.out.println("exiting controler");
+        return excelModel;
+    }
+
+
+    @RequestMapping(value = "/importProductExcel/isReadyFile", method=RequestMethod.GET)
+    @ResponseBody
+    public Map checkFileAvailability(Model model){
+        System.out.println("===================================================================================================================" + check++);
+        if (excelModelFuture != null && excelModelFuture.isDone()){
+            return Collections.singletonMap("response", "true");
+        }
+        else { return Collections.singletonMap("response", "false"); }
+
+    }
+
+    @RequestMapping(value = "/importProductExcel/fileExport", method = RequestMethod.GET)
+    public ModelAndView sendExcelFile(Model model){
+        if (excelModelFuture != null && excelModelFuture.isDone()){
+            try {
+                return excelModelFuture.get();
+            }catch (Exception ex)
+            {
+                System.out.println("Exception occured while getting file! " + ex.toString());
+            }
+        }
+
+        return null;
     }
 
     @RequestMapping("/importProductExcel/excelFile")
     public String getProducts(Model model){
         return "admin/productListImport";
     }
+
+
+
 
     @RequestMapping(value = "/importProductExcel/excelFile", method = RequestMethod.POST)
     public String importProductExcelFile(Model model, MultipartFile file){
@@ -89,7 +152,7 @@ public class AdminProductExportImport {
             workbook.close();
 
             // Persisting product data to database
-            productService.addProducts(products);
+            //productService.addProducts(products);
             model.addAttribute("products", products);
 
         } catch (Exception e) {

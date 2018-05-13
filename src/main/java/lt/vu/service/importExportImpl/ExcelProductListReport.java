@@ -1,15 +1,18 @@
-package lt.vu.service;
+package lt.vu.service.importExportImpl;
 
 import lt.vu.model.Product;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.view.document.AbstractXlsView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
+
 
 public class ExcelProductListReport extends AbstractXlsView {
 
@@ -37,6 +40,7 @@ public class ExcelProductListReport extends AbstractXlsView {
 
         // Populating xls rows with products data
         for(Product product : list) {
+            System.out.println("x times");
             Row row = sheet.createRow(rowNum++);
             row.createCell(0).setCellValue(product.getProductId());
             row.createCell(1).setCellValue(product.getProductName());
