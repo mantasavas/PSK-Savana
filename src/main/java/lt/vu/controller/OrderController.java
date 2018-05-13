@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -35,6 +37,7 @@ public class OrderController {
         CustomerOrder customerOrder = new CustomerOrder();
         customerOrder.setStatus("Accepted");
         customerOrder.setRating(0);
+        customerOrder.setOrderDatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
         Cart cart = cartService.getCartById(cartId);
         customerOrder.setCart(cart);

@@ -2,8 +2,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ include file="/WEB-INF/view/common/header.jsp" %>
 
-<jsp:useBean id="now" class="java.util.Date" />
-
 <!-- Star CSS -->
 <link href="<c:url value="/resources/css/star.css" />" rel="stylesheet">
 
@@ -36,7 +34,7 @@
             </thead>
             <c:forEach items="${orderList}" var="order">
                 <tr>
-                    <td>${now}</td>
+                    <td>${order.orderDatetime}</td>
                     <td>$${order.cart.grandTotal}</td>
                     <%--<td>--%>
                         <%--<c:forEach items="${order.cart.cartItems}" var="item">--%>
