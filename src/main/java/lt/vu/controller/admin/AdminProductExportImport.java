@@ -1,8 +1,8 @@
 package lt.vu.controller.admin;
 
 import lt.vu.model.Product;
-import lt.vu.service.importExportImpl.ExcelProductListReport;
-import lt.vu.service.ProductService;
+
+import lt.vu.service.impl.ProductServiceImpl;
 import lt.vu.service.importExportImpl.ImportExportImpl;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -35,6 +35,9 @@ public class AdminProductExportImport {
 
     int check = 0;
     private boolean downloadedFile = true;
+
+    @Autowired
+    private ProductServiceImpl productService;
 
     private ModelAndView excelModel;
     private Future<ModelAndView> excelModelFuture = null;
@@ -140,19 +143,22 @@ public class AdminProductExportImport {
     public String importProductExcelFile(Model model, MultipartFile file){
         System.out.println("Inside importProductExcelFile()");
 
+        List<Product> products = new ArrayList<>();
+
         try {
-            List<Product> products = new ArrayList<>();
             int i = 0;
             // Creates a workbook object from the uploaded excelfile
             HSSFWorkbook workbook = new HSSFWorkbook(file.getInputStream());
             // Creates a worksheet object representing the first sheet
             HSSFSheet worksheet = workbook.getSheetAt(0);
+
             // Reads the data in excel file until last row is encountered
             while (i <= worksheet.getLastRowNum()) {
                 // Creates an object for the product Model
                 Product product = new Product();
                 // Creates an object representing a single row in excel
                 HSSFRow row = worksheet.getRow(i++);
+
 
                 if(i != 1) {
 
@@ -170,14 +176,31 @@ public class AdminProductExportImport {
                     product.setProductStatus(row.getCell(6).getStringCellValue());
                     // Setting product Manufacturer
                     product.setProductManufacturer(row.getCell(7).getStringCellValue());
+                    // Setting product discount percentage
+                    product.setProductDiscountPercentage((int) row.getCell(8).getNumericCellValue());
+                    // Setting product product discount expiration date
+                    product.setProductDiscountExpirationDatetime(row.getCell(9).getStringCellValue());
+
+                    /*
+                    System.out.println(product.getProductName());
+                    System.out.println(product.getProductCategory());
+                    System.out.println(product.getProductDescription());
+                    System.out.println(product.getProductPrice());
+                    System.out.println(product.getProductCondition());
+                    System.out.println(product.getProductStatus());
+                    System.out.println(product.getProductManufacturer());
+                    System.out.println(product.getProductDiscountExpirationDatetime());
+                    System.out.println(product.getProductDiscountPercentage());
+                    */
 
                     products.add(product);
+
                 }
             }
             workbook.close();
 
             // Persisting product data to database
-            //productService.addProducts(products);
+            productService.addProducts(products);
             model.addAttribute("products", products);
 
         } catch (Exception e) {

@@ -1,4 +1,4 @@
-package lt.vu.service;
+package lt.vu.service.api;
 
 import lt.vu.model.Cart;
 

@@ -56,6 +56,16 @@
         </div>
 
         <div class="form-group">
+            <label for="discountPercentage">Discount (%)</label><form:errors path="productDiscountPercentage" cssStyle="color: red" />
+            <form:input path="productDiscountPercentage" id="discountPercentage" class="form-Control"/>
+        </div>
+
+        <div class="form-group">
+            <label for="discountExpirationDate">Discount expiration date (yyyy-mm-dd hh:mm:ss)</label><form:errors path="productDiscountExpirationDatetime" cssStyle="color: red" />
+            <form:input path="productDiscountExpirationDatetime" id="discountExpirationDate" class="form-Control"/>
+        </div>
+
+        <div class="form-group">
             <label class="control-label" for="productImage">Upload Picture</label>
             <form:input id="productImage" path="productImage" type="file" class="form:input-large" />
         </div>

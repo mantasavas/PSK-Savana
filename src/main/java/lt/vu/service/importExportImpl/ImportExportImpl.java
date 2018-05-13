@@ -1,7 +1,7 @@
 package lt.vu.service.importExportImpl;
 
 import lt.vu.model.Product;
-import lt.vu.service.ProductService;
+import lt.vu.service.api.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Async;
@@ -45,7 +45,7 @@ public class ImportExportImpl {
         products = productService.getProducts();
         int elements = products.size() - 5;
         if (elements < 0)
-            elements = products.size() - 1;
+            elements = products.size();
 
         return products.subList(0, elements);
     }

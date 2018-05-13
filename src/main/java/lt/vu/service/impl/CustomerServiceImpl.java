@@ -2,7 +2,7 @@ package lt.vu.service.impl;
 
 import lt.vu.dao.api.CustomerDao;
 import lt.vu.model.Customer;
-import lt.vu.service.CustomerService;
+import lt.vu.service.api.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -5,6 +5,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 @Entity
@@ -45,5 +47,9 @@ public class CustomerOrder implements Serializable {
     @Getter @Setter
     private int rating;
 
-    //date field??
+    @NotNull
+    @Pattern(regexp = "^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])\\s+\\d{2}:\\d{2}:\\d{2}$",
+            message = "Datetime must match format: yyyy-mm-dd hh:mm:ss")
+    @Getter @Setter
+    private String orderDatetime;
 }

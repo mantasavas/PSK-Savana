@@ -205,7 +205,7 @@
                 <c:if test="${pageContext.request.userPrincipal.name != null}">
 
                     <c:if test="${pageContext.request.userPrincipal.name == 'admin'}">
-                        <li><a class="nav-link" href="<c:url value="/admin" />">Admin panel</a></li>
+                        <li><a class="nav-link" href="<c:url value="/admin" />">Admin</a></li>
                     </c:if>
 
                     <c:if test="${pageContext.request.userPrincipal.name != 'admin'}">

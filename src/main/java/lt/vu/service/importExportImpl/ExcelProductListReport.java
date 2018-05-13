@@ -4,8 +4,6 @@ import lt.vu.model.Product;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.view.document.AbstractXlsView;
 
 import javax.servlet.http.HttpServletRequest;

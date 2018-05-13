@@ -3,7 +3,7 @@ package lt.vu.controller;
 import lt.vu.model.BillingAddress;
 import lt.vu.model.Customer;
 import lt.vu.model.ShippingAddress;
-import lt.vu.service.CustomerService;
+import lt.vu.service.api.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;

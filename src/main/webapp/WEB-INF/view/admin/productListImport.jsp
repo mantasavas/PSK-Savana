@@ -17,18 +17,18 @@
     $(document).ready(function(){
         var modalConfirm = function(callback) {
 
-            $("#btn-confirm").on("click", function () {
-                $("#my-modal").modal('show');
+            $("#btn-confirm-import").on("click", function () {
+                $("#import-excel-file").modal('show');
             });
 
-            $("#modal-btn-yes").on("click", function () {
+            $("#modal-btn-yes-import").on("click", function () {
                 callback(true);
-                $("#my-modal").modal('hide');
+                $("#import-excel-file").modal('hide');
             });
 
-            $("#modal-btn-no").on("click", function () {
+            $("#modal-btn-no-import").on("click", function () {
                 callback(false);
-                $("#my-modal").modal('hide');
+                $("#import-excel-file").modal('hide');
             });
         }
 
@@ -51,11 +51,11 @@
             <c:url value="/admin/importProductExcel/excelFile" var="uploadFileUrl" />
             <form name="import" method="post" enctype="multipart/form-data" action="${uploadFileUrl}?${_csrf.parameterName}=${_csrf.token}">
                 <p class="file-input"><input type="file" name="file" accept=".xls,.xlsx" /></p>
-                <p class="file-submit-button"><button type="button" class="btn btn-warning" id="btn-confirm">Import Excel</button></p>
+                <p class="file-submit-button"><button type="button" class="btn btn-warning" id="btn-confirm-import">Import Excel</button></p>
             </form>
         </div>
 
-        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exportConfirmation" aria-hidden="true" id="my-modal">
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exportConfirmation" aria-hidden="true" id="import-excel-file">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -63,8 +63,8 @@
                         <h4 class="modal-title" id="myModalLabel">Do you really want import data?</h4>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" id="modal-btn-yes">Confirm</button>
-                        <button type="button" class="btn btn-primary" id="modal-btn-no">Cancel</button>
+                        <button type="button" class="btn btn-default" id="modal-btn-yes-import">Confirm</button>
+                        <button type="button" class="btn btn-primary" id="modal-btn-no-import">Cancel</button>
                     </div>
                 </div>
             </div>

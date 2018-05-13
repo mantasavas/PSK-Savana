@@ -2,7 +2,7 @@ package lt.vu.service.impl;
 
 import lt.vu.dao.api.ProductDao;
 import lt.vu.model.Product;
-import lt.vu.service.ProductService;
+import lt.vu.service.api.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
