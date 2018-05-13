@@ -44,32 +44,20 @@ public class AdminProductExportImport {
 
     @RequestMapping(value="/generateProductExcel/products", method = RequestMethod.GET)
     public ModelAndView userListReport(HttpServletRequest req, HttpServletResponse res){
-        System.out.println("Inside controler");
         String typeReport = req.getParameter("type");
-
-
 
         if(typeReport != null && downloadedFile == true) {
             excelModelFuture = importExportservice.asyncImportExcel(req, typeReport);
             downloadedFile = false;
         }
 
-
-
-
         if (typeReport != null && excelModelFuture.isDone()) {
-            System.out.println("8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888");
-
-            System.out.println(typeReport + " " + excelModelFuture.isDone());
-
             try {
                 excelModel = excelModelFuture.get();
-                System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ");
                 downloadedFile = true;
             } catch (Exception ex) {
                 System.out.println(ex.toString());
             }
-
         }
         else if (excelModelFuture != null && excelModelFuture.isDone()){
             // If no parameter specified return product list...
@@ -101,7 +89,6 @@ public class AdminProductExportImport {
             System.out.println("========================================================================================");
         }
         */
-        System.out.println("exiting controler");
         return excelModel;
     }
 
@@ -109,12 +96,10 @@ public class AdminProductExportImport {
     @RequestMapping(value = "/importProductExcel/isReadyFile", method=RequestMethod.GET)
     @ResponseBody
     public Map checkFileAvailability(Model model){
-        System.out.println("===================================================================================================================" + check++);
         if (excelModelFuture != null && excelModelFuture.isDone()){
             return Collections.singletonMap("response", "true");
         }
         else { return Collections.singletonMap("response", "false"); }
-
     }
 
     @RequestMapping(value = "/importProductExcel/fileExport", method = RequestMethod.GET)

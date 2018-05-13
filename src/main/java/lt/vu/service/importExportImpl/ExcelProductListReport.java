@@ -40,7 +40,6 @@ public class ExcelProductListReport extends AbstractXlsView {
 
         // Populating xls rows with products data
         for(Product product : list) {
-            System.out.println("x times");
             Row row = sheet.createRow(rowNum++);
             row.createCell(0).setCellValue(product.getProductId());
             row.createCell(1).setCellValue(product.getProductName());
