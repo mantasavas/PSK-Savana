@@ -35,7 +35,7 @@
         modalConfirm(function(confirm){
             if(confirm){
                 // If administrator confirmed!
-                window.location = "/";
+                window.location = "/admin/generateProductExcel/products/?type=xls";
             }else{
                 // If administrator canceled! Execute logic here...
             }
