@@ -20,6 +20,8 @@ public class ImportExportImpl {
     @Autowired
     private ProductService productService;
 
+    private List<Product> products = null;
+
     @Async
     public Future<ModelAndView> asyncImportExcel(HttpServletRequest req, String typeReport){
 
@@ -27,7 +29,7 @@ public class ImportExportImpl {
         try{ Thread.sleep(8000);} catch (Exception ex) {};
 
         // Get all available products from database
-        List<Product> products = productService.getProducts();
+        products = productService.getProducts();
 
         // Check if url get request parameter contains xls, if yes download excel document with all products from db
         if(typeReport != null && typeReport.equals("xls")) {
@@ -37,5 +39,18 @@ public class ImportExportImpl {
 
         // If no parameter specified return product list...
         return new AsyncResult<>(new ModelAndView("admin/productListExport", "productList", products));
+    }
+
+    public List<Product> getProducts() {
+        products = productService.getProducts();
+        int elements = products.size() - 5;
+        if (elements < 0)
+            elements = products.size() - 1;
+
+        return products.subList(0, elements);
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

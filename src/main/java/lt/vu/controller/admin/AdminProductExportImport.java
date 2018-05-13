@@ -34,6 +34,7 @@ public class AdminProductExportImport {
     private ImportExportImpl importExportservice;
 
     int check = 0;
+    private boolean downloadedFile = true;
 
     private ModelAndView excelModel;
     private Future<ModelAndView> excelModelFuture = null;
@@ -44,11 +45,35 @@ public class AdminProductExportImport {
         String typeReport = req.getParameter("type");
 
 
-        if(typeReport != null) {
+
+        if(typeReport != null && downloadedFile == true) {
             excelModelFuture = importExportservice.asyncImportExcel(req, typeReport);
-        }else{
+            downloadedFile = false;
+        }
+
+
+
+
+        if (typeReport != null && excelModelFuture.isDone()) {
+            System.out.println("8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888");
+
+            System.out.println(typeReport + " " + excelModelFuture.isDone());
+
+            try {
+                excelModel = excelModelFuture.get();
+                System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ");
+                downloadedFile = true;
+            } catch (Exception ex) {
+                System.out.println(ex.toString());
+            }
+
+        }
+        else if (excelModelFuture != null && excelModelFuture.isDone()){
             // If no parameter specified return product list...
-            excelModel = new ModelAndView("admin/productListExport", "productList", null);
+            excelModel = new ModelAndView("admin/productListExport", "productList", importExportservice.getProducts());
+
+        }else {
+            excelModel = new ModelAndView("admin/productListExport", "productList", importExportservice.getProducts());
         }
 
         /*
@@ -93,7 +118,7 @@ public class AdminProductExportImport {
     public ModelAndView sendExcelFile(Model model){
         if (excelModelFuture != null && excelModelFuture.isDone()){
             try {
-                return excelModelFuture.get();
+                return new ModelAndView("admin/productListExport", "productList", excelModelFuture.get());
             }catch (Exception ex)
             {
                 System.out.println("Exception occured while getting file! " + ex.toString());

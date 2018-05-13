@@ -11,7 +11,6 @@
         });
     });
 
-
 </script>
 
     <div class="container-wrapper mt-4">
@@ -19,10 +18,8 @@
             <div class="page-header">
                 <h1>Products to export</h1>
                 <p class="lead">View all products that would be exported to Excel file!</p>
-                <spring:url value="/admin/generateReport/report/?type=xls" var="xlsURL"/>
-                <p><button type="button" class="btn btn-warning" id="btn-confirm">Download Excel</button></p>
-                <p> {{checkValue}} </p>
-                <a ng-href="{{ fileUrl }}" download="file.txt">download</a>
+                <spring:url value="/admin/importProductExcel/fileExport" var="xlsURL"/>
+                <p><button type="button" class="btn btn-warning" id="btn-confirm" >Download Excel</button></p>
             </div>
 
             <table class="table table-striped table-hover">

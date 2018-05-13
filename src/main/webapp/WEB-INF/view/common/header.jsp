@@ -81,6 +81,7 @@
 
                 $("#download-btn-yes").on("click", function () {
                     callback(true);
+
                     $("#download-modal").modal('hide');
                 });
 
@@ -257,10 +258,13 @@
                     <h4 class="modal-title" id="myModalLabel">Your document is ready to download!</h4>
                 </div>
                 <div class="modal-footer" ng-controller="importExportController" id="importExcelis">
-                    <button type="button" class="btn btn-default" id="download-btn-yes">Download</button>
+                    <button type="button" class="btn btn-default" id="download-btn-yes" onclick="document.getElementById('downloadExcel').submit();">Download</button>
                     <button type="button" class="btn btn-primary" id="download-btn-no">Later</button>
                 </div>
             </div>
         </div>
     </div>
+    <form action="/admin/generateProductExcel/products" method="GET" id="downloadExcel">
+        <input type="hidden" name="type" value="xls" />
+    </form>
 </header>
