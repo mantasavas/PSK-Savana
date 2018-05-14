@@ -62,6 +62,16 @@ public class CustomerOrderDaoImpl implements CustomerOrderDao {
         query.executeUpdate();
     }
 
+    public void writeOrderFeedback(int orderId, String feedback) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Query query = session.createQuery("update CustomerOrder set feedback = :customerFeedback where customerOrderId = :id");
+        query.setParameter("customerFeedback", feedback);
+        query.setParameter("id", orderId);
+
+        query.executeUpdate();
+    }
+
     public CustomerOrder getOrderById(int orderId) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(CustomerOrder.class, orderId);

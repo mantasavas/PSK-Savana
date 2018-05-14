@@ -1,8 +1,10 @@
 package lt.vu.controller.admin;
 
+import lt.vu.model.CustomerOrder;
 import lt.vu.service.api.CustomerOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,5 +21,14 @@ public class AdminOrder {
         customerOrderService.setOrderStatus(orderId, status);
 
         return "redirect:/admin/orders";
+    }
+
+    @RequestMapping("/{orderId}/feedback")
+    public String readFeedback(@PathVariable("orderId") int orderId, Model model) {
+        CustomerOrder order = customerOrderService.getOrderById(orderId);
+        model.addAttribute("feedback", order.getFeedback());
+        model.addAttribute("role", "admin");
+
+        return "readOrderFeedback";
     }
 }

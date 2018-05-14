@@ -9,6 +9,7 @@ import lt.vu.service.api.CustomerOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -29,13 +30,13 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         return customerOrderDao.getCustomerOrders(customerId);
     }
 
-    public double getCustomerOrderGrandTotal(int cartId) {
-        double grandTotal = 0;
+    public BigDecimal getCustomerOrderGrandTotal(int cartId) {
+        BigDecimal grandTotal = new BigDecimal(0);
         Cart cart = cartService.getCartById(cartId);
         List<CartItem> cartItems = cart.getCartItems();
 
         for (CartItem item : cartItems){
-            grandTotal += item.getTotalPrice();
+            grandTotal = grandTotal.add(item.getTotalPrice());
         }
 
         return grandTotal;
@@ -54,6 +55,11 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     @Override
     public void rateOrder(int orderId, int rating) {
         customerOrderDao.rateOrder(orderId, rating);
+    }
+
+    @Override
+    public void writeOrderFeedback(int orderId, String feedback) {
+        customerOrderDao.writeOrderFeedback(orderId, feedback);
     }
 
     @Override

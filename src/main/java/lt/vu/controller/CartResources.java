@@ -10,6 +10,8 @@ import lt.vu.service.api.CustomerService;
 import lt.vu.service.api.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+
+import java.math.BigDecimal;
 import java.security.Principal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +50,8 @@ public class CartResources {
         for (CartItem cartItem: cartItems) {
             if (product.getProductId() == cartItem.getProduct().getProductId()){
                 cartItem.setQuantity(cartItem.getQuantity() + 1);
-                cartItem.setTotalPrice(product.getActualPrice()  * cartItem.getQuantity());
+                BigDecimal quantityBigDecimal = new BigDecimal(cartItem.getQuantity());
+                cartItem.setTotalPrice(product.getActualPrice().multiply(quantityBigDecimal));
 
                 cartItemService.addCartItem(cartItem);
 
@@ -59,7 +62,8 @@ public class CartResources {
         CartItem cartItem = new CartItem();
         cartItem.setProduct(product);
         cartItem.setQuantity(1);
-        cartItem.setTotalPrice(product.getActualPrice() * cartItem.getQuantity());
+        BigDecimal quantityBigDecimal = new BigDecimal(cartItem.getQuantity());
+        cartItem.setTotalPrice(product.getActualPrice().multiply(quantityBigDecimal));
         cartItem.setCart(cart);
         cartItemService.addCartItem(cartItem);
     }

@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -154,7 +155,7 @@ public class AdminProductExportImport {
                     // Setting product Description
                     product.setProductDescription(row.getCell(3).getStringCellValue());
                     // Setting product Price
-                    product.setProductPrice(row.getCell(4).getNumericCellValue());
+                    product.setProductPrice(new BigDecimal(row.getCell(4).getNumericCellValue()));
                     // Setting product Condition
                     product.setProductCondition(row.getCell(5).getStringCellValue());
                     // Setting product Status
