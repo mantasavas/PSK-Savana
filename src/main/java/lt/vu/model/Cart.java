@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,5 +32,5 @@ public class Cart implements Serializable {
     private Customer customer;
 
     @Getter @Setter
-    private double grandTotal;
+    private BigDecimal grandTotal;
 }

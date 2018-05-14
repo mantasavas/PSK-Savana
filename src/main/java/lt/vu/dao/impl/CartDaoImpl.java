@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 @Repository
 @Transactional
@@ -28,7 +29,7 @@ public class CartDaoImpl implements CartDao {
 
     public void update(Cart cart){
         int cartId = cart.getCartId();
-        double grandTotal = customerOrderService.getCustomerOrderGrandTotal(cartId);
+        BigDecimal grandTotal = customerOrderService.getCustomerOrderGrandTotal(cartId);
         cart.setGrandTotal(grandTotal);
 
         Session session = sessionFactory.getCurrentSession();

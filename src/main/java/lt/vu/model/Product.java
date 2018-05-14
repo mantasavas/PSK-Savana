@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,7 +38,7 @@ public class Product implements Serializable {
 
     @Min(value = 0, message = "The product price must not be less than zero!")
     @Getter @Setter
-    private double productPrice;
+    private BigDecimal productPrice;
 
     @Getter @Setter
     private String productCondition;
@@ -68,8 +69,8 @@ public class Product implements Serializable {
     @Getter @Setter
     private List<CartItem> cartItemList;
 
-    public double getActualPrice() {
-        double discount = 0;
+    public BigDecimal getActualPrice() {
+        BigDecimal discount = new BigDecimal(0);
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date discountExpirationDate = null;
@@ -81,9 +82,12 @@ public class Product implements Serializable {
         }
 
         if (discountExpirationDate != null && discountExpirationDate.after(new Date())) {
-            discount = productPrice * productDiscountPercentage / 100;
+            BigDecimal productDiscountPercentageBigDecimal = new BigDecimal(productDiscountPercentage);
+            BigDecimal oneHundredBigDecimal = new BigDecimal(100);
+            discount = productPrice.multiply(productDiscountPercentageBigDecimal)
+                    .divide(oneHundredBigDecimal, 2, BigDecimal.ROUND_HALF_UP);
         }
 
-        return productPrice - discount;
+        return productPrice.subtract(discount);
     }
 }

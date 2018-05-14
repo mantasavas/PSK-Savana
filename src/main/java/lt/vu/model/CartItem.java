@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
 public class CartItem implements Serializable {
@@ -32,6 +33,6 @@ public class CartItem implements Serializable {
     private int quantity;
 
     @Getter @Setter
-    private double totalPrice;
+    private BigDecimal totalPrice;
 
 }

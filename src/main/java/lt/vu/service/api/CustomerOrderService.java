@@ -2,6 +2,7 @@ package lt.vu.service.api;
 
 import lt.vu.model.CustomerOrder;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface CustomerOrderService {
@@ -10,7 +11,7 @@ public interface CustomerOrderService {
 
     List<CustomerOrder> getCustomerOrders(int customerId);
 
-    double getCustomerOrderGrandTotal(int cartId);
+    BigDecimal getCustomerOrderGrandTotal(int cartId);
 
     List<CustomerOrder> getAllOrders();
 
