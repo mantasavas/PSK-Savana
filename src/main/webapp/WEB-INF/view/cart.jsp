@@ -17,6 +17,7 @@
                     <a class="btn btn-danger pull-left" ng-click="clearCart()">Clear Cart</a>
                     <a href="<spring:url value="/order/${cartId}" />"
                        class="btn btn-success pull-right"><span class="glyphicon-shopping-cart glyphicon">Checkout</span></a>
+                    <a href="<spring:url value="pay"/>" class="btn btn-primary">DEBUG: Pay</a>
                 </div>
                 <table class="table table-hover">
                     <tr>
