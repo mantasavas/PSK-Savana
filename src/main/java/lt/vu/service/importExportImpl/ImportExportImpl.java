@@ -42,14 +42,7 @@ public class ImportExportImpl {
     }
 
     public List<Product> getProducts() {
-        products = productService.getProducts();
-        int elements = (products.size() - 30);
-        if (elements < 0)
-            elements = products.size();
-        else
-            elements = products.size() - (products.size() - 5);
-
-        return products.subList(0, elements);
+        return productService.getProducts();
     }
 
     public void setProducts(List<Product> products) {
