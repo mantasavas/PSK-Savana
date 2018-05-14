@@ -26,7 +26,7 @@ public class EditAccountInfoController {
 
     @RequestMapping("/customer/edit")
     public String editAccountInfo(Model model, Principal activeUser){
-        Customer customer = customerService.getCustomerByUsername(activeUser.getName());
+        Customer customer = customerService.getCustomerByEmail(activeUser.getName());
         model.addAttribute("customer", customer);
 
         return "editAccountInfo";
@@ -47,7 +47,7 @@ public class EditAccountInfoController {
                 return "editAccountInfo";
             }
 
-            if (customer.getUsername().equals(existingCustomer.getUsername())
+            if (customer.getCustomerEmail().equals(existingCustomer.getCustomerEmail())
                     && customer.getCustomerId() != existingCustomer.getCustomerId()) {
                 model.addAttribute("usernameMsg", "Username already exists");
                 return "editAccountInfo";

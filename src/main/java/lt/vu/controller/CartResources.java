@@ -42,7 +42,7 @@ public class CartResources {
     @RequestMapping(value = "/add/{productId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void addItem (@PathVariable(value = "productId") int productId, Principal activeUser){
-        Customer customer = customerService.getCustomerByUsername(activeUser.getName());
+        Customer customer = customerService.getCustomerByEmail(activeUser.getName());
         Cart cart = customer.getCart();
         Product product = productService.getProductById(productId);
         List<CartItem> cartItems = cart.getCartItems();

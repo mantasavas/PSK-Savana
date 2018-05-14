@@ -61,7 +61,7 @@ public class OrderController {
 
     @RequestMapping("/customer/orders")
     public String getOrders(Model model, Principal activeUser) {
-        Customer customer = customerService.getCustomerByUsername(activeUser.getName());
+        Customer customer = customerService.getCustomerByEmail(activeUser.getName());
         int customerId = customer.getCustomerId();
 
         List<CustomerOrder> customerOrders = customerOrderService.getCustomerOrders(customerId);
@@ -74,7 +74,7 @@ public class OrderController {
     public String rateOrder(@PathVariable("orderId") int orderId,
                             @Valid @PathVariable("rating") int rating,
                             Principal activeUser) throws AccessDeniedException {
-        Customer customer = customerService.getCustomerByUsername(activeUser.getName());
+        Customer customer = customerService.getCustomerByEmail(activeUser.getName());
         CustomerOrder customerOrder = customerOrderService.getOrderById(orderId);
 
         if (customer.getCustomerId() != customerOrder.getCustomer().getCustomerId()) {
@@ -118,7 +118,7 @@ public class OrderController {
         }
 
         CustomerOrder customerOrder = customerOrderService.getOrderById(orderId);
-        Customer customer = customerService.getCustomerByUsername(activeUser.getName());
+        Customer customer = customerService.getCustomerByEmail(activeUser.getName());
         if (customerOrder.getCustomer().getCustomerId() != customer.getCustomerId()) {
             throw new AccessDeniedException("You can only write feedback for order that belongs to you!");
         }

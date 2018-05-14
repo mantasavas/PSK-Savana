@@ -49,8 +49,8 @@ public class RegisterController {
                 return "registerCustomer";
             }
 
-            if (customer.getUsername().equals(existingCustomer.getUsername())) {
-                model.addAttribute("usernameMsg", "Username already exists");
+            if (customer.getCustomerEmail().equals(existingCustomer.getCustomerEmail())) {
+                model.addAttribute("emailMsg", "Email already exists");
                 return "registerCustomer";
             }
         }

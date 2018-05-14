@@ -38,13 +38,6 @@
         </div>
 
         <div class="form-group">
-            <label for="username">Username</label>
-            <span style="color: red">${usernameMsg}</span>
-            <form:errors path="username" cssStyle="color: red" />
-            <form:input path="username" id="username" class="form-Control" />
-        </div>
-
-        <div class="form-group">
             <label for="password">Password</label>
             <form:errors path="password" cssStyle="color: red" />
             <form:password path="password" id="password" class="form-Control" />

@@ -39,7 +39,7 @@
                 <tr>
                     <td>${order.customerOrderId}</td>
                     <td>${order.orderDatetime}</td>
-                    <td>${order.customer.username}</td>
+                    <td>${order.customer.customerEmail}</td>
                     <td>$${order.cart.grandTotal}</td>
                         <%--<td>--%>
                         <%--<c:forEach items="${order.cart.cartItems}" var="item">--%>

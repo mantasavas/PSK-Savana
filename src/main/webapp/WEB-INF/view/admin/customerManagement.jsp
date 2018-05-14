@@ -22,20 +22,20 @@
         <table class="table table-striped table-hover">
             <thead>
             <tr class="bg-success">
-                <th>Name</th>
+                <th>ID</th>
                 <th>Email</th>
+                <th>Name</th>
                 <th>Phone</th>
-                <th>Username</th>
                 <th>Enabled</th>
                 <th></th>
             </tr>
             </thead>
             <c:forEach items="${customerList}" var="customer">
                 <tr>
-                    <td>${customer.customerName}</td>
+                    <td>${customer.customerId}</td>
                     <td>${customer.customerEmail}</td>
+                    <td>${customer.customerName}</td>
                     <td>${customer.customerPhone}</td>
-                    <td>${customer.username}</td>
                     <td>${customer.enabled}</td>
                     <td>
                         <c:if test="${customer.enabled == false}">

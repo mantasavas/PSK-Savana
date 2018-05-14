@@ -30,13 +30,13 @@ public class CustomerDaoImpl implements CustomerDao {
         session.saveOrUpdate(customer.getAddress());
 
         Users newUser = new Users();
-        newUser.setUsername(customer.getUsername());
+        newUser.setUsername(customer.getCustomerEmail());
         newUser.setPassword(customer.getPassword());
         newUser.setEnabled(true);
         newUser.setCustomerId(customer.getCustomerId());
 
         Authorities newAuthorities = new Authorities();
-        newAuthorities.setUsername(customer.getUsername());
+        newAuthorities.setUsername(customer.getCustomerEmail());
         newAuthorities.setAuthority("ROLE_USER");
 
         session.saveOrUpdate(newUser);
@@ -64,7 +64,7 @@ public class CustomerDaoImpl implements CustomerDao {
         Users newUser = null;
         for (Users user: users) {
             if (user.getCustomerId() == customer.getCustomerId()) {
-                user.setUsername(customer.getUsername());
+                user.setUsername(customer.getCustomerEmail());
                 user.setPassword(customer.getPassword());
                 newUser = user;
                 break;
@@ -72,7 +72,7 @@ public class CustomerDaoImpl implements CustomerDao {
         }
 
         Authorities newAuthorities = new Authorities();
-        newAuthorities.setUsername(customer.getUsername());
+        newAuthorities.setUsername(customer.getCustomerEmail());
 
         session.saveOrUpdate(newUser);
         session.saveOrUpdate(newAuthorities);
@@ -139,10 +139,10 @@ public class CustomerDaoImpl implements CustomerDao {
         return customerList;
     }
 
-    public Customer getCustomerByUsername(String username) {
+    public Customer getCustomerByEmail(String email) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("from Customer where username = ?");
-        query.setString(0, username);
+        Query query = session.createQuery("from Customer where customerEmail = :email");
+        query.setParameter("email", email);
 
         return (Customer) query.uniqueResult();
     }

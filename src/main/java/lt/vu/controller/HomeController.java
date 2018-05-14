@@ -24,7 +24,7 @@ public class HomeController {
             Model model) {
 
         if (error != null) {
-            model.addAttribute("error", "Invalid username or password");
+            model.addAttribute("error", "Invalid email or password");
         }
 
         if (logout != null) {

@@ -29,10 +29,6 @@ public class Customer implements Serializable {
     @Getter @Setter
     private String customerPhone;
 
-    @NotEmpty(message = "The username must not be empty")
-    @Getter @Setter
-    private String username;
-
     @NotEmpty(message = "The password must not be empty")
     @Getter @Setter
     private String password;

@@ -4,7 +4,7 @@
     <div class="container">
         <div id="login-box">
 
-            <h2>Login with username and password</h2>
+            <h2>Login with email and password</h2>
 
             <c:if test="${not empty msg}">
                 <div class="msg">${msg}</div>
@@ -21,7 +21,7 @@
             <form name="loginForm" action="<c:url value="/login"/>" method="post">
 
                 <div class="form-group">
-                    <label for="username">Username:</label>
+                    <label for="username">Email:</label>
                     <input type="text" id="username" name="username" class="form-control" autocomplete="username"/>
                 </div>
 
