@@ -53,70 +53,36 @@
 
         <br/>
 
-        <h3>Billing Address:</h3>
-
-        <div class="form-group">
-            <label for="billingStreet">Street</label>
-            <form:input path="billingAddress.streetName" id="billingStreet" class="form-Control" />
-        </div>
-
-        <div class="form-group">
-            <label for="billingApartmentNumber">Apartment</label>
-            <form:input path="billingAddress.apartmentNumber" id="billingApartmentNumber" class="form-Control" />
-        </div>
-
-        <div class="form-group">
-            <label for="billingCity">City</label>
-            <form:input path="billingAddress.city" id="billingCity" class="form-Control" />
-        </div>
-
-        <div class="form-group">
-            <label for="billingState">State</label>
-            <form:input path="billingAddress.state" id="billingState" class="form-Control" />
-        </div>
-
-        <div class="form-group">
-            <label for="billingCountry">Country</label>
-            <form:input path="billingAddress.country" id="billingCountry" class="form-Control" />
-        </div>
-
-        <div class="form-group">
-            <label for="billingZip">ZIP code</label>
-            <form:input path="billingAddress.zipCode" id="billingZip" class="form-Control" />
-        </div>
-
-        <br/>
-
         <h3>Shipping Address:</h3>
 
         <div class="form-group">
             <label for="shippingStreet">Street</label>
-            <form:input path="shippingAddress.streetName" id="shippingStreet" class="form-Control" />
+            <form:input path="address.streetName" id="shippingStreet" class="form-Control" />
         </div>
 
         <div class="form-group">
             <label for="shippingApartmentNumber">Apartment</label>
-            <form:input path="shippingAddress.apartmentNumber" id="shippingApartmentNumber" class="form-Control" />
+            <form:input path="address.apartmentNumber" id="shippingApartmentNumber" class="form-Control" />
         </div>
 
         <div class="form-group">
             <label for="shippingCity">City</label>
-            <form:input path="shippingAddress.city" id="shippingCity" class="form-Control" />
+            <form:input path="address.city" id="shippingCity" class="form-Control" />
         </div>
 
         <div class="form-group">
             <label for="shippingState">State</label>
-            <form:input path="shippingAddress.state" id="shippingState" class="form-Control" />
+            <form:input path="address.state" id="shippingState" class="form-Control" />
         </div>
 
         <div class="form-group">
             <label for="shippingCountry">Country</label>
-            <form:input path="shippingAddress.country" id="shippingCountry" class="form-Control" />
+            <form:input path="address.country" id="shippingCountry" class="form-Control" />
         </div>
 
         <div class="form-group">
             <label for="shippingZip">ZIP code</label>
-            <form:input path="shippingAddress.zipCode" id="shippingZip" class="form-Control" />
+            <form:input path="address.zipCode" id="shippingZip" class="form-Control" />
         </div>
 
         <br/><br/>

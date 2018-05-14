@@ -28,14 +28,9 @@ public class CustomerOrder implements Serializable {
     private Customer customer;
 
     @OneToOne
-    @JoinColumn(name = "billingAddressId")
+    @JoinColumn(name = "addressId")
     @Getter @Setter
-    private BillingAddress billingAddress;
-
-    @OneToOne
-    @JoinColumn(name = "shippingAddressId")
-    @Getter @Setter
-    private ShippingAddress shippingAddress;
+    private Address address;
 
     @Getter @Setter
     private String status;

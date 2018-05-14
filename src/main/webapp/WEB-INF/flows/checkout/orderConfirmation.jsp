@@ -27,28 +27,15 @@
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <address>
                                     <strong>Shipping Address</strong><br/>
-                                        ${order.cart.customer.shippingAddress.streetName}
+                                        ${order.cart.customer.address.streetName}
                                     <br/>
-                                        ${order.cart.customer.shippingAddress.city}, ${order.cart.customer.shippingAddress.state}
+                                        ${order.cart.customer.address.city}, ${order.cart.customer.address.state}
                                     <br/>
-                                        ${order.cart.customer.shippingAddress.country}, ${order.cart.customer.shippingAddress.zipCode}
+                                        ${order.cart.customer.address.country}, ${order.cart.customer.address.zipCode}
                                 </address>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                                 <p>Shipping Date: <fmt:formatDate type="date" value="${now}"/></p>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <address>
-                                    <strong>Billing Address</strong><br/>
-                                        ${order.cart.customer.billingAddress.streetName}
-                                    <br/>
-                                        ${order.cart.customer.billingAddress.city}, ${order.cart.customer.billingAddress.state}
-                                    <br/>
-                                        ${order.cart.customer.billingAddress.country}, ${order.cart.customer.billingAddress.zipCode}
-                                </address>
                             </div>
                         </div>
 

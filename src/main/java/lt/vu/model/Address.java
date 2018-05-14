@@ -10,14 +10,14 @@ import javax.persistence.OneToOne;
 import java.io.Serializable;
 
 @Entity
-public class BillingAddress implements Serializable {
+public class Address implements Serializable {
 
-    private static final long serialVersionUID = 2016183085541552230L;
+    private static final long serialVersionUID = 989191150380037359L;
 
     @Id
     @GeneratedValue
     @Getter @Setter
-    private int billingAddressId;
+    private int addressId;
 
     @Getter @Setter
     private String streetName;
@@ -43,7 +43,7 @@ public class BillingAddress implements Serializable {
 
     @Override
     public String toString() {
-        return "BillingAddress{" +
+        return "Address{" +
                 "streetName='" + streetName + '\'' +
                 ", apartmentNumber='" + apartmentNumber + '\'' +
                 ", city='" + city + '\'' +
@@ -52,5 +52,4 @@ public class BillingAddress implements Serializable {
                 ", zipCode='" + zipCode + '\'' +
                 '}';
     }
-
 }

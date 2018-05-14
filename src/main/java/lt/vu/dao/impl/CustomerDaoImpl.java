@@ -24,12 +24,10 @@ public class CustomerDaoImpl implements CustomerDao {
     public void addCustomer(Customer customer) {
         Session session = sessionFactory.getCurrentSession();
 
-        customer.getBillingAddress().setCustomer(customer);
-        customer.getShippingAddress().setCustomer(customer);
+        customer.getAddress().setCustomer(customer);
 
         session.saveOrUpdate(customer);
-        session.saveOrUpdate(customer.getBillingAddress());
-        session.saveOrUpdate(customer.getShippingAddress());
+        session.saveOrUpdate(customer.getAddress());
 
         Users newUser = new Users();
         newUser.setUsername(customer.getUsername());
@@ -57,12 +55,10 @@ public class CustomerDaoImpl implements CustomerDao {
     public void updateCustomer(Customer customer) {
         Session session = sessionFactory.getCurrentSession();
 
-        customer.getBillingAddress().setCustomer(customer);
-        customer.getShippingAddress().setCustomer(customer);
+        customer.getAddress().setCustomer(customer);
 
         session.saveOrUpdate(customer);
-        session.saveOrUpdate(customer.getBillingAddress());
-        session.saveOrUpdate(customer.getShippingAddress());
+        session.saveOrUpdate(customer.getAddress());
 
         List<Users> users = getAllUsers();
         Users newUser = null;

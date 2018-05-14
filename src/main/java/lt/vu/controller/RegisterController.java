@@ -1,8 +1,7 @@
 package lt.vu.controller;
 
-import lt.vu.model.BillingAddress;
+import lt.vu.model.Address;
 import lt.vu.model.Customer;
-import lt.vu.model.ShippingAddress;
 import lt.vu.service.api.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,10 +27,8 @@ public class RegisterController {
     @RequestMapping("/register")
     public String registerCustomer(Model model){
         Customer customer = new Customer();
-        BillingAddress billingAddress = new BillingAddress();
-        ShippingAddress shippingAddress = new ShippingAddress();
-        customer.setBillingAddress(billingAddress);
-        customer.setShippingAddress(shippingAddress);
+        Address address = new Address();
+        customer.setAddress(address);
 
         model.addAttribute("customer", customer);
 

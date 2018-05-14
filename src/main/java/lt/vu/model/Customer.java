@@ -1,7 +1,6 @@
 package lt.vu.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -47,14 +46,9 @@ public class Customer implements Serializable {
     private boolean enabled;
 
     @OneToOne
-    @JoinColumn(name = "billingAddressId")
+    @JoinColumn(name = "addressId")
     @Getter @Setter
-    private BillingAddress billingAddress;
-
-    @OneToOne
-    @JoinColumn(name = "shippingAddressId")
-    @Getter @Setter
-    private ShippingAddress shippingAddress;
+    private Address address;
 
     @OneToOne
     @JoinColumn(name = "cartId")
