@@ -25,12 +25,13 @@
         <table class="table table-striped table-hover">
             <thead>
             <tr class="bg-success">
-                <th width="7%">ID</th>
-                <th width="18%">Date</th>
-                <th width="15%">Customer</th>
+                <th width="5%">ID</th>
+                <th width="15%">Date</th>
+                <th width="10%">Customer</th>
                 <th width="10%">Total</th>
                 <th width="10%">Status</th>
                 <th width="10%">Rating</th>
+                <th width="10%">Feedback</th>
                 <th width="30%">Change status</th>
             </tr>
             </thead>
@@ -49,7 +50,7 @@
                         <%--<td>${order.customerName}</td>--%>
                     <td>${order.status}</td>
                     <c:if test="${order.rating == 0}">
-                        <td><a>-</a></td>
+                        <td>-</td>
                     </c:if>
                     <c:if test="${order.rating > 0}">
                         <td>
@@ -64,6 +65,12 @@
                                 </div>
                             </div>
                         </td>
+                    </c:if>
+                    <c:if test="${order.feedback == null}">
+                        <td>-</td>
+                    </c:if>
+                    <c:if test="${order.feedback != null}">
+                        <td> <a style="color: inherit" href="<spring:url value="/admin/orders/${order.customerOrderId}/feedback"/>">${order.feedback}</a></td>
                     </c:if>
                     <td>
                         <a href="<spring:url value="/admin/orders/status/${order.customerOrderId}/Accepted"/>" class="btn btn-primary btn-sm">Accepted</a>

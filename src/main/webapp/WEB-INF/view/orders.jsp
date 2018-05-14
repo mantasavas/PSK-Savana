@@ -30,6 +30,7 @@
                 <%--<th>Items</th>--%>
                 <th>Status</th>
                 <th>Rating</th>
+                <th>Feedback</th>
             </tr>
             </thead>
             <c:forEach items="${orderList}" var="order">
@@ -44,6 +45,7 @@
                     <%--</td>--%>
                     <%--<td>${order.customerName}</td>--%>
                     <td>${order.status}</td>
+                    <%--display rating--%>
                     <c:if test="${order.rating > 0}">
                         <td>
                             <div class="container">
@@ -58,6 +60,7 @@
                             </div>
                         </td>
                     </c:if>
+                    <%--allow giving rate--%>
                     <c:if test="${order.status.equals(\"Delivered\") && order.rating == 0}">
                         <td>
                             <div class="container">
@@ -79,11 +82,25 @@
                                     <label for="star1" title="1 star"></label>
                                 </div>
                             </div>
-                        <%--<a href="<spring:url value="#"/>" class="btn btn-success">1</a>--%>
                         </td>
                     </c:if>
+                    <%--not delivered - can not rate--%>
                     <c:if test="${!order.status.equals(\"Delivered\") && order.rating == 0}">
-                        <td><a>-</a></td>
+                        <td>-</td>
+                    </c:if>
+                    <%--display feedback--%>
+                    <c:if test="${order.feedback != null}">
+                        <td><a style="color: inherit" href="<spring:url value="/customer/orders/${order.customerOrderId}/feedback"/>">${order.feedback}</a></td>
+                    </c:if>
+                    <%--allowing giving feedback--%>
+                    <c:if test="${order.status.equals(\"Delivered\") && order.feedback == null}">
+                        <td>
+                            <a href="<spring:url value="/customer/orders/${order.customerOrderId}/feedback"/>">Write feedback</a>
+                        </td>
+                    </c:if>
+                    <%--not delivered - can not give feedback--%>
+                    <c:if test="${!order.status.equals(\"Delivered\") && order.feedback == null}">
+                        <td>-</td>
                     </c:if>
                 </tr>
             </c:forEach>

@@ -45,10 +45,10 @@
                     <td>${product.productCondition}</td>
                     <c:if test="${discountExpire > now}">
                         <td>
-                            <a>$${product.actualPrice}</a>
+                            $${product.actualPrice}
                             <c:if test="${product.productDiscountPercentage > 0}">
-                                <a style="text-decoration: line-through;">$${product.productPrice}</a>
-                                <a style="color: red;">-${product.productDiscountPercentage}%</a>
+                                <span style="text-decoration: line-through;">$${product.productPrice}</span>
+                                <span style="color: red;">-${product.productDiscountPercentage}%</span>
                             </c:if>
                         </td>
                     </c:if>

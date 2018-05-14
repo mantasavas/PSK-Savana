@@ -27,9 +27,9 @@
                 <th width="20%">Photo</th>
                 <th width="15%">Product Name</th>
                 <th width="15%">Category</th>
-                <th width="15%">Condition</th>
-                <th width="10%">Price</th>
-                <th width="25%"></th>
+                <th width="10%">Condition</th>
+                <th width="20%">Price</th>
+                <th width="20%"></th>
             </tr>
             </thead>
             <c:forEach items="${products}" var="product">
@@ -42,10 +42,10 @@
                     <td>${product.productCondition}</td>
                     <c:if test="${discountExpire > now}">
                         <td>
-                            <a>$${product.actualPrice}</a>
+                            $${product.actualPrice}
                             <c:if test="${product.productDiscountPercentage > 0}">
-                                <a style="text-decoration: line-through;">$${product.productPrice}</a>
-                                <a style="color: red;">-${product.productDiscountPercentage}%</a>
+                                <span style="text-decoration: line-through;">$${product.productPrice}</span>
+                                <span style="color: red;">-${product.productDiscountPercentage}%</span>
                             </c:if>
                         </td>
                     </c:if>

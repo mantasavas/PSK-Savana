@@ -16,5 +16,7 @@ public interface CustomerOrderDao {
 
     void rateOrder(int orderId, int rating);
 
+    void writeOrderFeedback(int orderId, String feedback);
+
     CustomerOrder getOrderById(int orderId);
 }

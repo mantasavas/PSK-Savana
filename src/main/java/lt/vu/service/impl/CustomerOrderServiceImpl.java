@@ -57,6 +57,11 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     }
 
     @Override
+    public void writeOrderFeedback(int orderId, String feedback) {
+        customerOrderDao.writeOrderFeedback(orderId, feedback);
+    }
+
+    @Override
     public CustomerOrder getOrderById(int orderId) {
         return customerOrderDao.getOrderById(orderId);
     }
