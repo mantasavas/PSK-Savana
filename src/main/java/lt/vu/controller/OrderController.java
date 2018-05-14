@@ -36,13 +36,18 @@ public class OrderController {
     private CustomerService customerService;
 
     @RequestMapping("/order/{cartId}")
-    public String createOrder(@PathVariable("cartId") int cartId){
+    public String createOrder(@PathVariable("cartId") int cartId) {
+        Cart cart = cartService.getCartById(cartId);
+
+        if (cart.getCartItems().size() == 0) {
+            return "redirect:/checkout?cartId=" + cartId;
+        }
+
         CustomerOrder customerOrder = new CustomerOrder();
         customerOrder.setStatus("Accepted");
         customerOrder.setRating(0);
         customerOrder.setOrderDatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
-        Cart cart = cartService.getCartById(cartId);
         customerOrder.setCart(cart);
 
         Customer customer = cart.getCustomer();

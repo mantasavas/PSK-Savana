@@ -68,7 +68,7 @@
 
         <br/><br/>
 
-        <input type="submit" value="Next" class="btn btn-default" name="_eventId_customerInfoCollected" />
+        <input type="submit" value="Next" class="btn btn-primary" name="_eventId_customerInfoCollected" />
 
         <button class="btn btn-default" name="_eventId_cancel">Cancel</button>
 

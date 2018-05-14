@@ -105,7 +105,7 @@
 
                         <button class="btn btn-default" name="_eventId_backToCollectShippingDetail">Back</button>
 
-                        <input type="submit" value="Submit Order" class="btn btn-default" name="_eventId_orderConfirmed" />
+                        <input type="submit" value="Submit Order" class="btn btn-primary" name="_eventId_orderConfirmed" />
 
                         <button class="btn btn-default" name="_eventId_cancel">Cancel</button>
                     </div>
