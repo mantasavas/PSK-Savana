@@ -26,7 +26,7 @@
     </view-state>
 
     <action-state id="processOrder">
-        <evaluate expression="cartItemDaoImpl.removeAllCartItems(order.cart)" />
+        <evaluate expression="customerOrderDaoImpl.addCustomerOrder(order)" />
         <transition to="thankCustomer" />
     </action-state>
 

@@ -1,6 +1,9 @@
 package lt.vu.dao.impl;
 
+import lt.vu.dao.api.CartItemDao;
 import lt.vu.dao.api.CustomerOrderDao;
+import lt.vu.model.Cart;
+import lt.vu.model.Customer;
 import lt.vu.model.CustomerOrder;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -18,9 +23,25 @@ public class CustomerOrderDaoImpl implements CustomerOrderDao {
     @Autowired
     private SessionFactory sessionFactory;
 
+    @Autowired
+    private CartItemDao cartItemDao;
+
     public void addCustomerOrder(CustomerOrder customerOrder){
         Session session = sessionFactory.getCurrentSession();
+
+        Cart cart = customerOrder.getCart();
+
+        customerOrder.setStatus("Accepted");
+        customerOrder.setRating(0);
+        customerOrder.setOrderDatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+
+        Customer customer = cart.getCustomer();
+        customerOrder.setCustomer(customer);
+        customerOrder.setAddress(customer.getAddress());
+
         session.saveOrUpdate(customerOrder);
+        cartItemDao.removeAllCartItems(cart);
+
         session.flush();
     }
 

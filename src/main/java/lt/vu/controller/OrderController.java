@@ -1,9 +1,7 @@
 package lt.vu.controller;
 
-import lt.vu.model.Cart;
 import lt.vu.model.Customer;
 import lt.vu.model.CustomerOrder;
-import lt.vu.service.api.CartService;
 import lt.vu.service.api.CustomerOrderService;
 import lt.vu.service.api.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
 
 @Controller
 public class OrderController {
-
-    @Autowired
-    private CartService cartService;
 
     @Autowired
     private CustomerOrderService customerOrderService;
@@ -36,26 +30,8 @@ public class OrderController {
     private CustomerService customerService;
 
     @RequestMapping("/order/{cartId}")
-    public String createOrder(@PathVariable("cartId") int cartId) {
-        Cart cart = cartService.getCartById(cartId);
-
-        if (cart.getCartItems().size() == 0) {
-            return "redirect:/checkout?cartId=" + cartId;
-        }
-
-        CustomerOrder customerOrder = new CustomerOrder();
-        customerOrder.setStatus("Accepted");
-        customerOrder.setRating(0);
-        customerOrder.setOrderDatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-
-        customerOrder.setCart(cart);
-
-        Customer customer = cart.getCustomer();
-        customerOrder.setCustomer(customer);
-        customerOrder.setAddress(customer.getAddress());
-
-        customerOrderService.addCustomerOrder(customerOrder);
-
+    public String checkoutOrder(@PathVariable("cartId") int cartId) {
+        // return to checkout flow
         return "redirect:/checkout?cartId=" + cartId;
     }
 
