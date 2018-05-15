@@ -46,12 +46,6 @@ public class EditAccountInfoController {
                 model.addAttribute("emailMsg", "Email already exists");
                 return "editAccountInfo";
             }
-
-            if (customer.getCustomerEmail().equals(existingCustomer.getCustomerEmail())
-                    && customer.getCustomerId() != existingCustomer.getCustomerId()) {
-                model.addAttribute("usernameMsg", "Username already exists");
-                return "editAccountInfo";
-            }
         }
 
         if (!customer.getPassword().equals(customer.getPasswordRepeat())) {
@@ -61,6 +55,7 @@ public class EditAccountInfoController {
 
         String encryptedPassword = passwordEncoder.encode(customer.getPassword());
         customer.setPassword(encryptedPassword);
+        customer.setEnabled(true);
         customerService.updateCustomer(customer);
 
         return "editAccountInfoSuccess";
