@@ -36,13 +36,4 @@ public class CartController {
 
         return "cart";
     }
-
-    @RequestMapping("/pay")
-    @Transactional
-    public String pay() {
-        paymentService.pay();
-        System.out.println("Pay pressed");
-        return "cart";
-
-    }
 }

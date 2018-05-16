@@ -3,17 +3,30 @@ package lt.vu.service.impl;
 import lt.vu.dao.api.CustomerOrderDao;
 import lt.vu.model.Cart;
 import lt.vu.model.CartItem;
+import lt.vu.model.Customer;
 import lt.vu.model.CustomerOrder;
+import lt.vu.service.api.CartItemService;
 import lt.vu.service.api.CartService;
 import lt.vu.service.api.CustomerOrderService;
+import lt.vu.service.api.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class CustomerOrderServiceImpl implements CustomerOrderService {
+
+    @Autowired
+    private PaymentService paymentService;
+
+    @Autowired
+    private CartItemService itemService;
 
     @Autowired
     private CustomerOrderDao customerOrderDao;
@@ -65,5 +78,30 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     @Override
     public CustomerOrder getOrderById(int orderId) {
         return customerOrderDao.getOrderById(orderId);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void processOrder(CustomerOrder order) {
+        initOrder(order);
+
+        itemService.removeAllCartItems(order.getCart());
+        customerOrderDao.addCustomerOrder(order);
+
+        // Payment has to be the last step in transaction, because we can't reverse it
+        paymentService.pay(order);
+    }
+
+    private void initOrder(CustomerOrder order) {
+        Cart cart = order.getCart();
+
+        order.setStatus("Accepted");
+        order.setRating(0);
+        order.setOrderDatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+
+        Customer customer = cart.getCustomer();
+        order.setCustomer(customer);
+        order.setAddress(customer.getAddress());
+        order.setCard(customer.getCard());
     }
 }

@@ -31,7 +31,8 @@
     </view-state>
 
     <action-state id="processOrder">
-        <evaluate expression="customerOrderDaoImpl.addCustomerOrder(order)" />
+        <evaluate expression="customerOrderServiceImpl.processOrder(order)" />
+        <transition to="paymentError" on-exception="java.lang.RuntimeException"/>
         <transition to="thankCustomer" />
     </action-state>
 
@@ -43,6 +44,11 @@
 
     <view-state id="invalidCartWarning">
         <transition to="endState" />
+    </view-state>
+
+    <view-state id="paymentError">
+        <!--<transition to="collectPaymentInfo" on="backToCollectPaymentInfo"/>-->
+        <transition to="endState"/>
     </view-state>
 
     <end-state id="cancelCheckout" view="checkOutCancelled.jsp" />

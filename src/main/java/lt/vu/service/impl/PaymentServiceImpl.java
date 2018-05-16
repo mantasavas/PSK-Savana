@@ -2,6 +2,7 @@ package lt.vu.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import lt.vu.model.CustomerOrder;
 import lt.vu.service.api.PaymentService;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,12 @@ public class PaymentServiceImpl implements PaymentService {
     //FIXME: Probably should bet stored somewhere else
     static final String authorizationStr = "technologines:platformos";
 
-    private Payment payment = new Payment();
+    public void pay(CustomerOrder order) {
+        //FIXME: Error handling
 
-    public void pay() {
         int statusCode;
         String responseMsg;
+        Payment payment = new Payment(order);
         try {
             HttpURLConnection con = (HttpURLConnection) new URL(paymentServiceUrl).openConnection();
             con.setDoInput(true);
@@ -42,14 +44,18 @@ public class PaymentServiceImpl implements PaymentService {
             mapper.writeValue(stream, payment);
             stream.close();
 
+            mapper.writeValue(System.out, payment);
+
             statusCode = con.getResponseCode();
             responseMsg = con.getResponseMessage();
         } catch (Exception exc) {
+            System.out.println("Unable to send request to api server");
             throw new RuntimeException("Unable to send request to api server", exc);
         }
 
         if (statusCode != 201) {
-           throw new RuntimeException("Payment unsuccessful: " + responseMsg);
+            System.out.println("Payment unsuccessful: " + responseMsg + " status code: " + statusCode);
+            throw new RuntimeException("Payment unsuccessful: " + responseMsg + " status code: " + statusCode);
         }
     }
 }

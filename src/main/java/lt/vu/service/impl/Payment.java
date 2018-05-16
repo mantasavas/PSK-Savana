@@ -2,28 +2,36 @@ package lt.vu.service.impl;
 
 import lombok.Getter;
 import lombok.Setter;
+import lt.vu.model.Card;
+import lt.vu.model.CustomerOrder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
+
+import java.math.BigDecimal;
 
 //TODO: Make setters validate: https://git.mif.vu.lt/snippets/7
 @Getter
 @Setter
 class Payment {
-    private Integer amount;
+    private int amount;
     private String number;
     private String holder;
-    private Integer exp_year;
-    private Integer exp_month;
+    private int exp_year;
+    private int exp_month;
     private String cvv;
 
-    Payment() {
-        //FIXME: delete:
-        amount = 10;
-        number = "4111111111111111";
-        holder = "Vardenis Pavardenis";
-        exp_year = 2020;
-        exp_month = 9;
-        cvv = "123";
+    Payment() {}
+
+    Payment(CustomerOrder order) {
+        BigDecimal decimal = order.getCart().getGrandTotal();
+        amount = decimal.movePointRight(2).intValueExact();
+
+        Card card = order.getCard();
+        number = card.getNumber();
+        holder = card.getName();
+        exp_year = card.getExpYear();
+        exp_month = card.getExpMonth();
+        cvv = card.getCvv();
     }
 
 }

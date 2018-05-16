@@ -26,22 +26,10 @@ public class CustomerOrderDaoImpl implements CustomerOrderDao {
     @Autowired
     private CartItemDao cartItemDao;
 
-    public void addCustomerOrder(CustomerOrder customerOrder){
+    public void addCustomerOrder(CustomerOrder customerOrder) {
         Session session = sessionFactory.getCurrentSession();
 
-        Cart cart = customerOrder.getCart();
-
-        customerOrder.setStatus("Accepted");
-        customerOrder.setRating(0);
-        customerOrder.setOrderDatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-
-        Customer customer = cart.getCustomer();
-        customerOrder.setCustomer(customer);
-        customerOrder.setAddress(customer.getAddress());
-        customerOrder.setCard(customer.getCard());
-
         session.saveOrUpdate(customerOrder);
-        cartItemDao.removeAllCartItems(cart);
 
         session.flush();
     }
