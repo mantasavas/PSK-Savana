@@ -38,6 +38,7 @@ public class CustomerOrderDaoImpl implements CustomerOrderDao {
         Customer customer = cart.getCustomer();
         customerOrder.setCustomer(customer);
         customerOrder.setAddress(customer.getAddress());
+        customerOrder.setCard(customer.getCard());
 
         session.saveOrUpdate(customerOrder);
         cartItemDao.removeAllCartItems(cart);
