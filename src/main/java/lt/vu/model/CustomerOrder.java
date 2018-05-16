@@ -32,6 +32,11 @@ public class CustomerOrder implements Serializable {
     @Getter @Setter
     private Address address;
 
+    @OneToOne
+    @JoinColumn(name="cardId")
+    @Getter @Setter
+    private Card card;
+
     @Getter @Setter
     private String status;
 

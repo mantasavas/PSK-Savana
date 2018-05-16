@@ -52,6 +52,10 @@ public class CustomerDaoImpl implements CustomerDao {
         session.saveOrUpdate(customer);
         session.saveOrUpdate(newCart);
 
+        customer.getCard().setCustomer(customer);
+        session.saveOrUpdate(customer);
+        session.saveOrUpdate(customer.getCard());
+
         session.flush();
     }
 
@@ -61,6 +65,10 @@ public class CustomerDaoImpl implements CustomerDao {
         customer.getAddress().setCustomer(customer);
         session.saveOrUpdate(customer);
         session.saveOrUpdate(customer.getAddress());
+
+        customer.getCard().setCustomer(customer);
+        session.saveOrUpdate(customer);
+        session.saveOrUpdate(customer.getCard());
 
         List<Users> users = getAllUsers();
 
