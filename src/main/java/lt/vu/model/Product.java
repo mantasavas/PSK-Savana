@@ -69,6 +69,11 @@ public class Product implements Serializable {
     @Getter @Setter
     private List<CartItem> cartItemList;
 
+    // For exporting products, administrator must have ability to pick product from the list
+    @Transient
+    @Getter @Setter
+    private Boolean picked;
+
     public BigDecimal getActualPrice() {
         BigDecimal discount = new BigDecimal(0);
 
