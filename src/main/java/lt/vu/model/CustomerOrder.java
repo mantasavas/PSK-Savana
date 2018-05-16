@@ -2,11 +2,9 @@ package lt.vu.model;
 
 import lombok.Getter;
 import lombok.Setter;
+
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 
 @Entity
@@ -30,14 +28,9 @@ public class CustomerOrder implements Serializable {
     private Customer customer;
 
     @OneToOne
-    @JoinColumn(name = "billingAddressId")
+    @JoinColumn(name = "addressId")
     @Getter @Setter
-    private BillingAddress billingAddress;
-
-    @OneToOne
-    @JoinColumn(name = "shippingAddressId")
-    @Getter @Setter
-    private ShippingAddress shippingAddress;
+    private Address address;
 
     @Getter @Setter
     private String status;
@@ -46,6 +39,10 @@ public class CustomerOrder implements Serializable {
     @Max(value = 5, message = "The order rating must not be greater than five!")
     @Getter @Setter
     private int rating;
+
+    @Size(max = 255, message = "Max 255 symbols")
+    @Getter @Setter
+    private String feedback;
 
     @NotNull
     @Pattern(regexp = "^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])\\s+\\d{2}:\\d{2}:\\d{2}$",

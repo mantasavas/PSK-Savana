@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    angular.bootstrap(document.getElementById("importExcelis"), ['importExportApp']);
+
     var modalConfirm = function(callback) {
 
         // For confirmation if user is sure to download file!

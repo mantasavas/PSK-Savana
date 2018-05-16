@@ -9,9 +9,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.List;
 
 @Repository
@@ -24,21 +27,19 @@ public class CustomerDaoImpl implements CustomerDao {
     public void addCustomer(Customer customer) {
         Session session = sessionFactory.getCurrentSession();
 
-        customer.getBillingAddress().setCustomer(customer);
-        customer.getShippingAddress().setCustomer(customer);
+        customer.getAddress().setCustomer(customer);
 
         session.saveOrUpdate(customer);
-        session.saveOrUpdate(customer.getBillingAddress());
-        session.saveOrUpdate(customer.getShippingAddress());
+        session.saveOrUpdate(customer.getAddress());
 
         Users newUser = new Users();
-        newUser.setUsername(customer.getUsername());
+        newUser.setUsername(customer.getCustomerEmail());
         newUser.setPassword(customer.getPassword());
         newUser.setEnabled(true);
         newUser.setCustomerId(customer.getCustomerId());
 
         Authorities newAuthorities = new Authorities();
-        newAuthorities.setUsername(customer.getUsername());
+        newAuthorities.setUsername(customer.getCustomerEmail());
         newAuthorities.setAuthority("ROLE_USER");
 
         session.saveOrUpdate(newUser);
@@ -57,29 +58,31 @@ public class CustomerDaoImpl implements CustomerDao {
     public void updateCustomer(Customer customer) {
         Session session = sessionFactory.getCurrentSession();
 
-        customer.getBillingAddress().setCustomer(customer);
-        customer.getShippingAddress().setCustomer(customer);
-
+        customer.getAddress().setCustomer(customer);
         session.saveOrUpdate(customer);
-        session.saveOrUpdate(customer.getBillingAddress());
-        session.saveOrUpdate(customer.getShippingAddress());
+        session.saveOrUpdate(customer.getAddress());
 
         List<Users> users = getAllUsers();
-        Users newUser = null;
+
+        Users editedUser = null;
+        Authorities editedAuthorities = null;
+
         for (Users user: users) {
             if (user.getCustomerId() == customer.getCustomerId()) {
-                user.setUsername(customer.getUsername());
-                user.setPassword(customer.getPassword());
-                newUser = user;
+                editedUser = user;
+                editedAuthorities = getAuthoritiesByUsername(user.getUsername());
                 break;
             }
         }
 
-        Authorities newAuthorities = new Authorities();
-        newAuthorities.setUsername(customer.getUsername());
+        if (editedUser != null && editedAuthorities != null) {
+            editedUser.setUsername(customer.getCustomerEmail());
+            editedUser.setPassword(customer.getPassword());
+            editedAuthorities.setUsername(customer.getCustomerEmail());
 
-        session.saveOrUpdate(newUser);
-        session.saveOrUpdate(newAuthorities);
+            session.saveOrUpdate(editedUser);
+            session.saveOrUpdate(editedAuthorities);
+        }
 
         List<Cart> carts = getAllCarts();
         Cart newCart = null;
@@ -143,11 +146,19 @@ public class CustomerDaoImpl implements CustomerDao {
         return customerList;
     }
 
-    public Customer getCustomerByUsername(String username) {
+    public Customer getCustomerByEmail(String email) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("from Customer where username = ?");
-        query.setString(0, username);
+        Query query = session.createQuery("from Customer where customerEmail = :email");
+        query.setParameter("email", email);
 
         return (Customer) query.uniqueResult();
+    }
+
+    private Authorities getAuthoritiesByUsername(String username) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Authorities where username = :username");
+        query.setParameter("username", username);
+
+        return (Authorities) query.uniqueResult();
     }
 }

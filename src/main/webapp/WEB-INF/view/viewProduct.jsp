@@ -35,7 +35,8 @@
                         </td>
                     </c:if>
                     <c:if test="${discountExpire <= now}">
-                        <td>$${product.productPrice}</td>
+                        <td><strong>Price: </strong>$${product.productPrice}</td>
+                        <br>
                     </c:if>
                     <br>
 

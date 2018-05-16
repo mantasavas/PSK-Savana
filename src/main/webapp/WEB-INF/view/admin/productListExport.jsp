@@ -53,11 +53,12 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel1">Do you really want export all data?</h4>
             </div>
-            <div class="modal-footer" ng-controller="importExportController" id="importExcelis">
+            <div class="modal-footer" ng-controller ="importExportController" id="importExcelis">
                 <button type="button" class="btn btn-default" id="modal-btn-yes">Confirm</button>
                 <button type="button" class="btn btn-primary" id="modal-btn-no">Cancel</button>
             </div>
         </div>
     </div>
 </div>
+
 <%@ include file="../common/footer.jsp"%>

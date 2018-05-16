@@ -2,6 +2,8 @@
 <a href="#top" id="return-to-top"><i class="icon-chevron-up"></i></a>
 <!-- FOOTER -->
 <footer>
+    <br>
+    <br>
     <p>&copy; 2015 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
 </footer>
 </div>
