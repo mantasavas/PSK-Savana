@@ -1,6 +1,7 @@
 package lt.vu.controller;
 
 import lt.vu.model.Address;
+import lt.vu.model.Card;
 import lt.vu.model.Customer;
 import lt.vu.service.api.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class RegisterController {
         Customer customer = new Customer();
         Address address = new Address();
         customer.setAddress(address);
+        Card card = new Card();
+        customer.setCard(card);
+        System.out.println("Card: " + card + ", customer: " + customer);
 
         model.addAttribute("customer", customer);
 
@@ -56,6 +60,8 @@ public class RegisterController {
         }
 
         customer.setEnabled(true);
+
+        System.out.println("Saving customer: " + customer);
 
         String encryptedPassword = passwordEncoder.encode(customer.getPassword());
         customer.setPassword(encryptedPassword);

@@ -21,5 +21,7 @@ public interface CustomerOrderService {
 
     void writeOrderFeedback(int orderId, String feedback);
 
+    void processOrder(CustomerOrder order);
+
     CustomerOrder getOrderById(int orderId);
 }

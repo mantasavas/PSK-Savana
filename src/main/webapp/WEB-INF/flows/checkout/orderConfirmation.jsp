@@ -4,6 +4,8 @@
 
 <jsp:useBean id="now" class="java.util.Date" />
 
+<%--TODO: Show payment method--%>
+
 <div class="container-wrapper">
     <div class="container">
         <div class="page-header">
