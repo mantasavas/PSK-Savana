@@ -15,8 +15,14 @@
             <div class="row">
                 <fmt:parseDate value="${product.productDiscountExpirationDatetime}" var="discountExpire" pattern="yyyy-MM-dd HH:mm:ss" />
                 <div class="col-md-5">
-                    <img src="<c:url value="/resources/images/${product.productId}.png" /> " alt="image"
-                         style="width: 100%"/>
+                    <c:if test="${product.productImage == null || product.productImage.size == 0}">
+                        <img src="<c:url value="/resources/images/default.png" /> " alt="image"
+                             style="width: 50%"/>
+                    </c:if>
+                    <c:if test="${product.productImage != null && product.productImage.size != 0}">
+                        <img src="<c:url value="/resources/images/${product.productId}.png" /> " alt="image"
+                             style="width: 50%"/>
+                    </c:if>
                 </div>
                 <div class="col-md-5">
                     <h3>${product.productName}</h3>

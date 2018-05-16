@@ -38,8 +38,16 @@
             <c:forEach items="${products}" var="product">
                 <fmt:parseDate value="${product.productDiscountExpirationDatetime}" var="discountExpire" pattern="yyyy-MM-dd HH:mm:ss" />
                 <tr>
-                    <td><img src="<c:url value="/resources/images/${product.productId}.png" /> " alt="image"
-                             style="width: 100%"/></td>
+                    <td>
+                        <c:if test="${product.productImage == null || product.productImage.size == 0}">
+                            <img src="<c:url value="/resources/images/default.png" /> " alt="image"
+                                 style="width: 50%"/>
+                        </c:if>
+                        <c:if test="${product.productImage != null && product.productImage.size != 0}">
+                            <img src="<c:url value="/resources/images/${product.productId}.png" /> " alt="image"
+                                 style="width: 50%"/>
+                        </c:if>
+                    </td>
                     <td>${product.productName}</td>
                     <td>${product.productCategory}</td>
                     <td>${product.productCondition}</td>
