@@ -32,7 +32,7 @@
 
     <action-state id="processOrder">
         <evaluate expression="customerOrderServiceImpl.processOrder(order)" />
-        <transition to="paymentError" on-exception="java.lang.RuntimeException"/>
+        <transition to="paymentError" on-exception="java.lang.RuntimeException" />
         <transition to="thankCustomer" />
     </action-state>
 

@@ -6,7 +6,7 @@
         <section>
             <div class="jumbotron">
                 <div class="container">
-                    <h1>Payment unsuccessfull!</h1>
+                    <h1>Payment unsuccessfull! Check if your card info is correct.</h1>
                 </div>
             </div>
         </section>

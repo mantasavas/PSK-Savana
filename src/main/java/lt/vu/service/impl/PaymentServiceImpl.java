@@ -44,18 +44,18 @@ public class PaymentServiceImpl implements PaymentService {
             mapper.writeValue(stream, payment);
             stream.close();
 
-            mapper.writeValue(System.out, payment);
+            System.out.println("Payment for: " + String.valueOf(payment.getAmount()));
 
             statusCode = con.getResponseCode();
             responseMsg = con.getResponseMessage();
         } catch (Exception exc) {
-            System.out.println("Unable to send request to api server");
+            System.out.println("Unable to send request to api server. Error: " + exc.toString());
             throw new RuntimeException("Unable to send request to api server", exc);
         }
 
         if (statusCode != 201) {
-            System.out.println("Payment unsuccessful: " + responseMsg + " status code: " + statusCode);
-            throw new RuntimeException("Payment unsuccessful: " + responseMsg + " status code: " + statusCode);
+            System.out.println("Payment unsuccessful: " + responseMsg + ", status code: " + statusCode);
+            throw new RuntimeException("Payment unsuccessful: " + responseMsg + ", status code: " + statusCode);
         }
     }
 }
