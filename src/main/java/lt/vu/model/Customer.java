@@ -51,4 +51,9 @@ public class Customer implements Serializable {
     @JsonIgnore
     @Getter @Setter
     private Cart cart;
+
+    @OneToOne
+    @JoinColumn(name="cardId")
+    @Getter @Setter
+    private Card card;
 }
