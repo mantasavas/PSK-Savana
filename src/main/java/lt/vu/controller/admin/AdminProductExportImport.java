@@ -9,7 +9,6 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,9 +33,6 @@ public class AdminProductExportImport {
     @Autowired
     private ImportExportImpl importExportservice;
 
-    int check = 0;
-    private boolean downloadedFile = true;
-
     @Autowired
     private ProductServiceImpl productService;
 
@@ -47,24 +43,17 @@ public class AdminProductExportImport {
     public ModelAndView userListReport(HttpServletRequest req, HttpServletResponse res){
         String typeReport = req.getParameter("type");
 
-        if(typeReport != null && downloadedFile == true) {
-            excelModelFuture = importExportservice.asyncImportExcel(req, typeReport);
-            downloadedFile = false;
-        }
-
-        if (typeReport != null && excelModelFuture.isDone()) {
+        // If admin confirmed he wants to download excel file
+        if (typeReport != null && typeReport.equals("xls") && excelModelFuture != null && excelModelFuture.isDone()) {
             try {
                 excelModel = excelModelFuture.get();
-                downloadedFile = true;
+                excelModelFuture = null;
             } catch (Exception ex) {
                 System.out.println(ex.toString());
             }
         }
-        else if (excelModelFuture != null && excelModelFuture.isDone()){
+        else{
             // If no parameter specified return product list...
-            excelModel = new ModelAndView("admin/productListExport", "productList", importExportservice.getProducts());
-
-        }else {
             excelModel = new ModelAndView("admin/productListExport", "productList", importExportservice.getProducts());
         }
 
@@ -92,6 +81,26 @@ public class AdminProductExportImport {
         */
         return excelModel;
     }
+
+
+    // Then user requests to export file (sends POST request)
+    @RequestMapping(value="/generateProductExcel/products/start", method = RequestMethod.GET)
+    public ModelAndView startExportationOfExcel(HttpServletRequest req, HttpServletResponse res){
+        String[] selectedProducts = req.getParameterValues("selected");
+
+
+        // In order to generate excel file it must be either extraction process finished, or excelModelFuture null (administrator downloaded file)
+        if (excelModelFuture == null){
+            // Starting process in the background. Returns excel future interface, we would check every time if document is ready.
+            excelModelFuture = importExportservice.asyncImportExcel(req, "xls", selectedProducts);
+            System.out.println("Is ready " + excelModelFuture.isDone());
+
+        }
+
+        // Returning all products from database
+        return new ModelAndView("admin/productListExport", "productList", importExportservice.getProducts());
+    }
+
 
 
     @RequestMapping(value = "/importProductExcel/isReadyFile", method=RequestMethod.GET)
@@ -127,7 +136,6 @@ public class AdminProductExportImport {
 
     @RequestMapping(value = "/importProductExcel/excelFile", method = RequestMethod.POST)
     public String importProductExcelFile(Model model, MultipartFile file){
-        System.out.println("Inside importProductExcelFile()");
 
         List<Product> products = new ArrayList<>();
 
@@ -195,4 +203,5 @@ public class AdminProductExportImport {
 
         return "admin/productInventory";
     }
+
 }

@@ -10,6 +10,8 @@ public interface ProductService {
 
     Product getProductById (int id);
 
+    List<Product> getProducstById(String[] productsID);
+
     void addProduct(Product product);
 
     void addProducts(List<Product> products);

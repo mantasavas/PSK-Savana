@@ -1,35 +1,6 @@
 $(document).ready(function(){
     angular.bootstrap(document.getElementById("importExcelis"), ['importExportApp']);
 
-    var modalConfirm = function(callback) {
-
-        // For confirmation if user is sure to download file!
-        $("#btn-confirm").on("click", function () {
-            $("#my-modal").modal('show');
-        });
-
-        $("#modal-btn-yes").on("click", function () {
-            callback(true);
-            $("#my-modal").modal('hide');
-        });
-
-        $("#modal-btn-no").on("click", function () {
-            callback(false);
-            $("#my-modal").modal('hide');
-        });
-    };
-
-    modalConfirm(function(confirm){
-        if(confirm){
-            angular.element(document.getElementById('importExcelis')).scope().downloadExcelFile();
-            doAsync();
-            // If administrator confirmed!
-            //angular.element(document.getElementById('myCtrl')).scope().$apply("submit()")
-            //window.location = "/admin/generateProductExcel/products/?type=xls";
-        }else{
-            // If administrator canceled! Execute logic here...
-        }
-    });
 
     var modalNotification = function(callback) {
         // For download notification, that excel document is ready
@@ -79,24 +50,32 @@ function timeoutPromise (time) {
 }
 
 function doSomethingAsync () {
-    return timeoutPromise(1000);
+    return timeoutPromise(2000);
 }
 
 async function doAsync () {
     setCookie("finsihedFileDownload", "false", 2);
     var start = Date.now(), time;
     while(true) {
+        angular.element(document.getElementById('importExcelis')).scope().checkAvailability();
+
+        console.log("Is available?");
         time = await
         doSomethingAsync();
-        angular.element(document.getElementById('importExcelis')).scope().checkAvailability();
+
         readyToDownload = angular.element(document.getElementById('importExcelis')).scope().returnedData;
 
         if (readyToDownload == "true") {
+            console.log("Yes!");
             $("#download-modal").modal('show');
             setCookie("showDownloadNoti", "true", 2);
             setCookie("finsihedFileDownload", "true", 2);
             break;
         }
+        else{
+            console.log("No!");
+        }
+
     }
 }
 function setCookie(name,value,days) {
