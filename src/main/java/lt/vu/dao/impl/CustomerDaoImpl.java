@@ -66,6 +66,10 @@ public class CustomerDaoImpl implements CustomerDao {
         session.saveOrUpdate(customer);
         session.saveOrUpdate(customer.getAddress());
 
+        customer.getCard().setCustomer(customer);
+        session.saveOrUpdate(customer);
+        session.saveOrUpdate(customer.getCard());
+
         List<Users> users = getAllUsers();
 
         Users editedUser = null;
