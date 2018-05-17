@@ -1,15 +1,16 @@
 package lt.vu.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@EqualsAndHashCode
+@ToString
 public class Address implements Serializable {
 
     private static final long serialVersionUID = 989191150380037359L;
@@ -37,7 +38,7 @@ public class Address implements Serializable {
     @Getter @Setter
     private String zipCode;
 
-    @OneToOne
+    @ManyToOne
     @Getter @Setter
     private Customer customer;
 
@@ -51,5 +52,17 @@ public class Address implements Serializable {
                 ", country='" + country + '\'' +
                 ", zipCode='" + zipCode + '\'' +
                 '}';
+    }
+
+    public Address() {}
+
+    public Address(Address orig) {
+        streetName = orig.streetName;
+        apartmentNumber = orig.apartmentNumber;
+        city = orig.city;
+        state = orig.state;
+        country = orig.country;
+        zipCode = orig.zipCode;
+        customer = orig.customer;
     }
 }
