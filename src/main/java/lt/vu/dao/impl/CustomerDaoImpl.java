@@ -29,9 +29,6 @@ public class CustomerDaoImpl implements CustomerDao {
 
         customer.getAddress().setCustomer(customer);
 
-        session.saveOrUpdate(customer);
-        session.saveOrUpdate(customer.getAddress());
-
         Users newUser = new Users();
         newUser.setUsername(customer.getCustomerEmail());
         newUser.setPassword(customer.getPassword());
@@ -42,20 +39,18 @@ public class CustomerDaoImpl implements CustomerDao {
         newAuthorities.setUsername(customer.getCustomerEmail());
         newAuthorities.setAuthority("ROLE_USER");
 
-        session.saveOrUpdate(newUser);
-        session.saveOrUpdate(newAuthorities);
-
         Cart newCart = new Cart();
         newCart.setCustomer(customer);
         customer.setCart(newCart);
 
-        session.saveOrUpdate(customer);
-        session.saveOrUpdate(newCart);
-
         customer.getCard().setCustomer(customer);
-        session.saveOrUpdate(customer);
-        session.saveOrUpdate(customer.getCard());
 
+        session.saveOrUpdate(customer);
+        session.saveOrUpdate(customer.getAddress());
+        session.saveOrUpdate(newUser);
+        session.saveOrUpdate(newAuthorities);
+        session.saveOrUpdate(newCart);
+        session.saveOrUpdate(customer.getCard());
         session.flush();
     }
 
@@ -63,11 +58,10 @@ public class CustomerDaoImpl implements CustomerDao {
         Session session = sessionFactory.getCurrentSession();
 
         customer.getAddress().setCustomer(customer);
+        customer.getCard().setCustomer(customer);
+
         session.saveOrUpdate(customer);
         session.saveOrUpdate(customer.getAddress());
-
-        customer.getCard().setCustomer(customer);
-        session.saveOrUpdate(customer);
         session.saveOrUpdate(customer.getCard());
 
         List<Users> users = getAllUsers();
