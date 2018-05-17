@@ -39,17 +39,12 @@ public class CustomerDaoImpl implements CustomerDao {
         newAuthorities.setUsername(customer.getCustomerEmail());
         newAuthorities.setAuthority("ROLE_USER");
 
-        Cart newCart = new Cart();
-        newCart.setCustomer(customer);
-        customer.setCart(newCart);
-
         customer.getCard().setCustomer(customer);
 
         session.saveOrUpdate(customer);
         session.saveOrUpdate(customer.getAddress());
         session.saveOrUpdate(newUser);
         session.saveOrUpdate(newAuthorities);
-        session.saveOrUpdate(newCart);
         session.saveOrUpdate(customer.getCard());
         session.flush();
     }
@@ -97,8 +92,10 @@ public class CustomerDaoImpl implements CustomerDao {
             }
         }
 
-        session.saveOrUpdate(customer);
-        session.saveOrUpdate(newCart);
+        if (newCart != null) {
+            session.saveOrUpdate(customer);
+            session.saveOrUpdate(newCart);
+        }
 
         session.flush();
     }

@@ -36,7 +36,10 @@ public class CartResources {
 
     @RequestMapping("/{cartId}")
     public @ResponseBody Cart getCartById(@PathVariable(value = "cartId") int cartId){
-        return cartService.getCartById(cartId);
+        if (cartId == -1)
+            return new Cart();
+        else
+            return cartService.getCartById(cartId);
     }
 
     @RequestMapping(value = "/add/{productId}", method = RequestMethod.PUT)
