@@ -37,4 +37,9 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer getCustomerByEmail (String email){
         return customerDao.getCustomerByEmail(email);
     }
+
+    public void replaceCart(Customer customer) {
+        // New cart will be created when needed
+        customerDao.setCart(customer, null);
+    }
 }

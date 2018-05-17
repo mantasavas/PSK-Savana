@@ -5,10 +5,7 @@ import lt.vu.model.Cart;
 import lt.vu.model.CartItem;
 import lt.vu.model.Customer;
 import lt.vu.model.CustomerOrder;
-import lt.vu.service.api.CartItemService;
-import lt.vu.service.api.CartService;
-import lt.vu.service.api.CustomerOrderService;
-import lt.vu.service.api.PaymentService;
+import lt.vu.service.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -21,6 +18,9 @@ import java.util.List;
 
 @Service
 public class CustomerOrderServiceImpl implements CustomerOrderService {
+
+    @Autowired
+    private CustomerService customerService;
 
     @Autowired
     private PaymentService paymentService;
@@ -83,13 +83,20 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void processOrder(CustomerOrder order) {
-        initOrder(order);
+        try {
+            initOrder(order);
 
-        itemService.removeAllCartItems(order.getCart());
-        customerOrderDao.addCustomerOrder(order);
+            customerService.replaceCart(order.getCustomer());
 
-        // Payment has to be the last step in transaction, because we can't reverse it
-        paymentService.pay(order);
+            customerOrderDao.addCustomerOrder(order);
+
+            // Payment has to be the last step in transaction, because we can't reverse it
+            paymentService.pay(order);
+        }
+        catch (Exception exc) {
+            System.out.println(exc.toString());
+            throw exc;
+        }
     }
 
     private void initOrder(CustomerOrder order) {

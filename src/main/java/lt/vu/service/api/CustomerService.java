@@ -17,4 +17,6 @@ public interface CustomerService {
     List<Customer> getAllCustomers();
 
     Customer getCustomerByEmail(String email);
+
+    void replaceCart(Customer customer);
 }

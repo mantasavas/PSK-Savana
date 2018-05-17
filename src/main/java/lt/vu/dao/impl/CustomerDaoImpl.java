@@ -100,6 +100,17 @@ public class CustomerDaoImpl implements CustomerDao {
         session.flush();
     }
 
+    public void setCart(Customer customer, Cart cart) {
+        Session session = sessionFactory.getCurrentSession();
+
+        customer.setCart(cart);
+        customer.setPasswordRepeat(customer.getPassword());
+
+        session.saveOrUpdate(customer);
+
+        session.flush();
+    }
+
     @Transactional
     public void setEnabledCustomer(Customer customer, boolean enabled) {
         Session session = sessionFactory.getCurrentSession();
