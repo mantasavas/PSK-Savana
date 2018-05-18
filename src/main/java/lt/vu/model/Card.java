@@ -50,5 +50,6 @@ public class Card implements Serializable {
         cvv = orig.cvv;
         expYear = orig.expYear;
         expMonth = orig.expMonth;
+        customer = orig.customer;
     }
 }

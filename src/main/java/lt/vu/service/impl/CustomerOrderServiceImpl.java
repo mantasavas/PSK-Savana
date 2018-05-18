@@ -2,10 +2,7 @@ package lt.vu.service.impl;
 
 import lt.vu.dao.api.CartDao;
 import lt.vu.dao.api.CustomerOrderDao;
-import lt.vu.model.Cart;
-import lt.vu.model.CartItem;
-import lt.vu.model.Customer;
-import lt.vu.model.CustomerOrder;
+import lt.vu.model.*;
 import lt.vu.service.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -111,22 +108,27 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 
        order.setCart(cart);
        order.setCustomer(customer);
-       order.setAddress(customer.getAddress());
-       order.setCard(customer.getCard());
+       order.setAddress(new Address(customer.getAddress()));
+       order.setCard(new Card(customer.getCard()));
 
        return order;
     }
 
     private void acceptOrder(CustomerOrder order) {
-        Cart cart = order.getCart();
-
         order.setStatus("Accepted");
         order.setRating(0);
         order.setOrderDatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
-        Customer customer = cart.getCustomer();
-        order.setCustomer(customer);
-        order.setAddress(customer.getAddress());
-        order.setCard(customer.getCard());
+        Customer customer = order.getCustomer();
+
+        if (customerService.isAddressInfoSame(customer.getAddress(), order.getAddress())) {
+            System.out.println("Using customer's current address");
+            order.setAddress(customer.getAddress());
+        }
+
+        if (customerService.isCardInfoSame(customer.getCard(), order.getCard())) {
+            System.out.println("Using customer's current card");
+            order.setCard(customer.getCard());
+        }
     }
 }

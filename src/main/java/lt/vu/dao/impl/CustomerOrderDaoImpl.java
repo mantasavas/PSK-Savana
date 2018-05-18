@@ -30,6 +30,8 @@ public class CustomerOrderDaoImpl implements CustomerOrderDao {
         Session session = sessionFactory.getCurrentSession();
 
         session.saveOrUpdate(customerOrder);
+        session.saveOrUpdate(customerOrder.getAddress());
+        session.saveOrUpdate(customerOrder.getCard());
 
         session.flush();
     }
