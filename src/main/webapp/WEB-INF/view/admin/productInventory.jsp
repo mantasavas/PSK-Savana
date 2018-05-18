@@ -27,9 +27,8 @@
                 <th width="20%">Photo</th>
                 <th width="15%">Product Name</th>
                 <th width="15%">Category</th>
-                <th width="10%">Condition</th>
-                <th width="20%">Price</th>
-                <th width="20%"></th>
+                <th width="25%">Price</th>
+                <th width="25%"></th>
             </tr>
             </thead>
             <c:forEach items="${products}" var="product">
@@ -47,7 +46,6 @@
                     </td>
                     <td >${product.productName}</td>
                     <td>${product.productCategory}</td>
-                    <td>${product.productCondition}</td>
                     <c:if test="${discountExpire > now}">
                         <td>
                             $${product.actualPrice}

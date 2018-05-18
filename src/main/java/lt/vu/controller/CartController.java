@@ -1,5 +1,6 @@
 package lt.vu.controller;
 
+import lt.vu.model.Cart;
 import lt.vu.model.Customer;
 import lt.vu.service.api.CustomerService;
 import lt.vu.service.api.PaymentService;
@@ -15,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/customer/cart")
 public class CartController {
-    //TODO: Move to OrderController probably
-    @Autowired
-    private PaymentService paymentService;
 
     @Autowired
     private CustomerService customerService;
@@ -25,7 +23,10 @@ public class CartController {
     @RequestMapping
     public String getCart(Principal activeUser){
         Customer customer = customerService.getCustomerByEmail(activeUser.getName());
-        int cartId = customer.getCart().getCartId();
+        Cart cart = customer.getCart();
+        int cartId = -1;
+        if (cart != null)
+            cartId = customer.getCart().getCartId();
 
         return "redirect:/customer/cart/" + cartId;
     }

@@ -2,6 +2,7 @@ package lt.vu.service.api;
 
 import lt.vu.model.CustomerOrder;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -24,4 +25,6 @@ public interface CustomerOrderService {
     void processOrder(CustomerOrder order);
 
     CustomerOrder getOrderById(int orderId);
+
+    CustomerOrder initOrder(int cartId) throws IOException;
 }

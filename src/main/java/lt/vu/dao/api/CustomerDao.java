@@ -1,5 +1,6 @@
 package lt.vu.dao.api;
 
+import lt.vu.model.Cart;
 import lt.vu.model.Customer;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface CustomerDao {
     List<Customer> getAllCustomers();
 
     Customer getCustomerByEmail(String email);
+
+    void setCart(Customer customer, Cart cart);
 }

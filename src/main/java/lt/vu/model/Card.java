@@ -1,18 +1,22 @@
 package lt.vu.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@EqualsAndHashCode
+@ToString
 public class Card implements Serializable {
     @Getter @Setter
     @Id
     @GeneratedValue
-    private int cardId;
+    private Integer cardId;
 
     @Getter @Setter
     //@Column(nullable=false)
@@ -33,8 +37,19 @@ public class Card implements Serializable {
     private int expMonth;
 
     @Getter @Setter
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="customerId", nullable = false)
     private Customer customer;
 
+    public Card() {}
+
+    public Card(Card orig) {
+        cardId = null;
+        number = orig.number;
+        name = orig.name;
+        cvv = orig.cvv;
+        expYear = orig.expYear;
+        expMonth = orig.expMonth;
+        customer = orig.customer;
+    }
 }

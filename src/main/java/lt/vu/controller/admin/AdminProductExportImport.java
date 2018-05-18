@@ -164,8 +164,6 @@ public class AdminProductExportImport {
                     product.setProductDescription(row.getCell(3).getStringCellValue());
                     // Setting product Price
                     product.setProductPrice(new BigDecimal(row.getCell(4).getNumericCellValue()));
-                    // Setting product Condition
-                    product.setProductCondition(row.getCell(5).getStringCellValue());
                     // Setting product Status
                     product.setProductStatus(row.getCell(6).getStringCellValue());
                     // Setting product Manufacturer

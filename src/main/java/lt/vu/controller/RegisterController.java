@@ -45,13 +45,11 @@ public class RegisterController {
             return "registerCustomer";
         }
 
-        List<Customer> customerList = customerService.getAllCustomers();
-
-        for (Customer existingCustomer : customerList) {
-            if (customer.getCustomerEmail().equals(existingCustomer.getCustomerEmail())) {
-                model.addAttribute("emailMsg", "Email already exists");
-                return "registerCustomer";
-            }
+        Customer existingCust = customerService.getCustomerByEmail(customer.getCustomerEmail());
+        System.out.println(existingCust);
+        if (existingCust != null) {
+            model.addAttribute("emailMsg", "Email already exists");
+            return "registerCustomer";
         }
 
         if (!customer.getPassword().equals(customer.getPasswordRepeat())) {

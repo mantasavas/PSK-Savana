@@ -1,15 +1,33 @@
 package lt.vu.controller;
 
+import lt.vu.model.ProductCategory;
+import lt.vu.service.api.ProductCategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class HomeController {
 
+    @Autowired
+    private ProductCategoryService productCategoryService;
+
     @RequestMapping("/")
-    public String home(){
+    public String home(Model model) {
+        List<ProductCategory> categories = productCategoryService.getAllCategories();
+        List<String> categoryNames = new ArrayList<>();
+
+        for (ProductCategory category : categories) {
+            categoryNames.add(category.getCategoryName());
+        }
+
+        model.addAttribute("categories", categoryNames);
+
         return "home";
     }
 

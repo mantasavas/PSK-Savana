@@ -110,7 +110,6 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Category</th>
-                        <th>Condition</th>
                         <th>Description</th>
                         <th>Price</th>
                     </tr>
@@ -123,7 +122,6 @@
                         <td>${product.productId}</td>
                         <td>${product.productName}</td>
                         <td>${product.productCategory}</td>
-                        <td>${product.productCondition}</td>
                         <td>${product.productDescription}</td>
                         <td>${product.productPrice}</td>
                     </tr>

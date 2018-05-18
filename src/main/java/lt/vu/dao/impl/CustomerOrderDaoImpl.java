@@ -30,6 +30,8 @@ public class CustomerOrderDaoImpl implements CustomerOrderDao {
         Session session = sessionFactory.getCurrentSession();
 
         session.saveOrUpdate(customerOrder);
+        session.saveOrUpdate(customerOrder.getAddress());
+        session.saveOrUpdate(customerOrder.getCard());
 
         session.flush();
     }
@@ -85,5 +87,24 @@ public class CustomerOrderDaoImpl implements CustomerOrderDao {
     public CustomerOrder getOrderById(int orderId) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(CustomerOrder.class, orderId);
+    }
+
+    public List<CustomerOrder> getOrdersByAddressId(int addressId) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Query query = session.createQuery("from CustomerOrder where addressId = :addrId");
+        query.setParameter("addrId", addressId);
+
+        return query.list();
+    }
+
+    public List<CustomerOrder> getOrdersByCardId(int cardId) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Query query = session.createQuery("from CustomerOrder where cardId = :cardId");
+        query.setParameter("cardId", cardId);
+
+        return query.list();
+
     }
 }

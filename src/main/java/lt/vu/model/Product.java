@@ -31,9 +31,6 @@ public class Product implements Serializable {
     private String productName;
 
     @Getter @Setter
-    private String productCategory;
-
-    @Getter @Setter
     private String productDescription;
 
     public BigDecimal getProductPrice() {
@@ -43,9 +40,6 @@ public class Product implements Serializable {
     @Min(value = 0, message = "The product price must not be less than zero!")
     @Setter
     private BigDecimal productPrice;
-
-    @Getter @Setter
-    private String productCondition;
 
     @Getter @Setter
     private String productStatus;
@@ -77,6 +71,9 @@ public class Product implements Serializable {
     @Transient
     @Getter @Setter
     private Boolean picked;
+
+    @Getter @Setter
+    private String productCategory;
 
     public BigDecimal getActualPrice() {
         BigDecimal discount = new BigDecimal(0);

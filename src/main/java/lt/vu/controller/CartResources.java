@@ -36,36 +36,50 @@ public class CartResources {
 
     @RequestMapping("/{cartId}")
     public @ResponseBody Cart getCartById(@PathVariable(value = "cartId") int cartId){
-        return cartService.getCartById(cartId);
+        if (cartId == -1)
+            return new Cart();
+        else
+            return cartService.getCartById(cartId);
     }
 
     @RequestMapping(value = "/add/{productId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void addItem (@PathVariable(value = "productId") int productId, Principal activeUser){
-        Customer customer = customerService.getCustomerByEmail(activeUser.getName());
-        Cart cart = customer.getCart();
-        Product product = productService.getProductById(productId);
-        List<CartItem> cartItems = cart.getCartItems();
 
-        for (CartItem cartItem: cartItems) {
-            if (product.getProductId() == cartItem.getProduct().getProductId()){
-                cartItem.setQuantity(cartItem.getQuantity() + 1);
-                BigDecimal quantityBigDecimal = new BigDecimal(cartItem.getQuantity());
-                cartItem.setTotalPrice(product.getActualPrice().multiply(quantityBigDecimal));
+        try {
+            Customer customer = customerService.getCustomerByEmail(activeUser.getName());
+            Product product = productService.getProductById(productId);
 
-                cartItemService.addCartItem(cartItem);
+            Cart cart = customer.getCart();
+            if (cart != null) {
+                List<CartItem> cartItems = cart.getCartItems();
 
-                return;
-            }
+                for (CartItem cartItem : cartItems) {
+                    if (product.getProductId() == cartItem.getProduct().getProductId()) {
+                        cartItem.setQuantity(cartItem.getQuantity() + 1);
+                        BigDecimal quantityBigDecimal = new BigDecimal(cartItem.getQuantity());
+                        cartItem.setTotalPrice(product.getActualPrice().multiply(quantityBigDecimal));
+
+                        cartItemService.addCartItem(cartItem);
+
+                        return;
+                    }
+                }
+            } else
+                cart = cartService.createNew(customer);
+
+            CartItem cartItem = new CartItem();
+            cartItem.setProduct(product);
+            cartItem.setQuantity(1);
+            BigDecimal quantityBigDecimal = new BigDecimal(cartItem.getQuantity());
+            cartItem.setTotalPrice(product.getActualPrice().multiply(quantityBigDecimal));
+            cartItem.setCart(cart);
+
+            cartItemService.addCartItem(cartItem);
         }
-
-        CartItem cartItem = new CartItem();
-        cartItem.setProduct(product);
-        cartItem.setQuantity(1);
-        BigDecimal quantityBigDecimal = new BigDecimal(cartItem.getQuantity());
-        cartItem.setTotalPrice(product.getActualPrice().multiply(quantityBigDecimal));
-        cartItem.setCart(cart);
-        cartItemService.addCartItem(cartItem);
+        catch (Exception exc) {
+            System.out.println(exc.toString());
+        }
     }
 
     @RequestMapping(value = "/remove/{productId}", method = RequestMethod.PUT)

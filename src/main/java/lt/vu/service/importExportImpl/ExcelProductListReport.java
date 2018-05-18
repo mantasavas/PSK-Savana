@@ -46,7 +46,6 @@ public class ExcelProductListReport extends AbstractXlsView {
             row.createCell(2).setCellValue(product.getProductCategory());
             row.createCell(3).setCellValue(product.getProductDescription());
             row.createCell(4).setCellValue(product.getProductPrice().doubleValue());
-            row.createCell(5).setCellValue(product.getProductCondition());
             row.createCell(6).setCellValue(product.getProductStatus());
             row.createCell(7).setCellValue(product.getProductManufacturer());
             row.createCell(8).setCellValue(product.getProductDiscountPercentage());
