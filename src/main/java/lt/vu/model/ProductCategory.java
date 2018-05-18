@@ -2,6 +2,7 @@ package lt.vu.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,5 +18,9 @@ public class ProductCategory implements Serializable {
     private int productCategoryId;
 
     @Getter @Setter
-    private String categoryName;
+    private String productCategoryName;
+
+    @Transient
+    @Getter @Setter
+    private MultipartFile productCategoryImage;
 }

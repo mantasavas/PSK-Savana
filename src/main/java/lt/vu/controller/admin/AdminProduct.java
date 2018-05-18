@@ -46,16 +46,16 @@ public class AdminProduct {
         List<String> categoryNames = new ArrayList<>();
 
         for (ProductCategory category : categories) {
-            categoryNames.add(category.getCategoryName());
+            categoryNames.add(category.getProductCategoryName());
         }
 
         if (!categoryNames.isEmpty()) {
             product.setProductCategory(categoryNames.get(0));
         } else {
             ProductCategory category = new ProductCategory();
-            category.setCategoryName("Other");
+            category.setProductCategoryName("Other");
             productCategoryService.addProductCategory(category);
-            product.setProductCategory(category.getCategoryName());
+            product.setProductCategory(category.getProductCategoryName());
         }
 
         product.setProductStatus("active");
@@ -96,16 +96,16 @@ public class AdminProduct {
         List<String> categoryNames = new ArrayList<>();
 
         for (ProductCategory category : categories) {
-            categoryNames.add(category.getCategoryName());
+            categoryNames.add(category.getProductCategoryName());
         }
 
         if (!categoryNames.isEmpty() && product.getProductCategory() == null) {
             product.setProductCategory(categoryNames.get(0));
         } else if (categoryNames.isEmpty()) {
             ProductCategory category = new ProductCategory();
-            category.setCategoryName("Other");
+            category.setProductCategoryName("Other");
             productCategoryService.addProductCategory(category);
-            product.setProductCategory(category.getCategoryName());
+            product.setProductCategory(category.getProductCategoryName());
         }
 
         model.addAttribute("product", product);
@@ -133,7 +133,7 @@ public class AdminProduct {
         return "redirect:/admin/inventory";
     }
 
-    private void saveImage(MultipartFile productImage) {
+    private void saveImage(MultipartFile productImage) throws RuntimeException {
         if (productImage != null && !productImage.isEmpty()) {
             try {
                 productImage.transferTo(new File(path.toString()));

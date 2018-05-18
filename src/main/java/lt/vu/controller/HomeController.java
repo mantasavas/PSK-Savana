@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,13 +19,7 @@ public class HomeController {
     @RequestMapping("/")
     public String home(Model model) {
         List<ProductCategory> categories = productCategoryService.getAllCategories();
-        List<String> categoryNames = new ArrayList<>();
-
-        for (ProductCategory category : categories) {
-            categoryNames.add(category.getCategoryName());
-        }
-
-        model.addAttribute("categories", categoryNames);
+        model.addAttribute("categories", categories);
 
         return "home";
     }
@@ -57,7 +50,7 @@ public class HomeController {
     }
 
     @RequestMapping("/about")
-    public String about(){
+    public String about() {
         return "about";
     }
 }
