@@ -10,7 +10,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextImpl;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +26,8 @@ public class CustomerDaoImpl implements CustomerDao {
     public void addCustomer(Customer customer) {
         Session session = sessionFactory.getCurrentSession();
 
+        session.saveOrUpdate(customer);
+
         customer.getAddress().setCustomer(customer);
 
         Users newUser = new Users();
@@ -41,7 +42,6 @@ public class CustomerDaoImpl implements CustomerDao {
 
         customer.getCard().setCustomer(customer);
 
-        session.saveOrUpdate(customer);
         session.saveOrUpdate(customer.getAddress());
         session.saveOrUpdate(newUser);
         session.saveOrUpdate(newAuthorities);
@@ -52,6 +52,12 @@ public class CustomerDaoImpl implements CustomerDao {
     public void updateCustomer(Customer customer) {
         Session session = sessionFactory.getCurrentSession();
 
+        Customer oldCustomer = session.get(Customer.class, customer.getCustomerId());
+        customer.setCart(oldCustomer.getCart());
+        session.detach(oldCustomer);
+        session.detach(oldCustomer.getAddress());
+        session.detach(oldCustomer.getCard());
+
         customer.getAddress().setCustomer(customer);
         customer.getCard().setCustomer(customer);
 
@@ -59,43 +65,15 @@ public class CustomerDaoImpl implements CustomerDao {
         session.saveOrUpdate(customer.getAddress());
         session.saveOrUpdate(customer.getCard());
 
-        List<Users> users = getAllUsers();
+        Users editedUser = getUserByCustomerId(customer.getCustomerId());
+        Authorities editedAuthorities = getAuthoritiesByUsername(editedUser.getUsername());
 
-        Users editedUser = null;
-        Authorities editedAuthorities = null;
+        editedUser.setUsername(customer.getCustomerEmail());
+        editedUser.setPassword(customer.getPassword());
+        editedAuthorities.setUsername(customer.getCustomerEmail());
 
-        for (Users user: users) {
-            if (user.getCustomerId() == customer.getCustomerId()) {
-                editedUser = user;
-                editedAuthorities = getAuthoritiesByUsername(user.getUsername());
-                break;
-            }
-        }
-
-        if (editedUser != null && editedAuthorities != null) {
-            editedUser.setUsername(customer.getCustomerEmail());
-            editedUser.setPassword(customer.getPassword());
-            editedAuthorities.setUsername(customer.getCustomerEmail());
-
-            session.saveOrUpdate(editedUser);
-            session.saveOrUpdate(editedAuthorities);
-        }
-
-        List<Cart> carts = getAllCarts();
-        Cart newCart = null;
-        for (Cart cart: carts) {
-            if (cart.getCustomer().getCustomerId() == customer.getCustomerId()) {
-                cart.setCustomer(customer);
-                newCart = cart;
-                customer.setCart(newCart);
-                break;
-            }
-        }
-
-        if (newCart != null) {
-            session.saveOrUpdate(customer);
-            session.saveOrUpdate(newCart);
-        }
+        session.saveOrUpdate(editedUser);
+        session.saveOrUpdate(editedAuthorities);
 
         session.flush();
     }
@@ -134,6 +112,25 @@ public class CustomerDaoImpl implements CustomerDao {
 
         return usersList;
     }
+
+    private Users getUserByCustomerId(int customerId) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Query query = session.createQuery("from Users where customerId = :custId");
+        query.setParameter("custId", customerId);
+
+        return (Users) query.uniqueResult();
+    }
+
+    private List<Cart> getCartsByCustomer(Customer customer) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Query query = session.createQuery("from Cart where customerId = :custId");
+        query.setParameter("custId", customer.getCustomerId());
+
+        return query.list();
+    }
+
 
     private List<Cart> getAllCarts() {
         Session session = sessionFactory.getCurrentSession();

@@ -38,14 +38,10 @@ public class EditAccountInfoController {
             return "editAccountInfo";
         }
 
-        List<Customer> customerList = customerService.getAllCustomers();
-
-        for (Customer existingCustomer : customerList) {
-            if (customer.getCustomerEmail().equals(existingCustomer.getCustomerEmail())
-                    && customer.getCustomerId() != existingCustomer.getCustomerId()) {
-                model.addAttribute("emailMsg", "Email already exists");
-                return "editAccountInfo";
-            }
+        Customer existingCustomer = customerService.getCustomerByEmail(customer.getCustomerEmail());
+        if (existingCustomer != null && existingCustomer.getCustomerId() != customer.getCustomerId()) {
+            model.addAttribute("emailMsg", "Email already exists");
+            return "editAccountInfo";
         }
 
         if (!customer.getPassword().equals(customer.getPasswordRepeat())) {
