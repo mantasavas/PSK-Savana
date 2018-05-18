@@ -42,18 +42,6 @@ public class Address implements Serializable {
     @Getter @Setter
     private Customer customer;
 
-    @Override
-    public String toString() {
-        return "Address{" +
-                "streetName='" + streetName + '\'' +
-                ", apartmentNumber='" + apartmentNumber + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", country='" + country + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                '}';
-    }
-
     public Address() {}
 
     public Address(Address orig) {

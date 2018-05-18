@@ -28,13 +28,16 @@ public class CustomerServiceImpl implements CustomerService {
         Card newCard = customer.getCard();
 
         System.out.println("Old addr: " + oldAddr.toString());
-        System.out.println("New addr: " + oldAddr.toString());
+        System.out.println("New addr: " + newAddr.toString());
         System.out.println("Old card: " + oldCard.toString());
         System.out.println("New card: " + newCard.toString());
 
-        if (!oldAddr.equals(newAddr))
+        if (!isAddressInfoSame(oldAddr, newAddr)) {
+            System.out.println("Creating new address");
             oldCustomer.setAddress(new Address(newAddr));
-        if (!oldCard.equals(newCard)) {
+        }
+        if (!isCardInfoSame(oldCard, newCard)) {
+            System.out.println("Creating new card");
             oldCustomer.setCard(new Card(newCard));
         }
 
@@ -44,11 +47,7 @@ public class CustomerServiceImpl implements CustomerService {
         oldCustomer.setCustomerName(customer.getCustomerName());
         oldCustomer.setCustomerPhone(customer.getCustomerPhone());
 
-        customerDao.updateCustomer(customer);
-    }
-
-    public boolean equal(Address addr1, Address addr2) {
-        //TODO:
+        customerDao.updateCustomer(oldCustomer);
     }
 
     public void setEnabledCustomer(Customer customer, boolean enabled) {
@@ -70,5 +69,22 @@ public class CustomerServiceImpl implements CustomerService {
     public void replaceCart(Customer customer) {
         // New cart will be created when needed
         customerDao.setCart(customer, null);
+    }
+
+    public boolean isAddressInfoSame(Address addr1, Address addr2) {
+        return addr1.getCity().equals(addr2.getCity()) &&
+                addr1.getApartmentNumber().equals(addr2.getApartmentNumber()) &&
+                addr1.getCountry().equals(addr2.getCountry()) &&
+                addr1.getState().equals(addr2.getState()) &&
+                addr1.getStreetName().equals(addr2.getStreetName()) &&
+                addr1.getZipCode().equals(addr2.getZipCode());
+    }
+
+    public boolean isCardInfoSame(Card card1, Card card2) {
+        return card1.getCvv().equals(card2.getCvv()) &&
+                card1.getExpMonth() == card2.getExpMonth() &&
+                card1.getExpYear() == card2.getExpYear() &&
+                card1.getName().equals(card2.getName()) &&
+                card1.getNumber().equals(card2.getNumber());
     }
 }
