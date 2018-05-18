@@ -46,6 +46,7 @@
         <div class="form-group">
             <label for="passwordRepeat">Password (repeat password)</label>
             <span style="color: red">${pswRepeatMsg}</span>
+            <form:errors path="passwordRepeat" cssStyle="color: red" />
             <form:password path="passwordRepeat" id="passwordRepeat" class="form-Control" />
         </div>
 

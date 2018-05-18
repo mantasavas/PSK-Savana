@@ -1,19 +1,15 @@
 package lt.vu.service.impl;
 
+import lt.vu.dao.api.CartDao;
 import lt.vu.dao.api.CustomerOrderDao;
-import lt.vu.model.Cart;
-import lt.vu.model.CartItem;
-import lt.vu.model.Customer;
-import lt.vu.model.CustomerOrder;
-import lt.vu.service.api.CartItemService;
-import lt.vu.service.api.CartService;
-import lt.vu.service.api.CustomerOrderService;
-import lt.vu.service.api.PaymentService;
+import lt.vu.model.*;
+import lt.vu.service.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,6 +17,9 @@ import java.util.List;
 
 @Service
 public class CustomerOrderServiceImpl implements CustomerOrderService {
+
+    @Autowired
+    private CustomerService customerService;
 
     @Autowired
     private PaymentService paymentService;
@@ -33,6 +32,9 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private CartDao cartDao;
 
     public void addCustomerOrder(CustomerOrder customerOrder){
         customerOrderDao.addCustomerOrder(customerOrder);
@@ -83,25 +85,50 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void processOrder(CustomerOrder order) {
-        initOrder(order);
+        try {
+            acceptOrder(order);
 
-        itemService.removeAllCartItems(order.getCart());
-        customerOrderDao.addCustomerOrder(order);
+            customerService.replaceCart(order.getCustomer());
 
-        // Payment has to be the last step in transaction, because we can't reverse it
-        paymentService.pay(order);
+            customerOrderDao.addCustomerOrder(order);
+
+            // Payment has to be the last step in transaction, because we can't reverse it
+            paymentService.pay(order);
+        }
+        catch (Exception exc) {
+            System.out.println(exc.toString());
+            throw exc;
+        }
     }
 
-    private void initOrder(CustomerOrder order) {
-        Cart cart = order.getCart();
+    public CustomerOrder initOrder(int cartId) throws IOException {
+       CustomerOrder order = new CustomerOrder();
+       Cart cart = cartDao.validate(cartId);
+       Customer customer = cart.getCustomer();
 
+       order.setCart(cart);
+       order.setCustomer(customer);
+       order.setAddress(new Address(customer.getAddress()));
+       order.setCard(new Card(customer.getCard()));
+
+       return order;
+    }
+
+    private void acceptOrder(CustomerOrder order) {
         order.setStatus("Accepted");
         order.setRating(0);
         order.setOrderDatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
-        Customer customer = cart.getCustomer();
-        order.setCustomer(customer);
-        order.setAddress(customer.getAddress());
-        order.setCard(customer.getCard());
+        Customer customer = order.getCustomer();
+
+        if (customerService.isAddressInfoSame(customer.getAddress(), order.getAddress())) {
+            System.out.println("Using customer's current address");
+            order.setAddress(customer.getAddress());
+        }
+
+        if (customerService.isCardInfoSame(customer.getCard(), order.getCard())) {
+            System.out.println("Using customer's current card");
+            order.setCard(customer.getCard());
+        }
     }
 }

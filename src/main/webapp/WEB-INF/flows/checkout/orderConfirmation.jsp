@@ -29,11 +29,11 @@
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <address>
                                     <strong>Shipping Address</strong><br/>
-                                        ${order.cart.customer.address.streetName}
+                                        ${order.address.streetName}
                                     <br/>
-                                        ${order.cart.customer.address.city}, ${order.cart.customer.address.state}
+                                        ${order.address.city}, ${order.address.state}
                                     <br/>
-                                        ${order.cart.customer.address.country}, ${order.cart.customer.address.zipCode}
+                                        ${order.address.country}, ${order.address.zipCode}
                                 </address>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6 text-right">
