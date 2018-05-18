@@ -1,5 +1,6 @@
 package lt.vu.service.impl;
 
+import lt.vu.dao.api.CartDao;
 import lt.vu.dao.api.CustomerOrderDao;
 import lt.vu.model.Cart;
 import lt.vu.model.CartItem;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,6 +35,9 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private CartDao cartDao;
 
     public void addCustomerOrder(CustomerOrder customerOrder){
         customerOrderDao.addCustomerOrder(customerOrder);
@@ -84,7 +89,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void processOrder(CustomerOrder order) {
         try {
-            initOrder(order);
+            acceptOrder(order);
 
             customerService.replaceCart(order.getCustomer());
 
@@ -99,7 +104,20 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         }
     }
 
-    private void initOrder(CustomerOrder order) {
+    public CustomerOrder initOrder(int cartId) throws IOException {
+       CustomerOrder order = new CustomerOrder();
+       Cart cart = cartDao.validate(cartId);
+       Customer customer = cart.getCustomer();
+
+       order.setCart(cart);
+       order.setCustomer(customer);
+       order.setAddress(customer.getAddress());
+       order.setCard(customer.getCard());
+
+       return order;
+    }
+
+    private void acceptOrder(CustomerOrder order) {
         Cart cart = order.getCart();
 
         order.setStatus("Accepted");

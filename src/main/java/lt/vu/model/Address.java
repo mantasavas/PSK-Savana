@@ -18,7 +18,7 @@ public class Address implements Serializable {
     @Id
     @GeneratedValue
     @Getter @Setter
-    private int addressId;
+    private Integer addressId;
 
     @Getter @Setter
     private String streetName;
@@ -45,6 +45,7 @@ public class Address implements Serializable {
     public Address() {}
 
     public Address(Address orig) {
+        addressId = null;
         streetName = orig.streetName;
         apartmentNumber = orig.apartmentNumber;
         city = orig.city;

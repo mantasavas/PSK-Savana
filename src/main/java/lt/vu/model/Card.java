@@ -16,7 +16,7 @@ public class Card implements Serializable {
     @Getter @Setter
     @Id
     @GeneratedValue
-    private int cardId;
+    private Integer cardId;
 
     @Getter @Setter
     //@Column(nullable=false)
@@ -44,6 +44,7 @@ public class Card implements Serializable {
     public Card() {}
 
     public Card(Card orig) {
+        cardId = null;
         number = orig.number;
         name = orig.name;
         cvv = orig.cvv;
