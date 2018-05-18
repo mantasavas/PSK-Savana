@@ -2,6 +2,7 @@ package lt.vu.dao.impl;
 
 import lt.vu.dao.api.CartDao;
 import lt.vu.model.Cart;
+import lt.vu.model.Customer;
 import lt.vu.service.api.CustomerOrderService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,6 +26,19 @@ public class CartDaoImpl implements CartDao {
     public Cart getCartById(int cartId){
         Session session = sessionFactory.getCurrentSession();
         return session.get(Cart.class, cartId);
+    }
+
+    public void create(Cart cart) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Customer customer = cart.getCustomer();
+        customer.setCart(cart);
+
+        customer.setPasswordRepeat(customer.getPassword());
+        session.saveOrUpdate(customer);
+        session.saveOrUpdate(cart);
+
+        session.flush();
     }
 
     public void update(Cart cart){

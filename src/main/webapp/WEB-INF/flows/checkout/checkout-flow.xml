@@ -6,7 +6,7 @@
     <var name="order" class="lt.vu.model.CustomerOrder" />
 
     <action-state id="addCartToOrder">
-        <evaluate expression="cartDaoImpl.validate(requestParameters.cartId)" result="order.cart" />
+        <evaluate expression="customerOrderServiceImpl.initOrder(requestParameters.cartId)" result="order"/>
         <transition to="invalidCartWarning" on-exception="java.io.IOException" />
         <transition to="collectCustomerInfo" />
     </action-state>
@@ -27,7 +27,7 @@
 
     <view-state id="orderConfirmation">
         <transition on="orderConfirmed" to="processOrder" />
-        <transition on="backToCollectShippingDetail" to="collectShippingDetail" />
+        <transition on="backToCollectShippingDetail" to="collectPaymentInfo" />
     </view-state>
 
     <action-state id="processOrder">
