@@ -1,9 +1,11 @@
 package lt.vu.service.impl;
 
 import lt.vu.dao.api.CustomerDao;
+import lt.vu.dao.api.CustomerOrderDao;
 import lt.vu.model.Address;
 import lt.vu.model.Card;
 import lt.vu.model.Customer;
+import lt.vu.model.CustomerOrder;
 import lt.vu.service.api.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerDao customerDao;
 
+    @Autowired
+    private CustomerOrderDao customerOrderDao;
+
     public void addCustomer(Customer customer){
         customerDao.addCustomer(customer);
     }
@@ -27,19 +32,25 @@ public class CustomerServiceImpl implements CustomerService {
         Address newAddr = customer.getAddress();
         Card newCard = customer.getCard();
 
-        System.out.println("Old addr: " + oldAddr.toString());
-        System.out.println("New addr: " + newAddr.toString());
-        System.out.println("Old card: " + oldCard.toString());
-        System.out.println("New card: " + newCard.toString());
+        List<CustomerOrder> ordersByAddr = customerOrderDao.getOrdersByAddressId(oldAddr.getAddressId());
+        List<CustomerOrder> ordersByCard = customerOrderDao.getOrdersByCardId(oldCard.getCardId());
 
-        if (!isAddressInfoSame(oldAddr, newAddr)) {
+        if (ordersByAddr.size() > 0 && !isAddressInfoSame(oldAddr, newAddr)) {
             System.out.println("Creating new address");
             oldCustomer.setAddress(new Address(newAddr));
+        } else {
+            newAddr.setAddressId(oldAddr.getAddressId());
+            oldCustomer.setAddress(newAddr);
         }
-        if (!isCardInfoSame(oldCard, newCard)) {
+
+        if (ordersByCard.size() > 0 && !isCardInfoSame(oldCard, newCard)) {
             System.out.println("Creating new card");
             oldCustomer.setCard(new Card(newCard));
+        } else {
+            newCard.setCardId(oldCard.getCardId());
+            oldCustomer.setCard(newCard);
         }
+
 
         oldCustomer.setPasswordRepeat(customer.getPasswordRepeat());
         oldCustomer.setPassword(customer.getPassword());
