@@ -33,8 +33,12 @@ public class Product implements Serializable {
     @Getter @Setter
     private String productDescription;
 
+    public BigDecimal getProductPrice() {
+        return productPrice.setScale(2, BigDecimal.ROUND_HALF_UP);
+    }
+
     @Min(value = 0, message = "The product price must not be less than zero!")
-    @Getter @Setter
+    @Setter
     private BigDecimal productPrice;
 
     @Getter @Setter
@@ -90,6 +94,6 @@ public class Product implements Serializable {
                     .divide(oneHundredBigDecimal, 2, BigDecimal.ROUND_HALF_UP);
         }
 
-        return productPrice.subtract(discount);
+        return productPrice.subtract(discount).setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 }
