@@ -30,7 +30,6 @@
                 <th>Image</th>
                 <th>Name</th>
                 <th>Category</th>
-                <th>Condition</th>
                 <th>Price</th>
                 <th></th>
             </tr>
@@ -50,7 +49,6 @@
                     </td>
                     <td>${product.productName}</td>
                     <td>${product.productCategory}</td>
-                    <td>${product.productCondition}</td>
                     <c:if test="${discountExpire > now}">
                         <td>
                             $${product.actualPrice}

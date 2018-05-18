@@ -18,12 +18,13 @@
 
         <div class="form-group">
             <label for="category">Category</label>
-            <label class="checkbox-inline"><form:radiobutton path="productCategory" id="category"
-                                                             value="keyboard"/>Keyboard</label>
-            <label class="checkbox-inline"><form:radiobutton path="productCategory" id="category"
-                                                             value="mouse"/>Mouse</label>
-            <label class="checkbox-inline"><form:radiobutton path="productCategory" id="category"
-                                                             value="other"/>Other</label>
+            <c:if test="${empty categories}">
+                <label class="checkbox-inline"><form:radiobutton path="productCategory" id="category" value="Other"/>Other</label>
+            </c:if>
+            <c:forEach items="${categories}" var="categoryName">
+                <label class="checkbox-inline"><form:radiobutton path="productCategory" id="category" value="${categoryName}"/>${categoryName}</label>
+            </c:forEach>
+            <form:errors path="productCategory" cssStyle="color: red" />
         </div>
 
         <div class="form-group">
@@ -34,13 +35,6 @@
         <div class="form-group">
             <label for="price">Price</label> <form:errors path="productPrice" cssStyle="color: red" />
             <form:input path="productPrice" id="price" class="form-Control" value="${product.productPrice}"/>
-        </div>
-
-        <div class="form-group">
-            <label for="condition">Condition</label>
-            <label class="checkbox-inline"><form:radiobutton path="productCondition" id="condition"
-                                                             value="new"/>New</label>
-            <label class="checkbox-inline"><form:radiobutton path="productCondition" id="condition" value="used"/>Used</label>
         </div>
 
         <div class="form-group">

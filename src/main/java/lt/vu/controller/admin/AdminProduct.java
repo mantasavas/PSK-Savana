@@ -1,6 +1,8 @@
 package lt.vu.controller.admin;
 
 import lt.vu.model.Product;
+import lt.vu.model.ProductCategory;
+import lt.vu.service.api.ProductCategoryService;
 import lt.vu.service.api.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +22,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -31,16 +35,35 @@ public class AdminProduct {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private ProductCategoryService productCategoryService;
+
     @RequestMapping("/product/addProduct")
-    public String addProduct(Model model){
+    public String addProduct(Model model) {
         Product product = new Product();
-        product.setProductCategory("keyboard");
-        product.setProductCondition("new");
+
+        List<ProductCategory> categories = productCategoryService.getAllCategories();
+        List<String> categoryNames = new ArrayList<>();
+
+        for (ProductCategory category : categories) {
+            categoryNames.add(category.getCategoryName());
+        }
+
+        if (!categoryNames.isEmpty()) {
+            product.setProductCategory(categoryNames.get(0));
+        } else {
+            ProductCategory category = new ProductCategory();
+            category.setCategoryName("Other");
+            productCategoryService.addProductCategory(category);
+            product.setProductCategory(category.getCategoryName());
+        }
+
         product.setProductStatus("active");
         product.setProductDiscountPercentage(0);
         product.setProductDiscountExpirationDatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
         model.addAttribute("product", product);
+        model.addAttribute("categories", categoryNames);
 
         return "admin/addProduct";
     }
@@ -69,11 +92,27 @@ public class AdminProduct {
     public String editProduct(@PathVariable("id") int id,  Model model){
         Product product = productService.getProductById(id);
 
+        List<ProductCategory> categories = productCategoryService.getAllCategories();
+        List<String> categoryNames = new ArrayList<>();
+
+        for (ProductCategory category : categories) {
+            categoryNames.add(category.getCategoryName());
+        }
+
+        if (!categoryNames.isEmpty() && product.getProductCategory() == null) {
+            product.setProductCategory(categoryNames.get(0));
+        } else if (categoryNames.isEmpty()) {
+            ProductCategory category = new ProductCategory();
+            category.setCategoryName("Other");
+            productCategoryService.addProductCategory(category);
+            product.setProductCategory(category.getCategoryName());
+        }
+
         model.addAttribute("product", product);
+        model.addAttribute("categories", categoryNames);
 
         return "admin/editProduct";
     }
-
 
     @RequestMapping(value="/product/editProduct", method = RequestMethod.POST)
     public String editProductPost(@Valid @ModelAttribute("product") Product product, BindingResult result, HttpServletRequest request){

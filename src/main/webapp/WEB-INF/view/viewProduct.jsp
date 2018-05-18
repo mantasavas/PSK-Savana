@@ -29,7 +29,6 @@
                     <p>${product.productDescription}</p>
                     <p><strong>Manufacturer: </strong>${product.productManufacturer}</p>
                     <p><strong>Category: </strong>${product.productCategory}</p>
-                    <p><strong>Condition: </strong>${product.productCondition}</p>
                     <c:if test="${discountExpire > now}">
                         <td>
                             <p><strong>Price: </strong>$${product.actualPrice}
