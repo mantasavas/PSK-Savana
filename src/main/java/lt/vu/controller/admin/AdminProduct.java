@@ -196,6 +196,15 @@ public class AdminProduct {
         }
 
         Product product = productService.getProductById(id);
+
+        List<ProductAttribute> productAttributes = product.getProductAttributes();
+
+        for (ProductAttribute productAttribute: productAttributes) {
+            if (!productAttribute.getAttributeValue().equals("")) {
+                productAttributeService.removeProductAttribute(productAttribute);
+            }
+        }
+
         productService.deleteProduct(product);
 
         return "redirect:/admin/inventory";

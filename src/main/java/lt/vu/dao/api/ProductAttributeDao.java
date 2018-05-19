@@ -5,4 +5,6 @@ import lt.vu.model.ProductAttribute;
 public interface ProductAttributeDao {
 
     void addOrUpdateProductAttribute(ProductAttribute productAttribute);
+
+    void removeProductAttribute(ProductAttribute productAttribute);
 }

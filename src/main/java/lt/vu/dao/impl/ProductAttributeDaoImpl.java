@@ -21,4 +21,11 @@ public class ProductAttributeDaoImpl implements ProductAttributeDao {
         session.saveOrUpdate(productAttribute);
         session.flush();
     }
+
+    @Override
+    public void removeProductAttribute(ProductAttribute productAttribute) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(productAttribute);
+        session.flush();
+    }
 }

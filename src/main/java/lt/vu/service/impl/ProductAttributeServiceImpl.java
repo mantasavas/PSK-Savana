@@ -16,4 +16,9 @@ public class ProductAttributeServiceImpl implements ProductAttributeService {
     public void addOrUpdateProductAttribute(ProductAttribute productAttribute) {
         productAttributeDao.addOrUpdateProductAttribute(productAttribute);
     }
+
+    @Override
+    public void removeProductAttribute(ProductAttribute productAttribute) {
+        productAttributeDao.removeProductAttribute(productAttribute);
+    }
 }
