@@ -1,7 +1,11 @@
 package lt.vu.controller.admin;
 
+import lt.vu.model.Attribute;
 import lt.vu.model.Product;
+import lt.vu.model.ProductAttribute;
 import lt.vu.model.ProductCategory;
+import lt.vu.service.api.AttributeService;
+import lt.vu.service.api.ProductAttributeService;
 import lt.vu.service.api.ProductCategoryService;
 import lt.vu.service.api.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +42,12 @@ public class AdminProduct {
     @Autowired
     private ProductCategoryService productCategoryService;
 
+    @Autowired
+    private AttributeService attributeService;
+
+    @Autowired
+    private ProductAttributeService productAttributeService;
+
     @RequestMapping("/product/addProduct")
     public String addProduct(Model model) {
         Product product = new Product();
@@ -48,6 +58,8 @@ public class AdminProduct {
         for (ProductCategory category : categories) {
             categoryNames.add(category.getProductCategoryName());
         }
+
+        List<Attribute> attributes = attributeService.getAllAttributes();
 
         if (!categoryNames.isEmpty()) {
             product.setProductCategory(categoryNames.get(0));
@@ -64,6 +76,7 @@ public class AdminProduct {
 
         model.addAttribute("product", product);
         model.addAttribute("categories", categoryNames);
+        model.addAttribute("attributes", attributes);
 
         return "admin/addProduct";
     }
@@ -75,6 +88,19 @@ public class AdminProduct {
         }
 
         productService.addProduct(product);
+
+        List<Attribute> attributes = attributeService.getAllAttributes();
+        List<ProductAttribute> productAttributes = product.getProductAttributes();
+
+        int index = 0;
+        for (ProductAttribute productAttribute: productAttributes) {
+            if (!productAttribute.getAttributeValue().equals("")) {
+                productAttribute.setProduct(product);
+                productAttribute.setAttribute(attributes.get(index));
+                productAttributeService.addNewProductAttribute(productAttribute);
+                index++;
+            }
+        }
 
         MultipartFile productImage = product.getProductImage();
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
