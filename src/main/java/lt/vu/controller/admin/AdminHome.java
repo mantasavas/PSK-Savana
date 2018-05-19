@@ -1,13 +1,7 @@
 package lt.vu.controller.admin;
 
-import lt.vu.model.Customer;
-import lt.vu.model.CustomerOrder;
-import lt.vu.model.Product;
-import lt.vu.model.ProductCategory;
-import lt.vu.service.api.CustomerOrderService;
-import lt.vu.service.api.CustomerService;
-import lt.vu.service.api.ProductCategoryService;
-import lt.vu.service.api.ProductService;
+import lt.vu.model.*;
+import lt.vu.service.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +34,9 @@ public class AdminHome {
 
     @Autowired
     private ProductCategoryService productCategoryService;
+
+    @Autowired
+    private AttributeService attributeService;
 
     @RequestMapping
     public String adminPage(){
@@ -101,6 +98,29 @@ public class AdminHome {
                 throw new RuntimeException("Product category image saving failed", ex);
             }
         }
+    }
+
+    @RequestMapping("/productAttributes")
+    public String productAttributes(Model model) {
+        List<Attribute> attributes = attributeService.getAllAttributes();
+        Attribute attribute = new Attribute();
+
+        model.addAttribute("attribute", attribute);
+        model.addAttribute("attributes", attributes);
+
+        return "admin/productAttributes";
+    }
+
+    @RequestMapping(value="/productAttributes", method = RequestMethod.POST)
+    public String productAttributes(@Valid @ModelAttribute("attribute") Attribute attribute,
+                                    BindingResult result, HttpServletRequest request) {
+        if (result.hasErrors()) {
+            return "admin/productAttributes";
+        }
+
+        attributeService.addNewAttribute(attribute);
+
+        return "redirect:/admin/productAttributes";
     }
 
     @RequestMapping("/customers")
