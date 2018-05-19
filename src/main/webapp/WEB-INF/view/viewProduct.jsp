@@ -44,6 +44,13 @@
                         <br>
                     </c:if>
                     <br>
+                    <p><strong>Attributes:</strong></p>
+                    <ul>
+                        <c:forEach items="${product.productAttributes}" var="attribute">
+                            <li><p><strong>${attribute.attribute.attributeKey}:</strong> ${attribute.attributeValue}</p></li>
+                        </c:forEach>
+                    </ul>
+                    <br>
 
                     <c:set var="role" scope="page" value="${param.role}"/>
                     <c:set var="url" scope="page" value="/product/products"/>

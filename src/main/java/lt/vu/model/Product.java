@@ -3,6 +3,8 @@ package lt.vu.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,6 +15,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,12 +36,8 @@ public class Product implements Serializable {
     @Getter @Setter
     private String productDescription;
 
-    public BigDecimal getProductPrice() {
-        return productPrice.setScale(2, BigDecimal.ROUND_HALF_UP);
-    }
-
     @Min(value = 0, message = "The product price must not be less than zero!")
-    @Setter
+    @Getter @Setter
     private BigDecimal productPrice;
 
     @Getter @Setter
@@ -74,6 +73,15 @@ public class Product implements Serializable {
 
     @Getter @Setter
     private String productCategory;
+
+    @OneToMany(mappedBy = "product")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Getter @Setter
+    private List<ProductAttribute> productAttributes = new ArrayList<>();
+
+    /*public BigDecimal getProductPrice() {
+        return this.productPrice.setScale(2, BigDecimal.ROUND_HALF_UP);
+    }*/
 
     public BigDecimal getActualPrice() {
         BigDecimal discount = new BigDecimal(0);

@@ -1,6 +1,7 @@
 package lt.vu.controller;
 
 import lt.vu.model.Product;
+import lt.vu.model.ProductAttribute;
 import lt.vu.service.api.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
