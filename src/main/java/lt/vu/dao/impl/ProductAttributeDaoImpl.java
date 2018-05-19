@@ -16,7 +16,7 @@ public class ProductAttributeDaoImpl implements ProductAttributeDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public void addNewProductAttribute(ProductAttribute productAttribute) {
+    public void addOrUpdateProductAttribute(ProductAttribute productAttribute) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(productAttribute);
         session.flush();

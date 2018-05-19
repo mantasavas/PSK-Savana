@@ -58,17 +58,6 @@
             <form:input path="productDiscountExpirationDatetime" id="discountExpirationDate" class="form-Control"/>
         </div>
 
-        <%--<div class="form-group">--%>
-            <%--<label for="category">Attributes</label>--%>
-            <%--<c:if test="${empty attributes}">--%>
-                <%--<label>-</label>--%>
-            <%--</c:if>--%>
-            <%--<c:forEach items="${attributes}" var="attribute">--%>
-                <%--<label class="checkbox"><form:radiobutton path="productAttributes" id="category" value="${attribute}"/>${attribute.attributeKey}</label>--%>
-            <%--</c:forEach>--%>
-            <%--<form:errors path="productCategory" cssStyle="color: red" />--%>
-        <%--</div>--%>
-
         <br>
 
         <label>Attributes</label>

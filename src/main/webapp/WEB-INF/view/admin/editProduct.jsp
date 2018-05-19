@@ -59,6 +59,31 @@
             <form:input path="productDiscountExpirationDatetime" id="discountExpirationDate" class="form-Control"/>
         </div>
 
+        <br>
+
+        <label>Attributes</label>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach varStatus="var" var="attribute" items="${attributes}" >
+                <tr>
+                    <td>${attribute.attributeKey}</td>
+                    <td>
+                        <form:input path="productAttributes[${var.index}].attributeValue" id="productAttribute" class="form-Control"/>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+            <form:errors path="productAttributes" cssStyle="color: red" />
+
+        <br>
+
         <div class="form-group">
             <label class="control-label" for="productImage">Upload Picture</label>
             <form:input id="productImage" path="productImage" type="file" class="form:input-large" />

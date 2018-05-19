@@ -59,8 +59,6 @@ public class AdminProduct {
             categoryNames.add(category.getProductCategoryName());
         }
 
-        List<Attribute> attributes = attributeService.getAllAttributes();
-
         if (!categoryNames.isEmpty()) {
             product.setProductCategory(categoryNames.get(0));
         } else {
@@ -73,6 +71,8 @@ public class AdminProduct {
         product.setProductStatus("active");
         product.setProductDiscountPercentage(0);
         product.setProductDiscountExpirationDatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+
+        List<Attribute> attributes = attributeService.getAllAttributes();
 
         model.addAttribute("product", product);
         model.addAttribute("categories", categoryNames);
@@ -89,18 +89,7 @@ public class AdminProduct {
 
         productService.addProduct(product);
 
-        List<Attribute> attributes = attributeService.getAllAttributes();
-        List<ProductAttribute> productAttributes = product.getProductAttributes();
-
-        int index = 0;
-        for (ProductAttribute productAttribute: productAttributes) {
-            if (!productAttribute.getAttributeValue().equals("")) {
-                productAttribute.setProduct(product);
-                productAttribute.setAttribute(attributes.get(index));
-                productAttributeService.addNewProductAttribute(productAttribute);
-                index++;
-            }
-        }
+        saveProductAttributes(product);
 
         MultipartFile productImage = product.getProductImage();
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
@@ -134,8 +123,11 @@ public class AdminProduct {
             product.setProductCategory(category.getProductCategoryName());
         }
 
+        List<Attribute> attributes = attributeService.getAllAttributes();
+
         model.addAttribute("product", product);
         model.addAttribute("categories", categoryNames);
+        model.addAttribute("attributes", attributes);
 
         return "admin/editProduct";
     }
@@ -156,7 +148,24 @@ public class AdminProduct {
         saveImage(productImage);
         productService.editProduct(product);
 
+        saveProductAttributes(product);
+
         return "redirect:/admin/inventory";
+    }
+
+    private void saveProductAttributes(Product product) {
+        List<Attribute> attributes = attributeService.getAllAttributes();
+        List<ProductAttribute> productAttributes = product.getProductAttributes();
+
+        int index = 0;
+        for (ProductAttribute productAttribute: productAttributes) {
+            if (!productAttribute.getAttributeValue().equals("")) {
+                productAttribute.setProduct(product);
+                productAttribute.setAttribute(attributes.get(index));
+                productAttributeService.addOrUpdateProductAttribute(productAttribute);
+            }
+            index++;
+        }
     }
 
     private void saveImage(MultipartFile productImage) throws RuntimeException {

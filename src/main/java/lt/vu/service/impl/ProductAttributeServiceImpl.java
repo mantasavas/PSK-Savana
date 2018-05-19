@@ -13,7 +13,7 @@ public class ProductAttributeServiceImpl implements ProductAttributeService {
     private ProductAttributeDao productAttributeDao;
 
     @Override
-    public void addNewProductAttribute(ProductAttribute productAttribute) {
-        productAttributeDao.addNewProductAttribute(productAttribute);
+    public void addOrUpdateProductAttribute(ProductAttribute productAttribute) {
+        productAttributeDao.addOrUpdateProductAttribute(productAttribute);
     }
 }
