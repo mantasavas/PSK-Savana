@@ -53,7 +53,7 @@
 
         <div class="form-group">
             <label for="discountPercentage">Discount (%)</label><form:errors path="productDiscountPercentage" cssStyle="color: red" />
-            <form:input path="productDiscountPercentage" id="discountPercentage" class="form-Control"/>
+            <form:input path="productDiscountPercentage" id="discountPercentage" class="form-Control" placeholder="0"/>
         </div>
 
             <jsp:useBean id="now" class="java.util.Date"/>

@@ -65,10 +65,6 @@ public class AdminProduct {
             product.setProductCategory(category.getProductCategoryName());
         }
 
-        product.setProductStatus("active");
-//        product.setProductDiscountPercentage(0);
-//        product.setProductDiscountExpirationDatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-
         model.addAttribute("product", product);
         model.addAttribute("categories", categoryNames);
 
@@ -84,13 +80,6 @@ public class AdminProduct {
         setDefaultValues(product);
         productService.addProduct(product);
         saveImages(request, product);
-
-//        MultipartFile productImage = product.getProductImage();
-//        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-//        path = Paths.get(rootDirectory + File.separator + "WEB-INF"
-//                + File.separator + "resources"
-//                + File.separator +"images"
-//                + File.separator + product.getProductId() + ".png");
 
         return "redirect:/admin/inventory";
     }
@@ -126,13 +115,6 @@ public class AdminProduct {
         if (result.hasErrors()) {
             return "admin/editProduct";
         }
-
-//        MultipartFile productImage = product.getProductImage();
-//        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-//        path = Paths.get(rootDirectory + File.separator + "WEB-INF"
-//                + File.separator + "resources"
-//                + File.separator +"images"
-//                + File.separator + product.getProductId() + ".png");
 
         setDefaultValues(product);
         productService.editProduct(product);

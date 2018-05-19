@@ -41,7 +41,7 @@
         <div class="form-group">
             <label for="status">Status</label>
             <label class="checkbox-inline"><form:radiobutton path="productStatus" id="status"
-                                                             value="active"/>Active</label>
+                                                             value="active" checked="checked"/>Active</label>
             <label class="checkbox-inline"><form:radiobutton path="productStatus" id="status" value="inactive"/>Inactive</label>
         </div>
 
@@ -52,7 +52,7 @@
 
         <div class="form-group">
             <label for="discountPercentage">Discount (%)</label><form:errors path="productDiscountPercentage" cssStyle="color: red" />
-            <form:input path="productDiscountPercentage" id="discountPercentage" class="form-Control"/>
+            <form:input path="productDiscountPercentage" id="discountPercentage" class="form-Control" placeholder="0"/>
         </div>
 
         <jsp:useBean id="now" class="java.util.Date"/>
