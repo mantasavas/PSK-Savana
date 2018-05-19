@@ -38,12 +38,12 @@
                 <fmt:parseDate value="${product.productDiscountExpirationDatetime}" var="discountExpire" pattern="yyyy-MM-dd HH:mm:ss" />
                 <tr>
                     <td>
-                        <c:if test="${product.productImage == null || product.productImage.size == 0}">
+                        <c:if test="${product.featuredImage == null}">
                             <img src="<c:url value="/resources/images/default.png" /> " alt="image"
                                  style="width: 50%"/>
                         </c:if>
-                        <c:if test="${product.productImage != null && product.productImage.size != 0}">
-                            <img src="<c:url value="/resources/images/${product.productId}.png" /> " alt="image"
+                        <c:if test="${product.featuredImage != null}">
+                            <img src="<c:url value="/resources/images/${product.featuredImage}.png" /> " alt="image"
                                  style="width: 50%"/>
                         </c:if>
                     </td>

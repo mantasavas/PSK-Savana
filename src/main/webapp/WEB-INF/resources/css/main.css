@@ -41,3 +41,12 @@ body {
     font-family:inherit;
     font-size:inherit;
 }
+
+.required-tag:after {
+    content: "*";
+    color: red;
+}
+
+input[type=file]{
+    color:transparent;
+}
