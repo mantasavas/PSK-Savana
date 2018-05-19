@@ -1,7 +1,9 @@
 package lt.vu.controller.admin;
 
+import lt.vu.model.Image;
 import lt.vu.model.Product;
 import lt.vu.model.ProductCategory;
+import lt.vu.service.api.ImageService;
 import lt.vu.service.api.ProductCategoryService;
 import lt.vu.service.api.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -37,6 +40,10 @@ public class AdminProduct {
 
     @Autowired
     private ProductCategoryService productCategoryService;
+
+
+    @Autowired
+    private ImageService imageService;
 
     @RequestMapping("/product/addProduct")
     public String addProduct(Model model) {
@@ -59,8 +66,8 @@ public class AdminProduct {
         }
 
         product.setProductStatus("active");
-        product.setProductDiscountPercentage(0);
-        product.setProductDiscountExpirationDatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+//        product.setProductDiscountPercentage(0);
+//        product.setProductDiscountExpirationDatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
         model.addAttribute("product", product);
         model.addAttribute("categories", categoryNames);
@@ -74,16 +81,16 @@ public class AdminProduct {
             return "admin/addProduct";
         }
 
+        setDefaultValues(product);
         productService.addProduct(product);
+        saveImages(request, product);
 
-        MultipartFile productImage = product.getProductImage();
-        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-        path = Paths.get(rootDirectory + File.separator + "WEB-INF"
-                + File.separator + "resources"
-                + File.separator +"images"
-                + File.separator + product.getProductId() + ".png");
-
-        saveImage(productImage);
+//        MultipartFile productImage = product.getProductImage();
+//        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+//        path = Paths.get(rootDirectory + File.separator + "WEB-INF"
+//                + File.separator + "resources"
+//                + File.separator +"images"
+//                + File.separator + product.getProductId() + ".png");
 
         return "redirect:/admin/inventory";
     }
@@ -120,29 +127,64 @@ public class AdminProduct {
             return "admin/editProduct";
         }
 
-        MultipartFile productImage = product.getProductImage();
-        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-        path = Paths.get(rootDirectory + File.separator + "WEB-INF"
-                + File.separator + "resources"
-                + File.separator +"images"
-                + File.separator + product.getProductId() + ".png");
+//        MultipartFile productImage = product.getProductImage();
+//        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+//        path = Paths.get(rootDirectory + File.separator + "WEB-INF"
+//                + File.separator + "resources"
+//                + File.separator +"images"
+//                + File.separator + product.getProductId() + ".png");
 
-        saveImage(productImage);
+        setDefaultValues(product);
         productService.editProduct(product);
+        saveImages(request, product);
 
         return "redirect:/admin/inventory";
     }
 
-    private void saveImage(MultipartFile productImage) throws RuntimeException {
-        if (productImage != null && !productImage.isEmpty()) {
-            try {
-                productImage.transferTo(new File(path.toString()));
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                throw new RuntimeException("Product image saving failed", ex);
+    private void saveImages(HttpServletRequest request, Product product) {
+        List<MultipartFile> files = product.getFiles();
+        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+
+        if (files != null && files.size() > 0) {
+            for (int i = 0; i < files.size(); i++) {
+                if (files.get(i) != null && !files.get(i).isEmpty()) {
+                    MultipartFile productImage = files.get(i);
+                    Image img = new Image();
+                    img.setProduct(product);
+                    imageService.addImage(img);
+
+                    Integer featured = product.getFeaturedImage();
+
+                    if (featured != null && i == featured) {
+                        product.setFeaturedImage(img.getImageId());
+                        productService.editProduct(product);
+                    }
+
+                    path = Paths.get(rootDirectory + File.separator + "WEB-INF"
+                            + File.separator + "resources"
+                            + File.separator + "images"
+                            + File.separator + img.getImageId() + ".png");
+
+                    try {
+                        productImage.transferTo(new File(path.toString()));
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        throw new RuntimeException("Product image saving failed", ex);
+                    }
+                }
             }
         }
     }
+
+    private void setDefaultValues(Product product) {
+        if (product.getProductPrice() == null) product.setProductPrice(new BigDecimal(0.00));
+        if (product.getProductDescription().equals("")) product.setProductDescription("Empty");
+        if (product.getProductStatus().equals("")) product.setProductStatus("active");
+        if (product.getProductManufacturer().equals("")) product.setProductManufacturer("Other");
+        if (product.getProductDiscountPercentage() == null) product.setProductDiscountPercentage(0);
+        if (product.getProductDiscountExpirationDatetime().equals("")) product.setProductDiscountExpirationDatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+    }
+
 
     @RequestMapping("/product/deleteProduct/{id}")
     public String deleteProduct(@PathVariable int id, HttpServletRequest request) {

@@ -3,6 +3,8 @@ package lt.vu.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -49,17 +51,13 @@ public class Product implements Serializable {
     @Min(value = 0, message = "The discount percentage must not be less than 0!")
     @Max(value = 100, message = "The discount percentage must not be greater than 100!")
     @Getter @Setter
-    private int productDiscountPercentage;
+    private Integer productDiscountPercentage;
 
-    @NotNull
-    @Pattern(regexp = "^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])\\s+\\d{2}:\\d{2}:\\d{2}$",
-            message = "Datetime must match format: yyyy-mm-dd hh:mm:ss")
+    //also matches empty string (because this field is not required)
+    @Pattern(regexp = "^|((\\d{4})-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])[' '](0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9]))$",
+            message = "Datetime must be valid and match format: yyyy-mm-dd hh:mm:ss")
     @Getter @Setter
     private String productDiscountExpirationDatetime;
-
-    @Transient
-    @Getter @Setter
-    private MultipartFile productImage;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
@@ -78,6 +76,20 @@ public class Product implements Serializable {
     @LazyCollection(LazyCollectionOption.FALSE)
     @Getter @Setter
     private List<ProductAttribute> productAttributes = new ArrayList<>();
+
+    @Transient
+    @Getter @Setter
+    private List<MultipartFile> files;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //add this to avoid error: cannot simultaneously fetch multiple bags
+    @Fetch(value = FetchMode.SUBSELECT)
+    @JsonIgnore
+    @Getter @Setter
+    private List<Image> productImages;
+
+    @Getter @Setter
+    private Integer featuredImage;
 
     /*public BigDecimal getProductPrice() {
         return this.productPrice.setScale(2, BigDecimal.ROUND_HALF_UP);
