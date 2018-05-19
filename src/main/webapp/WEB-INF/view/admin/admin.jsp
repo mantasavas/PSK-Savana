@@ -23,6 +23,13 @@
         <br/>
 
         <h3>
+            <a href="<c:url value="/admin/productAttributes"/>" >Product Attributes</a>
+        </h3>
+        <p>Here you can view existing and add new product attributes</p>
+
+        <br/>
+
+        <h3>
             <a href="<c:url value="/admin/customers" /> ">Customer Management</a>
         </h3>
         <p>Here you can view and enable/disable customer accounts</p>
