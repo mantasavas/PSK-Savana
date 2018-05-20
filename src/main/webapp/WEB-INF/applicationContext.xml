@@ -85,4 +85,6 @@
         <bean id="loggerInterceptor" class="lt.vu.interceptor.LoggerInterceptor"/>
     </mvc:interceptors>
 
+    <bean id="paymentService" primary="false" class="lt.vu.service.impl.PaymentServiceImpl"/>
+    <bean id="paymentServiceDecorator" primary="true" class="lt.vu.service.impl.PaymentServiceDecorator"/>
 </beans>
