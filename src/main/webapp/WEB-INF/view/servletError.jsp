@@ -6,15 +6,17 @@
         <section>
             <div class="jumbotron">
                 <div class="container">
-                    <h1>Invalid Cart!</h1>
+                    <h1>Something went wrong :(</h1>
+                    <h3>${requestScope['javax.servlet.error.status_code']}: ${requestScope['javax.servlet.error.message']}</h3>
                 </div>
             </div>
         </section>
 
         <section class="container">
-            <p><a href="<spring:url value="/product/productList?searchCondition=\"\"" />" class="btn btn-primary">Products</a></p>
+            <p><a href="<spring:url value="/" />" class="btn btn-primary">Return home</a></p>
         </section>
     </div>
 </div>
 
 <%@ include file="/WEB-INF/view/common/footer.jsp" %>
+
