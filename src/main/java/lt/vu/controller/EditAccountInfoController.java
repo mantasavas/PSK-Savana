@@ -29,7 +29,9 @@ public class EditAccountInfoController {
         Customer customer = customerService.getCustomerByEmail(activeUser.getName());
         model.addAttribute("customer", customer);
 
-        return "editAccountInfo";
+        throw new RuntimeException("Test");
+
+        //return "editAccountInfo";
     }
 
     @RequestMapping(value = "/customer/edit", method = RequestMethod.POST)
