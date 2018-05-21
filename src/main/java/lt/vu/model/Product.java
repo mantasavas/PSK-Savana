@@ -116,4 +116,8 @@ public class Product implements Serializable {
 
         return productPrice.subtract(discount).setScale(2, BigDecimal.ROUND_HALF_UP);
     }
+
+    @Version
+    @Getter @Setter
+    private int version;
 }

@@ -23,4 +23,9 @@ public class ProductCategory implements Serializable {
     @Transient
     @Getter @Setter
     private MultipartFile productCategoryImage;
+
+
+    @Version
+    @Getter @Setter
+    private int version;
 }

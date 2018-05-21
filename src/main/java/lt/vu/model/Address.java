@@ -42,6 +42,10 @@ public class Address implements Serializable {
     @Getter @Setter
     private Customer customer;
 
+    @Version
+    @Getter @Setter
+    private int version;
+
     public Address() {}
 
     public Address(Address orig) {

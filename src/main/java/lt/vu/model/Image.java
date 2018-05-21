@@ -21,4 +21,8 @@ public class Image implements Serializable {
     @JoinColumn(name = "productId")
     @Getter @Setter
     private Product product;
+
+    @Version
+    @Getter @Setter
+    private int version;
 }

@@ -21,4 +21,8 @@ public class Attribute {
     @OneToMany(mappedBy = "attribute")
     @Getter @Setter
     private List<ProductAttribute> productAttributes = new ArrayList<>();
+
+    @Version
+    @Getter @Setter
+    private int version;
 }

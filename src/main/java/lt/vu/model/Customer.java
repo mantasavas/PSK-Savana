@@ -56,4 +56,9 @@ public class Customer implements Serializable {
     @JoinColumn(name="cardId")
     @Getter @Setter
     private Card card;
+
+
+    @Version
+    @Getter @Setter
+    private int version;
 }

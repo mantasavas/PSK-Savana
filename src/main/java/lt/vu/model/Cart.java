@@ -33,4 +33,8 @@ public class Cart implements Serializable {
 
     @Getter @Setter
     private BigDecimal grandTotal;
+    
+    @Version
+    @Getter @Setter
+    private int version;
 }

@@ -41,6 +41,10 @@ public class Card implements Serializable {
     @JoinColumn(name="customerId", nullable = false)
     private Customer customer;
 
+    @Version
+    @Getter @Setter
+    private int version;
+    
     public Card() {}
 
     public Card(Card orig) {

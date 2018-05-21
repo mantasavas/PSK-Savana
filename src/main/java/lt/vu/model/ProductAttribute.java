@@ -3,10 +3,7 @@ package lt.vu.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -28,4 +25,8 @@ public class ProductAttribute implements Serializable {
 
     @Getter @Setter
     private String attributeValue;
+
+    @Version
+    @Getter @Setter
+    private int version;
 }

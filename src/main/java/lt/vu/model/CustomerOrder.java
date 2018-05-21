@@ -54,4 +54,9 @@ public class CustomerOrder implements Serializable {
             message = "Datetime must match format: yyyy-mm-dd hh:mm:ss")
     @Getter @Setter
     private String orderDatetime;
+
+
+    @Version
+    @Getter @Setter
+    private int version;
 }

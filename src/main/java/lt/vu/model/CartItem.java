@@ -35,4 +35,8 @@ public class CartItem implements Serializable {
     @Getter @Setter
     private BigDecimal totalPrice;
 
+    @Version
+    @Getter @Setter
+    private int version;
+
 }
