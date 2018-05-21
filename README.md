@@ -49,7 +49,7 @@ Should look pretty similar: https://imgur.com/JzUIW6N
   ```
 8. Add Admin to the USERS table:
 ```sql
-INSERT INTO USERS VALUES (1, 0, TRUE, '$2a$10$VSBg03R00VpU98Fdo3YJru/8iIAVlZ8p1XlMzI.z.8mEuMAkKwGU2', 'admin');
+INSERT INTO USERS VALUES (1, 0, TRUE, '$2a$10$VSBg03R00VpU98Fdo3YJru/8iIAVlZ8p1XlMzI.z.8mEuMAkKwGU2', 'admin', 0);
 ```
 (the decrypted password is: admin)  
 9. Add Admin authority to the AUTHORITIES table:  
