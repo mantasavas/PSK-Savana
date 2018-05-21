@@ -51,6 +51,10 @@
             password-parameter="password"/>
         <security:logout
             logout-success-url="/login?logout"/>
+        <security:remember-me
+            remember-me-parameter="remember-me"
+            data-source-ref="dataSource"
+            token-validity-seconds="1209600"/>
     </security:http>
 
     <security:authentication-manager>
