@@ -37,11 +37,15 @@ public class CartResources {
     private ProductService productService;
 
     @RequestMapping("/{cartId}")
-    public @ResponseBody Cart getCartById(@PathVariable(value = "cartId") int cartId){
+    public @ResponseBody Cart getCartById(@PathVariable(value = "cartId") int cartId, Principal activeUser) {
         if (cartId == -1)
             return new Cart();
-        else
+        else {
+            Customer customer = customerService.getCustomerByEmail(activeUser.getName());
+            if (customer.getCart().getCartId() != cartId)
+                throw new IllegalAccessError("User tried to access cart other than his current");
             return cartService.getCartById(cartId);
+        }
     }
 
     @RequestMapping(value = "/add/{productId}", method = RequestMethod.PUT)
@@ -93,20 +97,32 @@ public class CartResources {
 
     @RequestMapping(value = "/{cartId}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void clearCart(@PathVariable(value = "cartId") int cartId){
+    public void clearCart(@PathVariable(value = "cartId") int cartId, Principal activeUser){
+        Customer customer = customerService.getCustomerByEmail(activeUser.getName());
+        if (customer.getCart().getCartId() != cartId) {
+            throw new IllegalAccessError("Tried to delete cart not belonging to the active user");
+        }
+
         Cart cart = cartService.getCartById(cartId);
         cartItemService.removeAllCartItems(cart);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Illegal request, please verify your payload")
-    public void handleClientErrors (Exception ex){
+    public void handleClientErrors(Exception ex) {
+       log.info("Returning 400", ex);
+    }
 
+    @ExceptionHandler(IllegalAccessError.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason="Cart not found")
+    public void handleIllegalAccessErrors(Exception ex) {
+        log.info("Illegal access: ", ex);
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Internal Server Error")
-    public void handleServerErrors (Exception ex){
-
+    public void handleServerErrors(Exception ex){
+        log.error("Internal error: ", ex);
     }
+
 }
