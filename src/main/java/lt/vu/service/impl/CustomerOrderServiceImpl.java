@@ -86,7 +86,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void processOrder(CustomerOrder order) {
+    public void processOrder(CustomerOrder order) throws IOException {
         try {
             acceptOrder(order);
 

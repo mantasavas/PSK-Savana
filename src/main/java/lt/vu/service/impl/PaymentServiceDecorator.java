@@ -6,6 +6,8 @@ import lt.vu.service.api.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import java.io.IOException;
+
 @Slf4j
 public class PaymentServiceDecorator implements PaymentService {
 
@@ -14,7 +16,7 @@ public class PaymentServiceDecorator implements PaymentService {
 	PaymentService paymentService;
 
 	@Override
-	public void pay(CustomerOrder order) {
+	public void pay(CustomerOrder order) throws IOException {
 		Payment payment = new Payment(order);
 		if (payment.getAmount() >= 100000) {
 			log.info("We're sorry, we don't support such large sums yet");

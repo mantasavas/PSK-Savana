@@ -22,7 +22,7 @@ public interface CustomerOrderService {
 
     void writeOrderFeedback(int orderId, String feedback);
 
-    void processOrder(CustomerOrder order);
+    void processOrder(CustomerOrder order) throws IOException;
 
     CustomerOrder getOrderById(int orderId);
 

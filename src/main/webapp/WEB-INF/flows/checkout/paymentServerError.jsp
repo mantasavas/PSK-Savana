@@ -7,7 +7,7 @@
             <div class="jumbotron">
                 <div class="container">
                     <h1>Payment failed :(</h1>
-                    <p>${rootCauseException.getDisplayMessage()}</p>
+                    <p>Something went wrong on our side. Try again later or contact support.</p>
                 </div>
             </div>
         </section>
