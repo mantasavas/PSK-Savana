@@ -49,12 +49,13 @@ public class CustomerOrder implements Serializable {
     @Getter @Setter
     private String feedback;
 
-    @NotNull
     @Pattern(regexp = "^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])\\s+\\d{2}:\\d{2}:\\d{2}$",
             message = "Datetime must match format: yyyy-mm-dd hh:mm:ss")
     @Getter @Setter
     private String orderDatetime;
 
+    @Getter @Setter
+    private String paymentId;
 
     @Version
     @Getter @Setter

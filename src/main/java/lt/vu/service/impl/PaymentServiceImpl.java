@@ -21,6 +21,12 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
+import java.util.TimeZone;
 
 @Service
 @Transactional
@@ -29,6 +35,12 @@ public class PaymentServiceImpl implements PaymentService {
     static final String paymentServiceUrl = "http://mock-payment-processor.appspot.com/v1/payment";
     //FIXME: Probably should bet stored somewhere else
     static final String authorizationStr = "technologines:platformos";
+    static final SimpleDateFormat ourDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    static final SimpleDateFormat apiDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+    public PaymentServiceImpl() {
+        apiDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+    }
 
     @ToString
     private static class ErrorMsg {
@@ -48,31 +60,43 @@ public class PaymentServiceImpl implements PaymentService {
         String msg;
         switch (statusCode) {
             case 201:
-                log.debug("Payment for: " + String.valueOf(payment.getAmount()));
-                //TODO: save payment id
+                payment = readPayment(con);
+                log.debug("Payment successfull: " + payment);
+                order.setPaymentId(payment.getId());
+                String date;
+                try {
+                    date = ourDateFormat.format(apiDateFormat.parse(payment.getCreated_at().split("\\.")[0]));
+                }
+                catch (ParseException exc) {
+                    throw new RuntimeException("API returned date in unexpected format");
+                }
+                order.setOrderDatetime(date);
                 break;
             case 401:
                 msg = "Authorization with payment api failed";
-                log.error(msg);
                 throw new IllegalArgumentException(msg);
             case 400:
                 msg = "Invalid inputs for payment: " + errorMsg.toString();
-                log.info(msg);
                 throw new PaymentException(msg, "Invalid card info");
             case 404:
                 msg = "Payment api returned: " + errorMsg.toString();
-                log.error(msg);
                 throw new IllegalArgumentException(msg);
             case 402:
                 msg = "Payment failed. Reason: " + errorMsg.toString();
-                log.info(msg);
                 throw new PaymentException(msg, errorMsg.message);
             default:
                 msg = "Payment api returned unknown status code: " + statusCode;
-                log.error(msg);
                 throw new RuntimeException(msg);
         }
 
+    }
+
+    private Payment readPayment(HttpURLConnection connection) throws IOException {
+        InputStream inStream = connection.getInputStream();
+        ObjectMapper mapper = new ObjectMapper();
+        Payment p = mapper.readValue(inStream, Payment.class);
+        inStream.close();
+        return p;
     }
 
     private ErrorMsg readErrorStream(HttpURLConnection connection) throws IOException {

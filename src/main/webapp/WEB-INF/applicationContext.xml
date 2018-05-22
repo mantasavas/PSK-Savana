@@ -69,7 +69,13 @@
 
     <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
-    <webflow-config:flow-executor id="flowExecutor" flow-registry="checkoutFlowRegistry" />
+    <webflow-config:flow-executor id="flowExecutor" flow-registry="checkoutFlowRegistry" >
+        <webflow-config:flow-execution-listeners>
+            <webflow-config:listener ref="loggingListener"/>
+        </webflow-config:flow-execution-listeners>
+    </webflow-config:flow-executor>
+
+    <bean id="loggingListener" class="lt.vu.handler.LoggingFlowExceptionListener"/>
 
     <webflow-config:flow-registry id="checkoutFlowRegistry" base-path="/WEB-INF/flows">
         <webflow-config:flow-location path="/checkout/checkout-flow.xml" id="checkout" />

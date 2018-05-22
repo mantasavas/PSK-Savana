@@ -33,7 +33,7 @@
     <action-state id="processOrder">
         <evaluate expression="customerOrderServiceImpl.processOrder(order)" />
         <transition to="paymentError" on-exception="lt.vu.exceptions.PaymentException" />
-        <transition to="paymentServerError" on-exception="java.lang.RuntimeException" />
+        <transition to="paymentServerError" on-exception="java.lang.Exception" />
         <transition to="thankCustomer" />
     </action-state>
 
