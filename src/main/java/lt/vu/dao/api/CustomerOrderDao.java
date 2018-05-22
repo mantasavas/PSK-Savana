@@ -24,4 +24,6 @@ public interface CustomerOrderDao {
     List<CustomerOrder> getOrdersByAddressId(int addressId);
 
     List<CustomerOrder> getOrdersByCardId(int cardId);
+
+    void updateCustomerOrder(CustomerOrder order);
 }

@@ -26,6 +26,12 @@ public class CustomerOrderDaoImpl implements CustomerOrderDao {
     @Autowired
     private CartItemDao cartItemDao;
 
+    public void updateCustomerOrder(CustomerOrder order) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(order);
+        session.flush();
+    }
+
     public void addCustomerOrder(CustomerOrder customerOrder) {
         Session session = sessionFactory.getCurrentSession();
 

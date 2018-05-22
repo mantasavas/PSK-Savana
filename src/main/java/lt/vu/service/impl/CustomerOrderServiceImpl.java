@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -86,21 +87,17 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void processOrder(CustomerOrder order) {
-        try {
-            acceptOrder(order);
+    public void processOrder(CustomerOrder order) throws IOException {
+        acceptOrder(order);
 
-            customerService.replaceCart(order.getCustomer());
+        customerService.replaceCart(order.getCustomer());
 
-            customerOrderDao.addCustomerOrder(order);
+        customerOrderDao.addCustomerOrder(order);
 
-            // Payment has to be the last step in transaction, because we can't reverse it
-            paymentService.pay(order);
-        }
-        catch (Exception exc) {
-            log.error(exc.toString());
-            throw exc;
-        }
+        paymentService.pay(order);
+
+        // Save returned payment id and date
+        customerOrderDao.updateCustomerOrder(order);
     }
 
     public CustomerOrder initOrder(int cartId) throws IOException {

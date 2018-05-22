@@ -4,13 +4,20 @@
     <Console name="Console" target="SYSTEM_OUT">
       <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
     </Console>
+
+    <File name="LogFile" fileName="../logs/ecomerce.log">
+        <PatternLayout pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </File>
   </Appenders>
+
   <Loggers>
     <Logger name="lt.vu" level="debug" additivity="false">
       <AppenderRef ref="Console"/>
+      <AppenderRef ref="LogFile" level="warn"/>
     </Logger>
     <Root level="info">
       <AppenderRef ref="Console"/>
+      <AppenderRef ref="LogFile" level="warn"/>
     </Root>
   </Loggers>
 </Configuration>
