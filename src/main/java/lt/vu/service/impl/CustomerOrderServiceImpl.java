@@ -87,20 +87,14 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void processOrder(CustomerOrder order) throws IOException {
-        try {
-            acceptOrder(order);
+        acceptOrder(order);
 
-            customerService.replaceCart(order.getCustomer());
+        customerService.replaceCart(order.getCustomer());
 
-            customerOrderDao.addCustomerOrder(order);
+        customerOrderDao.addCustomerOrder(order);
 
-            // Payment has to be the last step in transaction, because we can't reverse it
-            paymentService.pay(order);
-        }
-        catch (Exception exc) {
-            log.error(exc.toString());
-            throw exc;
-        }
+        // Payment has to be the last step in transaction, because we can't reverse it
+        paymentService.pay(order);
     }
 
     public CustomerOrder initOrder(int cartId) throws IOException {

@@ -26,7 +26,7 @@ import java.net.URL;
 @Transactional
 @Slf4j
 public class PaymentServiceImpl implements PaymentService {
-    static final String paymentServiceUrl = "http://mock-payment-processor.appspot.com/v1/payment1";
+    static final String paymentServiceUrl = "http://mock-payment-processor.appspot.com/v1/payment";
     //FIXME: Probably should bet stored somewhere else
     static final String authorizationStr = "technologines:platformos";
 

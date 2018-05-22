@@ -1,4 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="/WEB-INF/view/common/header.jsp" %>
 
 <div class="container-wrapper">
@@ -12,9 +13,10 @@
             </div>
         </section>
 
-        <section class="container">
-            <p><a href="<spring:url value="/product/productList?searchCondition=\"\"" />" class="btn btn-primary">Products</a></p>
-        </section>
+        <form:form>
+            <button class="btn btn-default" name="_eventId_backToCollectPaymentInfo">Back</button>
+            <a href="<spring:url value="/product/productList?searchCondition=\"\"" />" class="btn btn-primary">Products</a>
+        </form:form>
     </div>
 </div>
 
