@@ -1,5 +1,6 @@
 package lt.vu.controller.admin;
 
+import lombok.extern.slf4j.Slf4j;
 import lt.vu.model.Product;
 
 import lt.vu.service.impl.ProductServiceImpl;
@@ -29,6 +30,7 @@ import java.util.concurrent.Future;
 @Controller
 @Scope("session")
 @RequestMapping(value="/admin")
+@Slf4j
 public class AdminProductExportImport {
     @Autowired
     private ImportExportImpl importExportservice;
@@ -49,7 +51,7 @@ public class AdminProductExportImport {
                 excelModel = excelModelFuture.get();
                 excelModelFuture = null;
             } catch (Exception ex) {
-                System.out.println(ex.toString());
+                log.error(ex.toString());
             }
         }
         else{
@@ -93,7 +95,7 @@ public class AdminProductExportImport {
         if (excelModelFuture == null){
             // Starting process in the background. Returns excel future interface, we would check every time if document is ready.
             excelModelFuture = importExportservice.asyncImportExcel(req, "xls", selectedProducts);
-            System.out.println("Is ready " + excelModelFuture.isDone());
+            log.info("Is ready " + excelModelFuture.isDone());
 
         }
 
@@ -119,7 +121,7 @@ public class AdminProductExportImport {
                 return new ModelAndView("admin/productListExport", "productList", excelModelFuture.get());
             }catch (Exception ex)
             {
-                System.out.println("Exception occured while getting file! " + ex.toString());
+                log.error("Exception occured while getting file! " + ex.toString());
             }
         }
 

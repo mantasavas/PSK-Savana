@@ -2,6 +2,7 @@ package lt.vu.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import lombok.extern.slf4j.Slf4j;
 import lt.vu.model.CustomerOrder;
 import lt.vu.service.api.PaymentService;
 import org.apache.commons.codec.binary.Base64;
@@ -17,6 +18,7 @@ import java.net.URL;
 
 @Service
 @Transactional
+@Slf4j
 public class PaymentServiceImpl implements PaymentService {
     static final String paymentServiceUrl = "http://mock-payment-processor.appspot.com/v1/payment";
     //FIXME: Probably should bet stored somewhere else
@@ -45,17 +47,17 @@ public class PaymentServiceImpl implements PaymentService {
             mapper.writeValue(stream, payment);
             stream.close();
 
-            System.out.println("Payment for: " + String.valueOf(payment.getAmount()));
+            log.debug("Payment for: " + String.valueOf(payment.getAmount()));
 
             statusCode = con.getResponseCode();
             responseMsg = con.getResponseMessage();
         } catch (Exception exc) {
-            System.out.println("Unable to send request to api server. Error: " + exc.toString());
+            log.error("Unable to send request to api server. Error: " + exc.toString());
             throw new RuntimeException("Unable to send request to api server", exc);
         }
 
         if (statusCode != 201) {
-            System.out.println("Payment unsuccessful: " + responseMsg + ", status code: " + statusCode);
+            log.error("Payment unsuccessful: " + responseMsg + ", status code: " + statusCode);
             throw new RuntimeException("Payment unsuccessful: " + responseMsg + ", status code: " + statusCode);
         }
     }
