@@ -1,5 +1,6 @@
 package lt.vu.handler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,13 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.annotation.Annotation;
 
 @ControllerAdvice
+@Slf4j
 public class GlobalDefaultExceptionHandler {
     public static final String ERROR_PAGE_NAME = "error";
 
     @ExceptionHandler(value = Exception.class)
     ModelAndView handleDefault(HttpServletRequest req, HttpServletResponse resp,
                                Exception exc) {
-        System.out.println("Exception caught");
+        log.error("Unhandled exception", exc);
 
         ModelAndView mav = new ModelAndView();
 
