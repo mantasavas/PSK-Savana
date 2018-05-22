@@ -43,7 +43,7 @@ public class CartController {
     @RequestMapping("/{cartId}")
     public String getCartRedirect(@PathVariable (value = "cartId") int cartId, Model model, Principal activeUser){
         Cart cart = customerService.getCustomerByEmail(activeUser.getName()).getCart();
-        if ((cart == null && cartId != -1) || cart.getCartId() != cartId) {
+        if (cartId != -1 && (cart == null || cart.getCartId() != cartId) ) {
             throw new IllegalAccessError("Tried to access cart which does not belong to the active user");
         }
 
@@ -61,7 +61,7 @@ public class CartController {
 
         mav.addObject("exception", exc);
         mav.addObject("url", req.getRequestURL());
-        mav.addObject("displayMessage", "");
+        mav.addObject("displayMessage", "Page not found");
         mav.setViewName("error");
 
         return mav;
