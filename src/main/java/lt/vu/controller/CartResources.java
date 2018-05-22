@@ -1,5 +1,6 @@
 package lt.vu.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import lt.vu.model.Cart;
 import lt.vu.model.CartItem;
 import lt.vu.model.Customer;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/rest/cart")
+@Slf4j
 public class CartResources {
 
     @Autowired
@@ -78,7 +80,7 @@ public class CartResources {
             cartItemService.addCartItem(cartItem);
         }
         catch (Exception exc) {
-            System.out.println(exc.toString());
+            log.error(exc.toString());
         }
     }
 

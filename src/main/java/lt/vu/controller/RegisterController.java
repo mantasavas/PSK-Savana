@@ -1,5 +1,6 @@
 package lt.vu.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import lt.vu.model.Address;
 import lt.vu.model.Card;
 import lt.vu.model.Customer;
@@ -17,6 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class RegisterController {
 
     @Autowired
@@ -32,7 +34,7 @@ public class RegisterController {
         customer.setAddress(address);
         Card card = new Card();
         customer.setCard(card);
-        System.out.println("Card: " + card + ", customer: " + customer);
+        log.debug("Card: " + card + ", customer: " + customer);
 
         model.addAttribute("customer", customer);
 
@@ -46,7 +48,6 @@ public class RegisterController {
         }
 
         Customer existingCust = customerService.getCustomerByEmail(customer.getCustomerEmail());
-        System.out.println(existingCust);
         if (existingCust != null) {
             model.addAttribute("emailMsg", "Email already exists");
             return "registerCustomer";
@@ -59,7 +60,7 @@ public class RegisterController {
 
         customer.setEnabled(true);
 
-        System.out.println("Saving customer: " + customer);
+        log.debug("Saving customer: " + customer);
 
         String encryptedPassword = passwordEncoder.encode(customer.getPassword());
         customer.setPassword(encryptedPassword);

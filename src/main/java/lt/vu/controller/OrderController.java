@@ -1,5 +1,6 @@
 package lt.vu.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import lt.vu.model.Customer;
 import lt.vu.model.CustomerOrder;
 import lt.vu.service.api.CustomerOrderService;
@@ -21,6 +22,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class OrderController {
 
     @Autowired
@@ -99,8 +101,8 @@ public class OrderController {
             throw new AccessDeniedException("You can only write feedback for order that belongs to you!");
         }
 
-        System.out.println("orderID: " + orderId);
-        System.out.println("feedback: " + feedback);
+        log.debug("orderID: " + orderId);
+        log.debug("feedback: " + feedback);
         customerOrderService.writeOrderFeedback(orderId, feedback);
 
         return "redirect:/customer/orders";

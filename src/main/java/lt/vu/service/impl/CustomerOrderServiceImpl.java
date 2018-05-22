@@ -1,5 +1,6 @@
 package lt.vu.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import lt.vu.dao.api.CartDao;
 import lt.vu.dao.api.CustomerOrderDao;
 import lt.vu.model.*;
@@ -16,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@Slf4j
 public class CustomerOrderServiceImpl implements CustomerOrderService {
 
     @Autowired
@@ -96,7 +98,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
             paymentService.pay(order);
         }
         catch (Exception exc) {
-            System.out.println(exc.toString());
+            log.error(exc.toString());
             throw exc;
         }
     }
@@ -122,12 +124,12 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         Customer customer = order.getCustomer();
 
         if (customerService.isAddressInfoSame(customer.getAddress(), order.getAddress())) {
-            System.out.println("Using customer's current address");
+            log.debug("Using customer's current address");
             order.setAddress(customer.getAddress());
         }
 
         if (customerService.isCardInfoSame(customer.getCard(), order.getCard())) {
-            System.out.println("Using customer's current card");
+            log.debug("Using customer's current card");
             order.setCard(customer.getCard());
         }
     }

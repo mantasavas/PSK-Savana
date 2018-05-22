@@ -1,5 +1,6 @@
 package lt.vu.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import lt.vu.dao.api.CustomerDao;
 import lt.vu.dao.api.CustomerOrderDao;
 import lt.vu.model.Address;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Slf4j
 public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
@@ -36,7 +38,7 @@ public class CustomerServiceImpl implements CustomerService {
         List<CustomerOrder> ordersByCard = customerOrderDao.getOrdersByCardId(oldCard.getCardId());
 
         if (ordersByAddr.size() > 0 && !isAddressInfoSame(oldAddr, newAddr)) {
-            System.out.println("Creating new address");
+            log.debug("Creating new address");
             oldCustomer.setAddress(new Address(newAddr));
         } else {
             newAddr.setAddressId(oldAddr.getAddressId());
@@ -44,7 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         if (ordersByCard.size() > 0 && !isCardInfoSame(oldCard, newCard)) {
-            System.out.println("Creating new card");
+            log.debug("Creating new card");
             oldCustomer.setCard(new Card(newCard));
         } else {
             newCard.setCardId(oldCard.getCardId());

@@ -20,7 +20,6 @@ public class HomeController {
     public String home(Model model) {
         List<ProductCategory> categories = productCategoryService.getAllCategories();
         model.addAttribute("categories", categories);
-
         return "home";
     }
 

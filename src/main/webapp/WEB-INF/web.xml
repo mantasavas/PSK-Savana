@@ -38,4 +38,12 @@
     <session-config>
         <session-timeout>30</session-timeout> <!-- in minutes -->
     </session-config>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/view/404.jsp</location>
+    </error-page>
+    <error-page>
+        <location>/WEB-INF/view/servletError.jsp</location>
+    </error-page>
 </web-app>
