@@ -97,7 +97,7 @@
                 <h1>Products to export</h1>
                 <p class="lead">View all products that would be exported to Excel file!</p>
                 <!--<p><button type="button" class="btn btn-warning" id="btn-confirm" >Download Excel</button></p>-->
-                <p><button name="submit" type="submit" class="btn btn-warning">Download Excel</button></p>
+                <p><button name="Download" type="submit" class="btn btn-warning">Download Excel</button></p>
                 <input type="checkbox" id="checkAll" > Check All <hr />
             </div>
 

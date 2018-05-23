@@ -38,7 +38,7 @@
 
         <br>
         <br>
-        <input type="submit" value="Submit" class="btn btn-primary">
+        <input type="submit" value="Add" class="btn btn-primary">
         <a href="<c:url value="/admin"/>" class="btn btn-secondary">Back</a>
 
         </form:form>

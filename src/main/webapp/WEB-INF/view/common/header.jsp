@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -85,12 +86,15 @@
                         <li><a href="<c:url value="/customer/edit"/>" class="nav-link">${pageContext.request.userPrincipal.name}</a></li>
                     </c:if>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="javascript:{}" onclick="document.getElementById('my_form').submit();">Logout</a>
-                    </li>
+                    <c:url var="logoutUrl" value="/logout" />
+                    <form action="${logoutUrl}" method="post" id="logoutForm">
+                        <input type="hidden" name="${_csrf.parameterName}"
+                               value="${_csrf.token}" />
+                    </form>
 
-                    <form:form action="${pageContext.request.contextPath}/logout" id="my_form" method="POST">
-                    </form:form>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:{}" onclick="document.getElementById('logoutForm').submit();">Logout</a>
+                    </li>
 
                 </c:if>
 
@@ -99,10 +103,6 @@
                     <li><a class="nav-link" href="<c:url value="/register" />">Register</a></li>
                 </c:if>
             </ul>
-            <%--<form class="form-inline mt-2 mt-md-0">--%>
-                <%--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">--%>
-                <%--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>--%>
-            <%--</form>--%>
         </div>
     </nav>
 

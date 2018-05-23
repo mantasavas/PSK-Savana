@@ -1,5 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ include file="common/header.jsp"%>
+<%@ include file="/WEB-INF/view/common/header.jsp" %>
 
 <div class="container-wrapper">
     <div class="container">
@@ -44,9 +44,7 @@
                 <a href="<spring:url value="/product/products" />" class="btn btn-primary">Continue Shopping</a>
             </div>
         </section>
-    </div>
-</div>
 
 <!-- Angular js controller -->
 <script src="<c:url value="/resources/js/controller.js" /> "></script>
-<%@ include file="common/footer.jsp"%>
+<%@ include file="/WEB-INF/view/common/footer.jsp" %>

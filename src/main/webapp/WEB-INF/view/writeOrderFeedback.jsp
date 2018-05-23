@@ -19,7 +19,7 @@
 
         <br>
         <br>
-        <input type="submit" value="Submit" class="btn btn-primary">
+        <input type="submit" value="Save" class="btn btn-primary">
         <a href="<c:url value="/customer/orders"/>" class="btn btn-secondary">Cancel</a>
 
         </form:form>
