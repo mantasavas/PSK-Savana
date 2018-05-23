@@ -61,8 +61,8 @@
             <security:password-encoder ref="passwordEncoder"/>
             <security:jdbc-user-service
                     data-source-ref="dataSource"
-                    authorities-by-username-query="SELECT a.USERNAME, a.AUTHORITY from PUBLIC.AUTHORITIES a WHERE a.USERNAME = ?"
-                    users-by-username-query="SELECT u.USERNAME, u.PASSWORD, u.ENABLED FROM PUBLIC.USERS u WHERE u.USERNAME = ?"/>
+                    authorities-by-username-query="SELECT a.USERNAME, a.AUTHORITY from PUBLIC.AUTHORITIES a WHERE lower(a.USERNAME) = lower(?)"
+                    users-by-username-query="SELECT u.USERNAME, u.PASSWORD, u.ENABLED FROM PUBLIC.USERS u WHERE lower(u.USERNAME) = lower(?)"/>
         </security:authentication-provider>
     </security:authentication-manager>
 

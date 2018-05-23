@@ -155,7 +155,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
     public Customer getCustomerByEmail(String email) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("from Customer where customerEmail = :email");
+        Query query = session.createQuery("from Customer where lower(customerEmail) = lower(:email)");
         query.setParameter("email", email);
 
         return (Customer) query.uniqueResult();
