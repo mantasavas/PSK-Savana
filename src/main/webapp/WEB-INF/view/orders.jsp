@@ -9,7 +9,8 @@
     $(document).ready(function(){
         $('.table').DataTable({
             "lengthMenu": [[1,5,10,30,-1], [1,5,10,30,"All"]],
-            "iDisplayLength": 5
+            "iDisplayLength": 5,
+            "order": [[ 0, "desc" ]]
         });
     });
 </script>
