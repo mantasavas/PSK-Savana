@@ -44,7 +44,9 @@
 <body>
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <img width="35" height="35" style="margin-right: 25px" src="<c:url value="/resources/images/logo.ico" />">
+        <a href="<c:url value="/"/>">
+            <img width="35" height="35" style="margin-right: 25px" src="<c:url value="/resources/images/logo.ico" />">
+        </a>
         <a class="navbar-brand" href="/">E-commerce</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
