@@ -59,6 +59,9 @@
                     </c:if>
                     <br>
                     <p><strong>Attributes:</strong></p>
+                    <c:if test="${empty product.productAttributes}">
+                       <p>Product does not have any attributes</p>
+                    </c:if>
                     <ul>
                         <c:forEach items="${product.productAttributes}" var="attribute">
                             <li><p><strong>${attribute.attribute.attributeKey}:</strong> ${attribute.attributeValue}</p></li>
@@ -71,12 +74,18 @@
                     <c:if test="${role='admin'}">
                         <c:set var="url" scope="page" value="/admin/inventory" />
                     </c:if>
-
-                    <p ng-controller="cartCtrl">
+                    
+                    <c:if test="${pageContext.request.userPrincipal.name == 'admin'}">
                         <a href="<c:url value="${url}" />" class="btn btn-secondary">Back</a>
-                        <a href="#" class="btn btn-primary btn-large" ng-click="addToCart('${product.productId}')"><span class="glyphicon glyphicon-shopping-cart"></span>Add to cart</a>
-                        <a href="<spring:url value="/customer/cart/"/>" class="btn btn-success"><span class="glyphicon glyphicon-hand-right"></span>View Cart</a>
-                    </p>
+                    </c:if>
+                    <c:if test="${pageContext.request.userPrincipal.name != 'admin'}">
+                        <p ng-controller="cartCtrl">
+                            <a href="<c:url value="${url}" />" class="btn btn-secondary">Back</a>
+                            <a href="#" class="btn btn-primary btn-large" ng-click="addToCart('${product.productId}')"><span class="glyphicon glyphicon-shopping-cart"></span>Add to cart</a>
+                            <a href="<spring:url value="/customer/cart/"/>" class="btn btn-success"><span class="glyphicon glyphicon-hand-right"></span>View Cart</a>
+                        </p>
+                    </c:if>
+
                 </div>
             </div>
         </div>
