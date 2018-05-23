@@ -46,7 +46,6 @@
             login-page="/login"
             default-target-url="/product/products/"
             authentication-failure-url="/login?error"
-            authentication-failure-handler-ref="myAuthErrorHandler"
             username-parameter="username"
             password-parameter="password"/>
         <security:logout
@@ -88,8 +87,6 @@
     <bean id="flowHandlerAdapter" class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
         <property name="flowExecutor" ref="flowExecutor" />
     </bean>
-
-    <bean id="myAuthErrorHandler" class="lt.vu.handler.AuthenticationListener"/>
 
     <mvc:interceptors>
         <bean id="loggerInterceptor" class="lt.vu.interceptor.LoggerInterceptor"/>

@@ -29,8 +29,6 @@ public class HomeController {
                     String error,
             @RequestParam(value="logout", required = false)
                     String logout,
-            @RequestParam(value="disabled", required = false)
-                    String disabled,
             Model model) {
 
         if (error != null) {
@@ -39,10 +37,6 @@ public class HomeController {
 
         if (logout != null) {
             model.addAttribute("msg", "You have been logged out successfully");
-        }
-
-        if (disabled != null) {
-            model.addAttribute("disabled", "Your account has been disabled");
         }
 
         return "login";
