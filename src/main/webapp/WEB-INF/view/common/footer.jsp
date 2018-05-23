@@ -4,7 +4,7 @@
 <footer>
     <br>
     <br>
-    <p>&copy; 2015 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    <p style="margin-left: 15px">&copy; PSK Savana, 2018 &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms & Conditions</a></p>
 </footer>
 </div>
 
