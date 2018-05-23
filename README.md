@@ -1,6 +1,6 @@
 # PSK komandinis projektas - elektroninės prekybos sistema
 
-Technologies:
+### Technologies
 * Spring MVC 5
 * Maven build automation tool
 * TomEE Application server
@@ -13,15 +13,16 @@ Technologies:
 * Angular JS
 * Spring Web Flow
 * DataTables
+* Slf4j with Log4j2 logger
 
-Prerequisites:
+### Prerequisites
 1. Download and install Java JDK
 (also set JAVA_HOME environment path variable if not already set)
 2. Download and install IntelliJ (preferred: Ultimate edition, the version at least 2017.3.5)
 3. Download and extract TomEE Application server
 4. Download and install h2 database
 
-Start:
+### Start
 1. Clone this repository:
 git clone https://github.com/pauliax/PSK-Savana.git
 2. Open the project in IntelliJ and allow the IDE to automatically do the configuration
@@ -60,7 +61,17 @@ INSERT INTO AUTHORITIES VALUES (1, 'ROLE_ADMIN', 'admin');
 
 Happy developing!
 
-TSP rolės: 
+### Payment service
+https://git.mif.vu.lt/snippets/7
+
+Example valid card numbers:
+* 4111111111111111
+* 5555555555554444
+* 4012888888881881
+
+
+
+### TSP rolės 
 * Komandos lyderis - Mantas Savaniakas
 * Kūrimo vadovas - Lukas Cedronas
 * Planavimo vadovas - Paulius Švagždys
