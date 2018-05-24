@@ -92,11 +92,10 @@
 
                         <br/><br/>
 
-                        <button class="btn btn-default" name="_eventId_backToCollectShippingDetail">Back</button>
+                        <input type="submit" class="btn btn-primary" value="Submit Order" name="_eventId_orderConfirmed" />
+                        <input type="submit" class="btn btn-secondary" value="Back" name="_eventId_backToCollectShippingDetail"/>
+                        <input type="submit" class="btn btn-secondary" value="Cancel" name="_eventId_cancel"/>
 
-                        <input type="submit" value="Submit Order" class="btn btn-primary" name="_eventId_orderConfirmed" />
-
-                        <button class="btn btn-default" name="_eventId_cancel">Cancel</button>
                     </div>
                 </form:form>
             </div>

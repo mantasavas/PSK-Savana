@@ -44,12 +44,9 @@
 
             <br/><br/>
 
-            <button class="btn btn-default" name="_eventId_backToShippingDetail">Back</button>
-
-            <input type="submit" value="Next" class="btn btn-primary" name="_eventId_paymentInfoCollected" />
-
-            <button class="btn btn-default" name="_eventId_cancel">Cancel</button>
-
+            <input type="submit" class="btn btn-primary" value="Next" name="_eventId_paymentInfoCollected" />
+            <input type="submit" class="btn btn-secondary" value="Back" name="_eventId_backToShippingDetail"/>
+            <input type="submit" class="btn btn-secondary" value="Cancel" name="_eventId_cancel"/>
         </form:form>
 
 <%@ include file="/WEB-INF/view/common/footer.jsp" %>

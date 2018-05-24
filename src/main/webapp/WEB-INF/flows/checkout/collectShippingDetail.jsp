@@ -49,11 +49,9 @@
 
             <br/><br/>
 
-            <button class="btn btn-default" name="_eventId_backToCollectCustomerInfo">Back</button>
-
-            <input type="submit" value="Next" class="btn btn-primary" name="_eventId_shippingDetailCollected" />
-
-            <button class="btn btn-default" name="_eventId_cancel">Cancel</button>
+            <input type="submit" class="btn btn-primary" value="Next" name="_eventId_shippingDetailCollected" />
+            <input type="submit" class="btn btn-secondary" value="Back" name="_eventId_backToCollectCustomerInfo"/>
+            <input type="submit" class="btn btn-secondary" value="Cancel" name="_eventId_cancel"/>
 
         </form:form>
 

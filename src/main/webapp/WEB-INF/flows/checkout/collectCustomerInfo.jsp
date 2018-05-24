@@ -36,10 +36,9 @@
 
             <br/><br/>
 
-            <input type="submit" value="Next" class="btn btn-primary" name="_eventId_customerInfoCollected" />
+            <input type="submit" class="btn btn-primary" value="Next" name="_eventId_customerInfoCollected" />
+            <input type="submit" class="btn btn-secondary" value="Cancel" name="_eventId_cancel"/>
 
-            <button class="btn btn-default" name="_eventId_cancel">Cancel</button>
-
-        </form:form>
+    </form:form>
 
 <%@ include file="/WEB-INF/view/common/footer.jsp" %>
