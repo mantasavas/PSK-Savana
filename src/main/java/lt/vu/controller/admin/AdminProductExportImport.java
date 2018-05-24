@@ -156,6 +156,8 @@ public class AdminProductExportImport {
                 HSSFRow row = worksheet.getRow(i++);
 
 
+                //System.out.println("Merged: " + worksheet.getMergedRegions());
+
                 if(i != 1) {
 
                     // Setting product Name
@@ -165,7 +167,7 @@ public class AdminProductExportImport {
                     // Setting product Description
                     product.setProductDescription(row.getCell(3).getStringCellValue());
                     // Setting product Price
-                    product.setProductPrice(new BigDecimal(row.getCell(4).getNumericCellValue()));
+                    product.setProductPrice(new BigDecimal(row.getCell(4).getNumericCellValue()).setScale(2, BigDecimal.ROUND_HALF_UP));
                     // Setting product Status
                     product.setProductStatus(row.getCell(6).getStringCellValue());
                     // Setting product Manufacturer
@@ -180,7 +182,6 @@ public class AdminProductExportImport {
                     System.out.println(product.getProductCategory());
                     System.out.println(product.getProductDescription());
                     System.out.println(product.getProductPrice());
-                    System.out.println(product.getProductCondition());
                     System.out.println(product.getProductStatus());
                     System.out.println(product.getProductManufacturer());
                     System.out.println(product.getProductDiscountExpirationDatetime());

@@ -68,5 +68,7 @@
         </table>
 
         <a href="<spring:url value="/admin/product/addProduct"/>" class="btn btn-primary">Add new product</a>
+        <a href="<spring:url value="/admin/importProductExcel/excelFile"/>" class="btn btn-danger"> Import XLS</a>
+        <a href="<spring:url value="/admin/generateProductExcel/products"/>" class="btn btn-warning">Export XLS</a>
 
 <%@ include file="../common/footer.jsp"%>

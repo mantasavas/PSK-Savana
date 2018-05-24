@@ -42,6 +42,8 @@
     });
 </script>
 
+
+
 <div class="container-wrapper mt-4">
     <div class="container">
         <div class="page-header">
@@ -49,7 +51,7 @@
             <h3> Choose file </h3>
             <c:url value="/admin/importProductExcel/excelFile" var="uploadFileUrl" />
             <form name="import" method="post" enctype="multipart/form-data" action="${uploadFileUrl}?${_csrf.parameterName}=${_csrf.token}">
-                <p class="file-input"><input type="file" name="file" accept=".xls,.xlsx" /></p>
+                <p><input style="color: black" type="file" name="file" accept=".xls,.xlsx" /></p>
                 <p class="file-submit-button"><button type="button" class="btn btn-warning" id="btn-confirm-import">Import Excel</button></p>
             </form>
         </div>
