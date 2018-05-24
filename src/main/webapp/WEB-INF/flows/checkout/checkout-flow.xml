@@ -34,14 +34,11 @@
         <evaluate expression="customerOrderServiceImpl.processOrder(order)" />
         <transition to="paymentError" on-exception="lt.vu.exceptions.PaymentException" />
         <transition to="paymentServerError" on-exception="java.lang.Exception" />
-        <transition to="thankCustomer" />
+        <transition to="endState" />
     </action-state>
 
-    <view-state id="thankCustomer" model="order">
-        <transition to="endState" />
-    </view-state>
-
-    <end-state id="endState" />
+    <end-state id="endState" view="externalRedirect:/customer/orders">
+    </end-state>
 
     <view-state id="invalidCartWarning">
         <transition to="endState" />
