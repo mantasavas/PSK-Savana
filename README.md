@@ -69,7 +69,16 @@ Example valid card numbers:
 * 5555555555554444
 * 4012888888881881
 
+###Deployment guide using ngrok:
+1. Download ngrok from https://ngrok.com/download
+2. Unzip ngrok and open ngrok.exe
+3. Register/login on https://ngrok.com/
+4. Copy your token from https://dashboard.ngrok.com/auth
+5. Execute a command: ngrok authtoken <your_auth_token>
+6. Execute a command to start a HTTP tunnel on port 8080: ngrok http 8080
 
+* Protect the tunnel with username and password: 
+ngrok http -auth="username:password" 8080
 
 ### TSP rolės 
 * Komandos lyderis - Mantas Savaniakas
