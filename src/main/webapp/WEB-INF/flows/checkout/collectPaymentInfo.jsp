@@ -11,33 +11,33 @@
             <p class="lead">Customer Details:</p>
         </div>
 
-        <form:form modelAttribute="order" class="form-horizontal">
+        <form:form modelAttribute="order" class="form-horizontal" autocomplete="on">
 
             <h3>Payment method</h3>
 
             <div class="form-group">
                 <label for="holderName">Card owner name</label>
-                <form:input path="card.name" id="holderName" class="form-Control" required="true"/>
+                <form:input path="card.name" id="holderName" class="form-Control" required="true" autocomplete='cc-name'/>
             </div>
 
             <div class="form-group">
                 <label for="cardNumber">Card number</label>
-                <form:input path="card.number" id="cardNumber" class="form-Control" required="true"/>
+                <form:input path="card.number" id="cardNumber" class="form-Control" required="true" autocomplete='cc-number'/>
             </div>
 
             <div class="form-group">
                 <label for="expYear">Expiration year</label>
-                <form:input path="card.expYear" id="expYear" class="form-Control" required="true"/>
+                <form:input path="card.expYear" id="expYear" class="form-Control" required="true" autocomplete='cc-exp-year'/>
             </div>
 
             <div class="form-group">
                 <label for="expMonth">Expiration month</label>
-                <form:input path="card.expMonth" id="expMonth" class="form-Control" required="true"/>
+                <form:input path="card.expMonth" id="expMonth" class="form-Control" required="true" autocomplete='cc-exp-month'/>
             </div>
 
             <div class="form-group">
                 <label for="cvv">CVV</label>
-                <form:input path="card.cvv" id="cvv" class="form-Control" required="true"/>
+                <form:input path="card.cvv" id="cvv" class="form-Control" required="true" autocomplete='cc-csc'/>
             </div>
 
             <input type="hidden" name="_flowExecutionKey" />

@@ -11,13 +11,13 @@
             <p class="lead">Customer Details:</p>
         </div>
 
-        <form:form modelAttribute="order" class="form-horizontal">
+        <form:form modelAttribute="order" class="form-horizontal" autocomplete="on">
 
             <h3>Shipping Address:</h3>
 
             <div class="form-group">
                 <label for="shippingStreet">Street Name</label>
-                <form:input path="address.streetName" id="shippingStreet" class="form-Control" />
+                <form:input path="address.streetName" id="shippingStreet" class="form-Control" autocomplete='address-line1' />
             </div>
 
             <div class="form-group">
@@ -27,22 +27,22 @@
 
             <div class="form-group">
                 <label for="shippingCity">City</label>
-                <form:input path="address.city" id="shippingCity" class="form-Control" />
+                <form:input path="address.city" id="shippingCity" class="form-Control" autocomplete='address-level2' />
             </div>
 
             <div class="form-group">
                 <label for="shippingState">State</label>
-                <form:input path="address.state" id="shippingState" class="form-Control" />
+                <form:input path="address.state" id="shippingState" class="form-Control" autocomplete='address-level1' />
             </div>
 
             <div class="form-group">
                 <label for="shippingCountry">Country</label>
-                <form:input path="address.country" id="shippingCountry" class="form-Control" />
+                <form:input path="address.country" id="shippingCountry" class="form-Control" autocomplete='country-name'/>
             </div>
 
             <div class="form-group">
                 <label for="shippingZip">Zipcode</label>
-                <form:input path="address.zipCode" id="shippingZip" class="form-Control" />
+                <form:input path="address.zipCode" id="shippingZip" class="form-Control" autocomplete='postal-code' />
             </div>
 
             <input type="hidden" name="_flowExecutionKey" />
